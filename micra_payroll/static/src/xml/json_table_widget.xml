@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="micra_payroll.JsonTableWidget" owl="1">
+        <div class="o_json_table_widget">
+            <t t-if="state.modelName">
+                <div style="pointer-events: none; border: 1px solid #ddd; padding: 10px; border-radius: 5px; background: #fafafa;">
+                    <View type="'form'" resModel="state.modelName" context="state.context" display="state.display" />
+                </div>
+            </t>
+            <t t-else="">
+                <p class="text-muted">No model available for preview.</p>
+            </t>
+        </div>
+    </t>
+</templates>

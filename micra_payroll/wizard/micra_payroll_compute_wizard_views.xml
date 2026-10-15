@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_micra_payroll_compute_wizard_form" model="ir.ui.view">
+        <field name="name">micra.payroll.compute.wizard.form</field>
+        <field name="model">micra.payroll.compute.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Compute Salaries">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="compute_type" widget="radio" options="{'horizontal': true}"/>
+                        </group>
+                        <group invisible="compute_type != 'month'">
+                            <field name="month" string="Month"/>
+                            <field name="year" string="Year" widget="char" options="{'format_number': false}"/>
+                        </group>
+                        <group invisible="compute_type != 'date_range'">
+                            <field name="date_from" string="From Date" widget="date" options="{'format': 'DD-MM-YYYY'}"/>
+                            <field name="date_to" string="To Date" widget="date" options="{'format': 'DD-MM-YYYY'}"/>
+                        </group>
+                    </group>
+
+                    <group>
+                        <group string="Period Statistics">
+                            <field name="working_days" readonly="1"/>
+                            <field name="public_holiday_count" readonly="1"/>
+                            <field name="working_days_config_id" invisible="1"/>
+                        </group>
+                    </group>
+
+                    <notebook>
+                        <page string="Public Holidays in Period" name="holidays">
+                            <field name="public_holiday_line_ids" nolabel="1" readonly="1">
+                                <list>
+                                    <field name="date_from" string="Start Date" widget="date" options="{'format': 'DD-MM-YYYY'}"/>
+                                    <field name="date_to" string="End Date" widget="date" options="{'format': 'DD-MM-YYYY'}"/>
+                                    <field name="name" string="Holiday Name"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <footer>
+                    <button name="action_compute_salary" string="Compute Salaries" type="object" class="btn-primary" data-hotkey="q"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel" data-hotkey="x"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_micra_payroll_compute_wizard" model="ir.actions.act_window">
+        <field name="name">Compute Salaries</field>
+        <field name="res_model">micra.payroll.compute.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+</odoo>

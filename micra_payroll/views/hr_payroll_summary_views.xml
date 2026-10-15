@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Salary Count List View -->
+    <record id="view_employee_payroll_summary_tree_basic" model="ir.ui.view">
+        <field name="name">hr.employee.payroll.summary.list.basic</field>
+        <field name="model">hr.employee</field>
+        <field name="arch" type="xml">
+            <list string="Salary Count" create="false" edit="false">
+                <header>
+                    <button name="%(action_micra_payroll_compute_wizard)d" string="Compute" type="action" class="btn btn-primary"/>
+                </header>
+                <field name="name"/>
+                <field name="department_id" optional="show"/>
+                <field name="wage" string="Monthly Wage"/>
+                <field name="current_month_attended_days" string="Attended Days"/>
+                <field name="current_month_paid_leave_days" string="Paid Leaves"/>
+                <field name="current_month_unpaid_leave_days" string="Unpaid Leaves" optional="hide"/>
+                <field name="current_month_payable_days" string="Salary Payable Days"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Window Action -->
+    <record id="action_employee_payroll_summary_basic" model="ir.actions.act_window">
+        <field name="name">Salary Count</field>
+        <field name="res_model">hr.employee</field>
+        <field name="view_mode">list,form</field>
+        <field name="view_id" ref="view_employee_payroll_summary_tree_basic"/>
+    </record>
+
+    <!-- Menu Item directly pointing to the employee list -->
+    <menuitem id="menu_hr_payroll_summary_basic"
+              name="Salary Count"
+              action="action_employee_payroll_summary_basic"
+              parent="menu_hr_payroll_community_root"
+              sequence="10"
+              groups="micra_payroll.group_hr_payroll_community_user"/>
+</odoo>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="hr_leave_view_form_inherit_balance_domain" model="ir.ui.view">
+        <field name="name">hr.leave.view.form.inherit.balance.domain</field>
+        <field name="model">hr.leave</field>
+        <field name="inherit_id" ref="hr_holidays.hr_leave_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='holiday_status_id']" position="attributes">
+                <attribute name="domain">[]</attribute>
+            </xpath>
+            <!-- Add our helper field so it's available for dynamic logic if needed -->
+            <xpath expr="//field[@name='employee_id']" position="after">
+                <field name="has_leave_balance" invisible="1"/>
+            </xpath>
+            <!-- Standard Odoo doesn't support complex dynamic domains easily in XML, 
+                 so we rely on the constrains for enforcement, but this domain 
+                 helps keep it clean. -->
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Task Timer -->
+    <record id="view_project_task_form_inherit_timer_micra" model="ir.ui.view">
+        <field name="name">project.task.form.inherit.timer.micra</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_form2"/>
+        <field name="priority" eval="99"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//form/header" position="inside">
+                <button name="action_start_timer"
+                        type="object"
+                        string="Start Timer"
+                        class="oe_highlight"
+                        invisible="(timer_running or timer_paused) or not is_timer_allowed_user"/>
+
+                <button name="action_pause_timer"
+                        type="object"
+                        class="btn btn-warning"                        string="Pause Timer"
+
+                        invisible="not timer_running or not is_timer_allowed_user or timer_user_id != uid"/>
+
+                <button name="action_resume_timer"
+                        type="object"
+                        string="Resume Timer"
+                        class="btn btn-info"
+                        invisible="not timer_paused or not is_timer_allowed_user or timer_user_id != uid"/>
+
+                <button name="action_stop_timer"
+                        type="object"
+                        string="Stop Timer"
+                        class="btn btn-success"
+                        invisible="(not timer_running and not timer_paused) or not is_timer_allowed_user or timer_user_id != uid"/>
+
+                <button name="action_cancel_timer"
+                        type="object"
+                        string="Cancel Timer"
+                        class="btn btn-secondary"
+                        invisible="(not timer_running and not timer_paused) or not is_timer_allowed_user or timer_user_id != uid"/>
+            </xpath>
+
+            <xpath expr="//form/sheet" position="inside">
+                <group invisible="1">
+                    <field name="is_timer_allowed_user"/>
+                    <field name="timer_running"/>
+                    <field name="timer_paused"/>
+                    <field name="timer_start"/>
+                    <field name="timer_pause_time"/>
+                    <field name="timer_total_paused_seconds"/>
+                    <field name="timer_stop"/>
+                    <field name="timer_user_id"/>
+                    <field name="timer_employee_id"/>
+                    <field name="timer_duration"/>
+                    <field name="timer_display"/>
+                </group>
+            </xpath>
+
+            <xpath expr="//form/header" position="after">
+                <div class="alert alert-info mt-3 mb-3" invisible="not timer_running">
+                    <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
+                        <div>
+                            <div class="text-muted">Task is currently in progress</div>
+                        </div>
+                        <div class="d-flex align-items-center gap-2">
+                            <field name="timer_display" widget="task_live_timer" nolabel="1"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="alert alert-warning mt-3 mb-3" invisible="not timer_paused">
+                    <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
+                        <div>
+                            <div class="text-muted">Task timer is currently paused</div>
+                        </div>
+                        <div class="d-flex align-items-center gap-2">
+                            <field name="timer_display" widget="task_live_timer" nolabel="1"/>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+
+        </field>
+    </record>
+
+    <!-- Attendance Productive Time -->
+    <record id="view_hr_attendance_form_inherit_productive_time" model="ir.ui.view">
+        <field name="name">hr.attendance.form.inherit.productive.time</field>
+        <field name="model">hr.attendance</field>
+        <field name="inherit_id" ref="hr_attendance.hr_attendance_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet/group" position="inside">
+                <group string="Productive Time">
+                    <field name="productive_time_display" readonly="1"/>
+                    <field name="productive_hours" readonly="1" widget="float_time"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="resource_calendar_form_inherit_late_time" model="ir.ui.view">
+        <field name="name">resource.calendar.form.inherit.late.time</field>
+        <field name="model">resource.calendar</field>
+        <field name="inherit_id" ref="resource.resource_calendar_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='tz']" position="after">
+                <field name="late_time" widget="float_time" string="Late Time"/>
+               <field name="has_break_lines" invisible="1"/>
+               <field name="break_time" widget="float_time" string="Break Time" invisible="has_break_lines"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

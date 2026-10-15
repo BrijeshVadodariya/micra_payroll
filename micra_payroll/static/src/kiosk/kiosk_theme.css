@@ -1,0 +1,580 @@
+/* Custom Premium Dark / Glassmorphism Theme for Face Recognition Kiosk */
+
+/* Apply custom styles only when Face Kiosk mode is active */
+body.o_face_kiosk_only {
+    background-color: #0b0c10 !important;
+}
+
+body.o_face_kiosk_only .o_attendance_background {
+    background: radial-gradient(circle at 50% 50%, #1a1012 0%, #0e1014 60%, #0b0c10 100%),
+                linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px) !important;
+    background-size: 100% 100%, 40px 40px, 40px 40px !important;
+    font-family: 'Outfit', sans-serif !important;
+    color: #f8fafc !important;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Background floating radial orbs for premium visual effect */
+body.o_face_kiosk_only .o_attendance_background::before {
+    content: '';
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(251, 113, 133, 0.08) 0%, rgba(251, 113, 133, 0) 70%);
+    top: -150px;
+    left: -150px;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+    animation: float-orb 15s ease-in-out infinite alternate;
+}
+
+body.o_face_kiosk_only .o_attendance_background::after {
+    content: '';
+    position: absolute;
+    width: 700px;
+    height: 700px;
+    background: radial-gradient(circle, rgba(244, 63, 94, 0.05) 0%, rgba(244, 63, 94, 0) 70%);
+    bottom: -200px;
+    right: -150px;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+    animation: float-orb-reverse 18s ease-in-out infinite alternate;
+}
+
+@keyframes float-orb {
+    0% { transform: translate(0, 0) scale(1); }
+    100% { transform: translate(80px, 50px) scale(1.15); }
+}
+
+@keyframes float-orb-reverse {
+    0% { transform: translate(0, 0) scale(1); }
+    100% { transform: translate(-60px, -80px) scale(1.2); }
+}
+
+body.o_face_kiosk_only .o_attendance_background > * {
+    position: relative;
+    z-index: 1;
+}
+
+/* Company Header Logo Styling */
+body.o_face_kiosk_only .o_hr_attendance_kiosk_company_image {
+    position: absolute !important;
+    top: 24px !important;
+    right: 24px !important;
+    left: auto !important;
+    margin: 0 !important;
+    z-index: 1000 !important;
+    max-height: 38px !important;
+    object-fit: contain;
+    filter: drop-shadow(0 0 10px rgba(251, 113, 133, 0.2));
+    opacity: 0.95;
+    transition: all 0.3s ease;
+}
+body.o_face_kiosk_only .o_hr_attendance_kiosk_company_image:hover {
+    filter: drop-shadow(0 0 15px rgba(251, 113, 133, 0.4)) brightness(1.1);
+    opacity: 1;
+    transform: scale(1.02);
+}
+
+/* Clock/Time Display Wrapper */
+body.o_face_kiosk_only .o_hr_kiosk_mode_top {
+    position: absolute !important;
+    top: 24px !important;
+    left: 24px !important;
+    right: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    z-index: 1000 !important;
+    background: none !important;
+    border: none !important;
+}
+
+/* Ensure content is perfectly centered on the screen but respects header space */
+body.o_face_kiosk_only .o_hr_attendance_kiosk_mode {
+    padding-top: 85px !important;
+    padding-bottom: 20px !important;
+    justify-content: flex-start !important;
+    overflow-y: auto !important;
+}
+
+/* Restructure margin to center the card */
+body.o_face_kiosk_only .o_hr_kiosk_mode_main {
+    margin: auto !important;
+}
+
+@media (max-width: 768px) {
+    body.o_face_kiosk_only .o_hr_attendance_kiosk_company_image {
+        top: 16px !important;
+        right: 16px !important;
+    }
+    body.o_face_kiosk_only .o_hr_kiosk_mode_top {
+        top: 16px !important;
+        left: 16px !important;
+    }
+    body.o_face_kiosk_only .o_hr_attendance_kiosk_mode {
+        padding-top: 75px !important;
+        padding-bottom: 15px !important;
+    }
+    body.o_face_kiosk_only .o_hr_kiosk_mode_main {
+        margin: auto !important;
+    }
+}
+
+/* Clock/Time Display */
+body.o_face_kiosk_only .o_hr_kiosk_mode_top_time {
+    background: rgba(14, 16, 20, 0.6) !important;
+    padding: 6px 14px !important;
+    border-radius: 16px !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25) !important;
+    width: fit-content !important;
+    margin: 0 auto !important;
+    display: inline-flex !important;
+    flex-direction: row !important; /* Force row layout even on small screens */
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 10px !important;
+}
+
+body.o_face_kiosk_only .o_hr_kiosk_mode_top_time span.display-6 {
+    font-family: 'Orbitron', monospace !important;
+    font-weight: 700 !important;
+    color: #fca5a5 !important;
+    text-shadow: 0 0 8px rgba(252, 165, 165, 0.4) !important;
+    font-size: 1.25rem !important;
+    letter-spacing: 0.5px;
+    line-height: 1 !important;
+}
+
+body.o_face_kiosk_only .o_hr_kiosk_mode_top_time div.small {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    justify-content: center !important;
+    gap: 2px !important;
+    border-left: 1px solid rgba(255, 255, 255, 0.15) !important;
+    padding-left: 10px !important;
+}
+
+body.o_face_kiosk_only .o_hr_kiosk_mode_top_time div.small span {
+    color: #cbd5e1 !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.5px !important;
+    text-transform: uppercase !important;
+    font-size: 0.55rem !important;
+    line-height: 1.1 !important;
+    display: block !important;
+}
+
+/* Glassmorphic Main Card Container */
+body.o_face_kiosk_only .card {
+    background: rgba(14, 16, 20, 0.6) !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.1) !important;
+    color: #f8fafc !important;
+    border-radius: 24px !important;
+    padding: 30px !important;
+    transition: all 0.4s ease;
+}
+
+body.o_face_kiosk_only .card:hover {
+    border-color: rgba(251, 113, 133, 0.2) !important;
+    box-shadow: 0 25px 60px -12px rgba(251, 113, 133, 0.1), inset 0 1px 1px rgba(255, 255, 255, 0.15) !important;
+}
+
+body.o_face_kiosk_only .card h3 {
+    font-family: 'Outfit', sans-serif !important;
+    font-size: 2.25rem !important;
+    font-weight: 700 !important;
+    margin-bottom: 8px !important;
+    background: linear-gradient(135deg, #ffffff 40%, #ffe4e6 100%) !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    letter-spacing: -0.5px !important;
+}
+
+body.o_face_kiosk_only .card p.text-muted {
+    font-family: 'Outfit', sans-serif !important;
+    color: #cbd5e1 !important;
+    font-size: 1.05rem !important;
+    font-weight: 400 !important;
+    margin-bottom: 24px !important;
+}
+
+/* Video Canvas Styling */
+body.o_face_kiosk_only .premium-video-container {
+    max-width: 500px !important;
+    width: 100% !important;
+    aspect-ratio: 4 / 3 !important;
+    border-radius: 20px !important;
+    overflow: hidden !important;
+    position: relative !important;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.05) !important;
+    background: #090a0d !important;
+    border: none !important;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+body.o_face_kiosk_only .premium-video-container video,
+body.o_face_kiosk_only .premium-video-container canvas {
+    border-radius: 20px !important;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    opacity: 1 !important;
+    filter: none !important;
+    will-change: transform !important;
+}
+
+body.o_face_kiosk_only .premium-video-container video {
+    transform: scaleX(-1) translateZ(0) !important;
+}
+
+body.o_face_kiosk_only .premium-video-container canvas {
+    transform: translateZ(0) !important;
+}
+
+/* Scanner Corner Brackets */
+body.o_face_kiosk_only .scanner-corner {
+    position: absolute;
+    width: 28px;
+    height: 28px;
+    border-style: solid;
+    z-index: 12;
+    pointer-events: none;
+    transition: all 0.3s ease;
+}
+
+body.o_face_kiosk_only .corner-tl {
+    top: 20px;
+    left: 20px;
+    border-width: 4px 0 0 4px;
+    border-top-left-radius: 12px;
+}
+body.o_face_kiosk_only .corner-tr {
+    top: 20px;
+    right: 20px;
+    border-width: 4px 4px 0 0;
+    border-top-right-radius: 12px;
+}
+body.o_face_kiosk_only .corner-bl {
+    bottom: 20px;
+    left: 20px;
+    border-width: 0 0 4px 4px;
+    border-bottom-left-radius: 12px;
+}
+body.o_face_kiosk_only .corner-br {
+    bottom: 20px;
+    right: 20px;
+    border-width: 0 4px 4px 0;
+    border-bottom-right-radius: 12px;
+}
+
+/* Dynamic State Colors for Video Container and Corner Brackets */
+/* Scanning state */
+body.o_face_kiosk_only .premium-video-container.scanner-scanning {
+    box-shadow: 0 0 35px rgba(251, 113, 133, 0.2), 0 0 0 1px rgba(251, 113, 133, 0.25) !important;
+}
+body.o_face_kiosk_only .premium-video-container.scanner-scanning .scanner-corner {
+    border-color: #fda4af !important;
+    filter: drop-shadow(0 0 8px rgba(251, 113, 133, 0.6));
+    animation: corner-pulse 1.5s infinite alternate;
+}
+
+/* Success / Face Recognized state */
+body.o_face_kiosk_only .premium-video-container.scanner-success {
+    box-shadow: 0 0 45px rgba(16, 185, 129, 0.4), 0 0 0 2px rgba(16, 185, 129, 0.5) !important;
+}
+body.o_face_kiosk_only .premium-video-container.scanner-success .scanner-corner {
+    border-color: #10b981 !important;
+    filter: drop-shadow(0 0 12px rgba(16, 185, 129, 0.9));
+    animation: success-pulse 1s infinite alternate;
+}
+
+/* Processing state */
+body.o_face_kiosk_only .premium-video-container.scanner-processing {
+    box-shadow: 0 0 40px rgba(245, 158, 11, 0.35), 0 0 0 1px rgba(245, 158, 11, 0.4) !important;
+}
+body.o_face_kiosk_only .premium-video-container.scanner-processing .scanner-corner {
+    border-color: #f59e0b !important;
+    filter: drop-shadow(0 0 10px rgba(245, 158, 11, 0.8));
+}
+
+@keyframes corner-pulse {
+    0% { opacity: 0.6; transform: scale(0.98); }
+    100% { opacity: 1; transform: scale(1.02); }
+}
+
+@keyframes success-pulse {
+    0% { transform: scale(0.95); opacity: 0.8; }
+    100% { transform: scale(1.05); opacity: 1; }
+}
+
+/* Scanning line overlay animation - Hardware Accelerated */
+body.o_face_kiosk_only .scan-line {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 10;
+    animation: scan 2.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    will-change: transform, opacity;
+}
+
+body.o_face_kiosk_only .scan-line::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(to right, transparent, #fda4af, #ffe4e6, #fda4af, transparent) !important;
+    box-shadow: 0 0 20px 6px rgba(253, 164, 175, 0.6) !important;
+}
+
+@keyframes scan {
+    0% { transform: translateY(0); opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { transform: translateY(100%); opacity: 0; }
+}
+
+/* Welcome name text glow */
+body.o_face_kiosk_only .card h4.text-dark,
+body.o_face_kiosk_only h4.text-dark {
+    color: #f8fafc !important;
+    font-family: 'Outfit', sans-serif !important;
+    font-weight: 700 !important;
+    background: linear-gradient(135deg, #ffffff 40%, #e2e8f0 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+}
+
+/* Actions buttons container & layout overrides */
+body.o_face_kiosk_only .kiosk-actions-container {
+    flex-wrap: wrap !important;
+    gap: 16px !important;
+}
+
+body.o_face_kiosk_only .premium-btn {
+    font-family: 'Outfit', sans-serif !important;
+    padding: 10px 16px !important;
+    font-size: 0.95rem !important;
+    font-weight: 600 !important;
+    border-radius: 10px !important;
+    border: none !important;
+    cursor: pointer !important;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 8px !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+    white-space: nowrap !important;
+    flex: 1 1 0% !important;
+    min-width: 145px !important;
+    max-width: 100% !important;
+    word-break: keep-all !important;
+    overflow-wrap: normal !important;
+    touch-action: manipulation !important;
+    user-select: none !important;
+    -webkit-user-select: none !important;
+    -webkit-tap-highlight-color: transparent !important;
+}
+
+body.o_face_kiosk_only .premium-btn * {
+    pointer-events: none !important;
+}
+
+body.o_face_kiosk_only .premium-btn span {
+    white-space: nowrap !important;
+    word-break: keep-all !important;
+    overflow-wrap: normal !important;
+    display: inline-block !important;
+}
+
+@media (max-width: 768px) {
+    body.o_face_kiosk_only .kiosk-actions-container {
+        flex-direction: column !important;
+        align-items: center !important;
+        gap: 8px !important;
+    }
+    body.o_face_kiosk_only .premium-btn {
+        width: 100% !important;
+        max-width: 250px !important;
+        flex: 0 0 auto !important;
+    }
+}
+
+body.o_face_kiosk_only .btn-checkin {
+    background: linear-gradient(135deg, #10b981 0%, #047857 100%) !important;
+    color: white !important;
+    border: 1px solid rgba(16, 185, 129, 0.3) !important;
+    box-shadow: 0 8px 24px rgba(16, 185, 129, 0.3) !important;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    body.o_face_kiosk_only .btn-checkin:hover:not(:disabled) {
+        transform: translateY(-3px) scale(1.03) !important;
+        box-shadow: 0 12px 30px rgba(16, 185, 129, 0.5) !important;
+    }
+}
+
+body.o_face_kiosk_only .btn-checkin:active:not(:disabled) {
+    transform: translateY(1px) scale(0.98) !important;
+}
+
+body.o_face_kiosk_only .btn-checkout {
+    background: linear-gradient(135deg, #f59e0b 0%, #b45309 100%) !important;
+    color: white !important;
+    border: 1px solid rgba(245, 158, 11, 0.3) !important;
+    box-shadow: 0 8px 24px rgba(245, 158, 11, 0.3) !important;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    body.o_face_kiosk_only .btn-checkout:hover:not(:disabled) {
+        transform: translateY(-3px) scale(1.03) !important;
+        box-shadow: 0 12px 30px rgba(245, 158, 11, 0.5) !important;
+    }
+}
+
+body.o_face_kiosk_only .btn-checkout:active:not(:disabled) {
+    transform: translateY(1px) scale(0.98) !important;
+}
+
+body.o_face_kiosk_only .premium-btn:disabled {
+    background: rgba(71, 85, 105, 0.4) !important;
+    color: rgba(148, 163, 184, 0.7) !important;
+    border: 1px solid rgba(71, 85, 105, 0.2) !important;
+    box-shadow: none !important;
+    cursor: not-allowed !important;
+    transform: none !important;
+    pointer-events: none !important;
+}
+
+/* Status Text */
+body.o_face_kiosk_only .status-text {
+    font-size: 1.4rem !important;
+    font-weight: 500 !important;
+    color: #e2e8f0 !important;
+    margin-top: 15px !important;
+    letter-spacing: 0.7px !important;
+    font-family: 'Outfit', sans-serif !important;
+    animation: pulse-text 2s infinite alternate;
+}
+
+@keyframes pulse-text {
+    0% { opacity: 0.7; }
+    100% { opacity: 1; }
+}
+
+/* Loading state style */
+body.o_face_kiosk_only .fa-spinner.text-primary {
+    color: #fca5a5 !important;
+    filter: drop-shadow(0 0 10px rgba(252, 165, 165, 0.4)) !important;
+}
+
+body.o_face_kiosk_only h3.text-muted {
+    color: #cbd5e1 !important;
+    font-family: 'Outfit', sans-serif !important;
+    font-weight: 400 !important;
+}
+
+/* Main app navigation Back button */
+body.o_face_kiosk_only .o_hr_kiosk_mode_main .btn-secondary {
+    background: linear-gradient(135deg, #fda4af 0%, #e11d48 100%) !important;
+    border: 1px solid rgba(251, 113, 133, 0.3) !important;
+    box-shadow: 0 8px 24px rgba(251, 113, 133, 0.2) !important;
+    color: #ffffff !important;
+    font-family: 'Outfit', sans-serif !important;
+    font-weight: 600 !important;
+    border-radius: 50px !important;
+    padding: 12px 40px !important;
+    transition: all 0.3s ease !important;
+}
+
+body.o_face_kiosk_only .o_hr_kiosk_mode_main .btn-secondary:hover {
+    transform: translateY(-2px) scale(1.02) !important;
+    box-shadow: 0 12px 30px rgba(251, 113, 133, 0.4) !important;
+}
+
+/* Odoo Standard Notifications Override */
+body.o_face_kiosk_only .o_notification_manager {
+    z-index: 9999 !important;
+}
+
+body.o_face_kiosk_only .o_notification {
+    background: rgba(14, 16, 20, 0.85) !important;
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    border-radius: 12px !important;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3) !important;
+    color: #f8fafc !important;
+}
+
+body.o_face_kiosk_only .o_notification.border-danger {
+    border-left: 4px solid #ef4444 !important;
+}
+
+body.o_face_kiosk_only .o_notification.border-warning {
+    border-left: 4px solid #f59e0b !important;
+}
+
+body.o_face_kiosk_only .o_notification.border-success {
+    border-left: 4px solid #10b981 !important;
+}
+
+body.o_face_kiosk_only .o_notification .o_notification_title {
+    color: #ffffff !important;
+    font-weight: 600 !important;
+}
+
+body.o_face_kiosk_only .o_notification .o_notification_content {
+    color: #cbd5e1 !important;
+}
+
+/* Custom Error Banner on Screen */
+body.o_face_kiosk_only .custom-error-banner {
+    background: rgba(239, 68, 68, 0.15) !important;
+    border: 1px solid rgba(239, 68, 68, 0.4) !important;
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+    color: #fca5a5 !important;
+    box-shadow: 0 4px 15px rgba(239, 68, 68, 0.1) !important;
+    font-family: 'Outfit', sans-serif !important;
+    transition: all 0.3s ease;
+}
+
+body.o_face_kiosk_only .custom-error-banner i {
+    color: #f87171 !important;
+}
+
+body.o_face_kiosk_only .custom-error-banner .btn-close-error {
+    color: #fca5a5 !important;
+    font-size: 1.2rem !important;
+    line-height: 1 !important;
+    opacity: 0.7;
+    transition: opacity 0.2s ease;
+}
+
+body.o_face_kiosk_only .custom-error-banner .btn-close-error:hover {
+    opacity: 1;
+}
+
+@keyframes slideDownFade {
+    0% { opacity: 0; transform: translateY(-30px); }
+    100% { opacity: 1; transform: translateY(0); }
+}

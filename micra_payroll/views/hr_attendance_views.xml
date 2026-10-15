@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_hr_attendance_form_inherit_break" model="ir.ui.view">
+        <field name="name">hr.attendance.form.inherit.break</field>
+        <field name="model">hr.attendance</field>
+        <field name="inherit_id" ref="hr_attendance.hr_attendance_view_form"/>
+        <field name="arch" type="xml">
+
+            <!-- Buttons -->
+            <xpath expr="//header" position="inside">
+                <button name="action_break_in"
+                        type="object"
+                        string="Break In"
+                        class="btn btn-primary"
+                        invisible="not check_in or check_out or is_on_break"/>
+
+                <button name="action_break_out"
+                        type="object"
+                        string="Break Out"
+                        class="btn btn-secondary"
+                        invisible="not check_in or check_out or not is_on_break"/>
+            </xpath>
+
+            <!-- Summary + Full Width Table -->
+            <xpath expr="//sheet//group[1]" position="after">
+
+                <group string="Break Summary">
+                    <field name="is_on_break" readonly="1"/>
+                    <field name="raw_worked_time_display" string="Raw Worked Time" readonly="1"/>
+                    <field name="total_break_time_display" string="Total Break Time" readonly="1"/>
+                    <field name="worked_time_display" string="Net Worked Time" readonly="1"/>
+                </group>
+
+                <!-- FULL WIDTH BREAK DETAILS -->
+                <div class="mt-3">
+
+                    <h4 style="font-weight:600; margin-bottom:10px;">
+                        Break Details
+                    </h4>
+
+                    <field name="break_line_ids"
+                           nolabel="1"
+                           readonly="1"
+                           options="{'no_create': True, 'no_create_edit': True}">
+
+                        <list create="false" edit="false" delete="false">
+
+                            <!-- Equal width columns -->
+                            <field name="break_in"
+                                   string="Break In"
+                                   style="width:33%; text-align:left;"/>
+
+                            <field name="break_out"
+                                   string="Break Out"
+                                   style="width:33%; text-align:left;"/>
+
+                            <field name="duration_display"
+                                   string="Duration"
+                                   style="width:34%; text-align:center;"/>
+
+                        </list>
+
+                    </field>
+
+                </div>
+
+            </xpath>
+
+        </field>
+    </record>
+
+    <!-- Scheduled Action for Automatic Checkout -->
+    <record id="ir_cron_auto_checkout_attendance" model="ir.cron">
+        <field name="name">Attendance: Automatic Checkout</field>
+        <field name="model_id" ref="hr_attendance.model_hr_attendance"/>
+        <field name="state">code</field>
+        <field name="code">model.auto_checkout()</field>
+        <field name="user_id" ref="base.user_root"/>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="active" eval="True"/>
+        <field name="nextcall" eval="(datetime.now()).strftime('%Y-%m-%d 19:00:00')"/>
+    </record>
+</odoo>

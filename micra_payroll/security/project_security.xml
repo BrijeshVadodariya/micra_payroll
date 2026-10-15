@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Department-based Project Manager Group -->
+        <record id="group_project_department_manager" model="res.groups">
+            <field name="name">Project Manager</field>
+            <field name="privilege_id" ref="project.res_groups_privilege_project"/>
+            <field name="sequence">15</field>
+            <field name="implied_ids" eval="[(4, ref('project.group_project_user'))]"/>
+            <field name="comment">Department wise Project Manager access</field>
+        </record>
+
+        <!-- Make standard Administrator group imply the Department Project Manager group -->
+        <record id="project.group_project_manager" model="res.groups">
+            <field name="implied_ids" eval="[(4, ref('group_project_department_manager'))]"/>
+        </record>
+
+        <!-- Record Rule: Department Project Manager CRUD access on own department projects -->
+        <record id="rule_project_department_manager_project_rwd" model="ir.rule">
+            <field name="name">Project Manager Projects CRUD</field>
+            <field name="model_id" ref="project.model_project_project"/>
+            <field name="groups" eval="[(4, ref('group_project_department_manager'))]"/>
+            <field name="domain_force">[
+                '|',
+                    (user.has_group('project.group_project_manager'), '=', True),
+                    '&amp;',
+                        '|', ('company_id', '=', False), ('company_id', 'in', company_ids),
+                        ('department_id', '=', user.project_department_id.id)
+            ]</field>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="1"/>
+            <field name="perm_unlink" eval="1"/>
+        </record>
+
+        <!-- Record Rule: Project Sprint - Department Restriction -->
+        <record id="rule_project_department_manager_sprint_rwd" model="ir.rule">
+            <field name="name">Project Sprint - Department Restriction</field>
+            <field name="model_id" ref="model_project_sprint"/>
+            <field name="groups" eval="[(5, 0, 0)]"/>
+            <field name="domain_force">[
+                '|',
+                    (user.has_group('project.group_project_manager'), '=', True),
+                    ('department_id', '=', user.project_department_id.id)
+            ]</field>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="1"/>
+            <field name="perm_unlink" eval="1"/>
+        </record>
+
+        <!-- Record Rule: Project User - Write/Create Tasks of Allowed Projects Only -->
+        <record id="rule_project_task_user_assigned_write_create_micra" model="ir.rule">
+            <field name="name">Project User - Write/Create Tasks of Allowed Projects Only</field>
+            <field name="model_id" ref="project.model_project_task"/>
+            <field name="groups" eval="[(4, ref('project.group_project_user'))]"/>
+            <field name="domain_force">[
+                '|',
+                    (user.has_group('micra_payroll.group_project_department_manager'), '=', True),
+                    '|',
+                        ('project_id', '=', False),
+                        ('project_id.allowed_user_ids', 'in', [user.id])
+            ]</field>
+            <field name="perm_read" eval="0"/>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="1"/>
+            <field name="perm_unlink" eval="1"/>
+        </record>
+
+    </data>
+</odoo>

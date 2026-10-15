@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Window action for Payroll -->
+    <record id="action_open_payroll" model="ir.actions.act_window">
+        <field name="name">Payroll</field>
+        <field name="res_model">ir.module.module</field>
+        <field name="view_mode">kanban,list,form</field>
+        <field name="context"
+               eval="{'search_default_category_id': ref('base.module_category_accounting_localizations'), 'search_default_name': 'Payroll'}"/>
+        <field name="search_view_id" ref="base.view_module_filter"/>
+    </record>
+
+    <!-- Form view of Settings -->
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.hr.payroll</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="45"/>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="inside">
+                <div class="app_settings_block" data-string="Payroll"
+                     string="Payroll"
+                     data-key="micra_payroll"
+                     groups="micra_payroll.group_hr_payroll_community_manager">
+                    <field name="module_l10n_fr_hr_payroll" invisible="1"/>
+                    <field name="module_l10n_be_hr_payroll" invisible="1"/>
+                    <field name="module_l10n_in_hr_payroll" invisible="1"/>
+                    <h2>Payroll</h2>
+                    <div class="row mt16 o_settings_container"
+                         id="hr_payroll_localization">
+                        <div class="col-lg-6 col-12 o_setting_box">
+                            <div class="o_setting_right_pane">
+                                <span class="o_form_label">Payroll Rules</span>
+                                <div class="text-muted">
+                                    Payroll rules that apply to your country
+                                </div>
+                                <div class="mt16" id="localization_text">
+                                    <button name="%(action_open_payroll)d"
+                                            icon="fa-arrow-right" type="action"
+                                            string="Choose a Payroll Localization"
+                                            class="btn-link"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h2>Working Days</h2>
+                    <div class="row mt16 o_settings_container">
+                        <div class="col-lg-6 col-12 o_setting_box">
+                            <div class="o_setting_right_pane">
+                                <span class="o_form_label">Default Working Days in Month</span>
+                                <div class="text-muted">
+                                    Default number of working days per month used for salary calculations.
+                                </div>
+                                <div class="mt8">
+                                    <field name="working_days_in_month"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h2>Accounting</h2>
+                    <div class="row mt16 o_settings_container"
+                         id="hr_payroll_accountant">
+                        <div class="col-lg-6 col-12 o_setting_box">
+                            <div class="o_setting_left_pane">
+                                <field name="module_account_accountant"
+                                       widget="upgrade_boolean"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="module_account_accountant"
+                                       string="Payroll Entries"/>
+                                <div class="text-muted">
+                                    Post payroll slips in accounting
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="res_config_settings_view_form_inherit_face_attendance" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.face.attendance</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="hr_attendance.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//setting[field[@name='attendance_kiosk_url']]" position="after">
+                <setting string="Employee Face Recognition" help="Allow employees to log in using face recognition in Kiosk mode.">
+                    <field name="enable_face_recognition"/>
+                </setting>
+                <setting string="Face Attendance Kiosk Url" help="Use this url to access your custom face kiosk mode from any device.">
+                    <field name="face_attendance_kiosk_url" class="w-100" widget="CopyClipboardChar"/>
+                    <button name="regenerate_face_attendance_kiosk_key" type="object" string="Generate new URL" icon="fa-refresh" class="btn-link"/>
+                </setting>
+                <setting string="Allowed Kiosk IPs (Wi-Fi)" help="Comma-separated list of IP addresses allowed to access the face kiosk. (e.g., 192.168.1.xx or 192.168.1. to allow the entire subnet). Leave empty to allow all.">
+                    <field name="kiosk_allowed_ips"/>
+                </setting>
+                <setting string="Kiosk Password Protection" help="When enabled, a password is required to authorize a new device for kiosk mode. The administrator must enter this password once on each new tablet or mobile phone.">
+                    <field name="enable_kiosk_password"/>
+                    <div invisible="not enable_kiosk_password" class="mt-3">
+                        <label for="kiosk_device_password" string="Kiosk Device Password"/>
+                        <field name="kiosk_device_password" password="True" placeholder="Type new password to set or update..."/>
+                    </div>
+                </setting>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Window action for Settings -->
+    <record id="res_config_settings_action"
+            model="ir.actions.act_window">
+        <field name="name">Settings</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.config.settings</field>
+        <field name="view_mode">form</field>
+    </record>
+    <menuitem id="menu_hr_payroll_global_settings" name="Settings"
+              parent="menu_hr_payroll_community_configuration"
+              sequence="10"
+              action="res_config_settings_action"
+              groups="base.group_system"/>
+</odoo>

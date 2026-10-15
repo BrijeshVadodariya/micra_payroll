@@ -1,0 +1,35 @@
+<odoo>
+  <data>
+    <!-- Remove the action from the Kiosk Mode menu item so it becomes a folder/expandable menu -->
+    <record id="hr_attendance.menu_action_open_form" model="ir.ui.menu">
+        <field name="action" eval="False"/>
+    </record>
+
+    <!-- Create standard kiosk sub-menu under it -->
+    <menuitem id="menu_kiosk_barcode_pin"
+              name="Barcode/PIN Kiosk"
+              parent="hr_attendance.menu_action_open_form"
+              action="hr_attendance.open_kiosk_url"
+              sequence="10"
+              groups="hr_attendance.group_hr_attendance_user"/>
+
+    <!-- Create Face Login kiosk sub-menu under it -->
+    <record model="ir.actions.server" id="action_open_face_kiosk_url">
+        <field name="name">Face Attendance Kiosk</field>
+        <field name="model_id" ref="hr_attendance.model_res_company"/>
+        <field name="state">code</field>
+        <field name="code">
+            action = model._action_open_face_kiosk_mode()
+        </field>
+        <field name="group_ids" eval="[(4, ref('hr_attendance.group_hr_attendance_user'))]"/>
+    </record>
+
+    <menuitem id="menu_kiosk_face_attendance"
+              name="Face Attendance Kiosk"
+              parent="hr_attendance.menu_action_open_form"
+              action="action_open_face_kiosk_url"
+              sequence="20"
+              groups="hr_attendance.group_hr_attendance_user"/>
+  </data>
+</odoo>
+

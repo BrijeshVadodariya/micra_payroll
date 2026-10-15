@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Working Days Configuration List View -->
+    <record id="view_hr_working_days_config_tree" model="ir.ui.view">
+        <field name="name">hr.working.days.config.tree</field>
+        <field name="model">hr.working.days.config</field>
+        <field name="arch" type="xml">
+            <list string="Working Days Configuration">
+                <field name="display_name" string="Period"/>
+                <field name="company_ids" widget="many2many_tags" groups="base.group_multi_company" options="{'no_create': True}"/>
+                <field name="working_days"/>
+                <field name="total_holidays" string="Holidays"/>
+                <field name="notes"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Working Days Configuration Form View -->
+    <record id="view_hr_working_days_config_form" model="ir.ui.view">
+        <field name="name">hr.working.days.config.form</field>
+        <field name="model">hr.working.days.config</field>
+        <field name="arch" type="xml">
+            <form string="Working Days Configuration">
+                <sheet>
+                    <group>
+                        <field name="year" widget="char" options="{'format_number': false}"/>
+                        <field name="month"/>
+                        <field name="company_ids" widget="many2many_tags" groups="base.group_multi_company" options="{'no_create': True}"/>
+                        <field name="working_days" widget="working_days_calendar"/>
+                        <field name="total_holidays" readonly="1"/>
+                        <field name="calendar_day_overrides" invisible="1"/>
+                        <field name="notes"/>
+                    </group>
+                    <notebook>
+                        <page string="Public Holidays">
+                            <field name="holiday_line_ids" context="{'_hr_skip_sync': True}">
+                                <list editable="bottom" string="Holidays">
+                                    <field name="leave_id" column_invisible="True"/>
+                                    <field name="date_from" string="Start Date" widget="date" options="{'format': 'DD-MM-YYYY'}"/>
+                                    <field name="date_to" string="End Date" widget="date" options="{'format': 'DD-MM-YYYY'}"/>
+                                    <field name="name" string="Holiday Name"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_hr_working_days_config" model="ir.actions.act_window">
+        <field name="name">Working Days Configuration</field>
+        <field name="res_model">hr.working.days.config</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p>Define the number of working days for each month and list public holidays.</p>
+        </field>
+    </record>
+
+    <!-- Menu placement under Time Off → Configuration -->
+    <menuitem id="menu_hr_working_days_config" name="Working Days" parent="hr_holidays.menu_hr_holidays_configuration" action="action_hr_working_days_config" sequence="30"/>
+</odoo>

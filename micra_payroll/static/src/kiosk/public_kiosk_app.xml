@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <!-- OVERRIDE the Main App to integrate face login into standard layout -->
+    <t t-name="micra_payroll.public_kiosk_app" t-inherit="hr_attendance.public_kiosk_app" t-inherit-mode="extension">
+        <!-- Add the face login scanner state inside the CardLayout container -->
+        <xpath expr="//CardLayout" position="inside">
+            <t t-if="this.state.active_display === 'face_login'">
+                <div class="d-flex flex-column gap-2 mx-auto align-items-center justify-content-start w-100" style="max-width: 700px;">
+                    <div class="card p-3 shadow-sm border-0 bg-white text-dark rounded-4 w-100 text-center">
+                        <h4 class="fw-bold mb-1">Face Recognition Login</h4>
+                        <p class="text-muted mb-3 small">Please position your face in front of the camera</p>
+                        <FaceLoginScanner
+                            token="this.props.token"/>
+                    </div>
+                    <t t-if="!this.isFaceKioskOnly">
+                        <button t-on-click="() => this.kioskReturn()" class="btn btn-secondary btn-lg rounded-3 mt-2">
+                            <i class="fa fa-chevron-left me-2"/>
+                            <span>Back</span>
+                        </button>
+                    </t>
+                </div>
+            </t>
+        </xpath>
+    </t>
+</templates>

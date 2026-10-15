@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_recycle_bin_list" model="ir.ui.view">
+        <field name="name">recycle.bin.list</field>
+        <field name="model">recycle.bin</field>
+        <field name="arch" type="xml">
+            <list string="Recycle Bin" create="false" edit="false">
+                <field name="name"/>
+                <field name="model_name"/>
+                <field name="record_id"/>
+                <field name="deleted_by_id"/>
+                <field name="deletion_date"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_recycle_bin_form" model="ir.ui.view">
+        <field name="name">recycle.bin.form</field>
+        <field name="model">recycle.bin</field>
+        <field name="arch" type="xml">
+            <form string="Recycle Bin" create="false" edit="false">
+                <header>
+                    <button name="action_restore" string="Restore Record" type="object" class="oe_highlight"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="model_name" readonly="1"/>
+                            <field name="record_id" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="deleted_by_id" readonly="1"/>
+                            <field name="deletion_date" readonly="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Attachment Preview" name="preview_image" invisible="model_name != 'ir.attachment'">
+                            <field name="attachment_mimetype" invisible="1"/>
+                            <field name="preview_image" widget="image" readonly="1" options="{'size': [500, 500]}" invisible="attachment_mimetype not in ('image/jpeg', 'image/png', 'image/gif', 'image/webp')"/>
+                            <field name="preview_image" widget="pdf_viewer" readonly="1" invisible="attachment_mimetype != 'application/pdf'"/>
+                            <div invisible="attachment_mimetype in ('image/jpeg', 'image/png', 'image/gif', 'image/webp', 'application/pdf') or not attachment_mimetype">
+                                <p class="text-muted">Preview not available for this file type.</p>
+                            </div>
+                        </page>
+                        <page string="Record Data" name="record_data">
+                            <field name="record_data" widget="json_table" readonly="1"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_recycle_bin" model="ir.actions.act_window">
+        <field name="name">Recycle Bin</field>
+        <field name="res_model">recycle.bin</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[('model_name', 'not in', ['hr.attendance.overtime.line', 'hr.attendance.overtime', 'micra.ticket.violation', 'micra.ticket.violation.line', 'mail.followers', 'mail.activity', 'mail.message', 'sale.order.line', 'account.move.line', 'hr.attendance.break.line'])]</field>
+    </record>
+
+    <menuitem id="menu_recycle_bin"
+              name="Recycle Bin"
+              action="action_recycle_bin"
+              parent="base.menu_custom"
+              sequence="100"/>
+
+</odoo>

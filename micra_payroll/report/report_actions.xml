@@ -1,0 +1,4 @@
+<odoo>
+    <!-- Report actions for invoice are defined in report_invoice.xml -->
+    <!-- This file is kept as a placeholder for any additional future report actions -->
+</odoo>

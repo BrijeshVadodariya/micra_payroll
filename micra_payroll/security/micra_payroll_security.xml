@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+        <!-- Privilege for Payroll -->
+        <record model="res.groups.privilege" id="res_groups_payroll_community">
+            <field name="name">Payroll</field>
+            <field name="sequence">9</field>
+            <field name="category_id" ref="base.module_category_human_resources"/>
+        </record>
+
+        <!-- User access for Payroll -->
+        <record id="group_hr_payroll_community_user" model="res.groups">
+            <field name="name">Officer</field>
+            <field name="privilege_id" ref="res_groups_payroll_community"/>
+            <field name="implied_ids" eval="[(4, ref('hr_holidays.group_hr_holidays_user')), (4, ref('hr.group_hr_user'))]"/>
+        </record>
+
+        <!-- Manager access for Payroll -->
+        <record id="group_hr_payroll_community_manager" model="res.groups">
+            <field name="name">Manager</field>
+            <field name="privilege_id" ref="res_groups_payroll_community"/>
+            <field name="implied_ids" eval="[(4, ref('group_hr_payroll_community_user'))]"/>
+            <field name="user_ids" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
+        </record>
+
+        <!-- Officer and Subordinates Payslip Rule -->
+        <record id="hr_payroll_rule_officer" model="ir.rule">
+            <field name="name">Officer and subordinates Payslip</field>
+            <field name="model_id" ref="model_hr_payslip"/>
+            <field name="domain_force">['|','|', ('employee_id.user_id', '=', user.id), ('employee_id.department_id', '=', False), ('employee_id.department_id.manager_id.user_id', '=', user.id)]</field>
+            <field name="groups" eval="[(4, ref('group_hr_payroll_community_user'))]"/>
+        </record>
+
+        <!-- Manager All Payslips Rule -->
+        <record id="hr_payslip_rule_manager" model="ir.rule">
+            <field name="name">All Payslip</field>
+            <field name="model_id" ref="model_hr_payslip"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('group_hr_payroll_community_manager'))]"/>
+        </record>
+
+        <!-- Payslip Multi-Company Rule -->
+        <record id="payroll_multi_company_rule" model="ir.rule">
+            <field name="name">Payroll multi company</field>
+            <field name="model_id" ref="model_hr_payslip"/>
+            <field name="global" eval="True"/>
+            <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+        </record>
+
+        <!-- Salary Structure Multi-Company Rule -->
+        <record id="hr_payroll_structure_multi_company_rule" model="ir.rule">
+            <field name="name">Salary Structure multi-company</field>
+            <field name="model_id" ref="model_hr_payroll_structure"/>
+            <field name="global" eval="True"/>
+            <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+        </record>
+
+        <!-- Salary Rule Multi-Company Rule -->
+        <record id="hr_salary_rule_multi_company_rule" model="ir.rule">
+            <field name="name">Salary Rule multi-company</field>
+            <field name="model_id" ref="model_hr_salary_rule"/>
+            <field name="global" eval="True"/>
+            <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+        </record>
+
+        <!-- Working Days Configuration Multi-Company Rule -->
+        <record id="hr_working_days_config_multi_company_rule" model="ir.rule">
+            <field name="name">Working Days Config multi-company</field>
+            <field name="model_id" ref="model_hr_working_days_config"/>
+            <field name="global" eval="True"/>
+            <field name="domain_force">['|', ('company_ids', '=', False), ('company_ids', 'in', company_ids)]</field>
+        </record>
+
+        <!-- Salary Rule Category Multi-Company Rule: Allow reading categories across all companies -->
+        <record id="hr_salary_rule_category_multi_company_rule" model="ir.rule">
+            <field name="name">Salary Rule Category multi-company</field>
+            <field name="model_id" ref="model_hr_salary_rule_category"/>
+            <field name="global" eval="True"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+        </record>
+
+        <!-- Override HR Contract Multi Company Rule to allow users to read their own contract across companies -->
+        <record id="hr.ir_rule_hr_contract_multi_company" model="ir.rule">
+            <field name="domain_force">['|', ('company_id', 'in', company_ids), ('employee_id.user_id', '=', user.id)]</field>
+        </record>
+    </data>
+</odoo>

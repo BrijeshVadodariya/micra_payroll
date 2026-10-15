@@ -1,0 +1,1632 @@
+@charset "UTF-8";
+/* ═══════════════════════════════════════════════════════════════════════════
+   MICRA BIZCOMPASS DASHBOARD — ULTRA PREMIUM TYPOGRAPHY & DESIGN
+   Fully scoped under .o_hrms_workspace_wrap
+   ═══════════════════════════════════════════════════════════════════════════ */
+.o_hrms_workspace_wrap {
+  /* Premium Typography */
+  --micra-font-main: "Outfit", "Inter", sans-serif;
+  --micra-font-heading: "Outfit", sans-serif;
+  --micra-font-numeric: "Inter", sans-serif;
+  --micra-radius-xs: 8px;
+  --micra-radius-sm: 12px;
+  --micra-radius-md: 18px;
+  --micra-radius-lg: 24px;
+  --micra-radius-xl: 32px;
+  --micra-radius-pill: 999px;
+  --micra-shadow-xs: 0 4px 12px rgba(15, 23, 42, 0.03);
+  --micra-shadow-sm: 0 8px 20px rgba(15, 23, 42, 0.05);
+  --micra-shadow-md: 0 16px 36px rgba(15, 23, 42, 0.08);
+  --micra-shadow-lg: 0 26px 60px rgba(15, 23, 42, 0.12);
+  --micra-shadow-glow: inset 0 0 0 1px rgba(255, 255, 255, 0.4);
+  --micra-border-light: #eef2f8;
+  --micra-border-mid: #e2e8f0;
+  --micra-border-strong: #cbd5e1;
+  --micra-text-main: #0f172a;
+  --micra-text-soft: #475569;
+  --micra-text-muted: #64748b;
+  --micra-text-faint: #94a3b8;
+  --micra-panel-bg: rgba(255, 255, 255, 0.85);
+  --micra-card-bg: rgba(255, 255, 255, 0.95);
+  --micra-card-bg-2: rgba(250, 252, 255, 0.98);
+  --micra-card-bg-3: rgba(248, 250, 252, 0.95);
+  --micra-accent-blue: #3b82f6;
+  --micra-accent-blue-2: #60a5fa;
+  --micra-accent-indigo: #6366f1;
+  --micra-accent-purple: #8b5cf6;
+  --micra-accent-cyan: #06b6d4;
+  --micra-accent-green: #10b981;
+  --micra-accent-amber: #f59e0b;
+  --micra-accent-red: #ef4444;
+  --micra-accent-pink: #ec4899;
+  --micra-success-bg: linear-gradient(180deg, #ecfdf5 0%, #d1fae5 100%);
+  --micra-warning-bg: linear-gradient(180deg, #fffbeb 0%, #fef3c7 100%);
+  --micra-danger-bg: linear-gradient(180deg, #fef2f2 0%, #fee2e2 100%);
+  --micra-neutral-bg: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
+  --micra-info-bg: linear-gradient(180deg, #eff6ff 0%, #dbeafe 100%);
+  min-height: 100%;
+  padding: 24px;
+  position: relative;
+  overflow-x: hidden;
+  color: var(--micra-text-main);
+  font-family: var(--micra-font-main);
+  background: radial-gradient(circle at 0% 0%, rgba(59, 130, 246, 0.1) 0%, transparent 30%), radial-gradient(circle at 100% 0%, rgba(99, 102, 241, 0.08) 0%, transparent 25%), radial-gradient(circle at 100% 100%, rgba(139, 92, 246, 0.06) 0%, transparent 22%), linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%) !important;
+}
+
+.o_hrms_workspace_wrap::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  pointer-events: none;
+  background: linear-gradient(120deg, rgba(255, 255, 255, 0.18), transparent 24%, transparent 78%, rgba(255, 255, 255, 0.1)), linear-gradient(180deg, rgba(255, 255, 255, 0.12), transparent 30%);
+  opacity: 1;
+}
+
+.o_hrms_workspace_wrap::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  pointer-events: none;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.18) 1px, transparent 1px);
+  background-size: 22px 22px;
+  opacity: 0.18;
+}
+
+.o_hrms_workspace_shell {
+  position: relative;
+  z-index: 1;
+  max-width: 100%;
+}
+
+.o_hrms_workspace_scrollable {
+  max-height: calc(100vh - 72px);
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #c6d3e3 transparent;
+}
+
+.o_hrms_workspace_scrollable::-webkit-scrollbar {
+  width: 9px;
+  height: 9px;
+}
+
+.o_hrms_workspace_scrollable::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.o_hrms_workspace_scrollable::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: linear-gradient(180deg, #d4deea 0%, #bccadb 100%);
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   GENERIC SURFACE
+   ────────────────────────────────────────────────────────────────────────── */
+.o_hrms_workspace_wrap .o_hrms_glass_surface {
+  background: var(--micra-card-bg);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(228, 236, 247, 0.88);
+  box-shadow: var(--micra-shadow-md), var(--micra-shadow-glow);
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   ALERT
+   ────────────────────────────────────────────────────────────────────────── */
+.o_hrms_workspace_wrap .o_hrms_alert_box {
+  border-radius: var(--micra-radius-md) !important;
+  border: 1px solid rgba(239, 68, 68, 0.1) !important;
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: var(--micra-shadow-sm);
+  backdrop-filter: blur(10px);
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   HERO CARD
+   ────────────────────────────────────────────────────────────────────────── */
+.o_hrms_workspace_wrap .o_hrms_hero_card {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--micra-radius-xl);
+  border: 1px solid rgba(227, 235, 246, 0.95);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.96) 0%, rgba(248, 251, 255, 0.94) 100%);
+  box-shadow: 0 24px 55px rgba(15, 23, 42, 0.09), 0 4px 16px rgba(15, 23, 42, 0.04), inset 0 1px 0 rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(18px);
+}
+
+.o_hrms_workspace_wrap .o_hrms_hero_card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: auto;
+  left: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #2563eb 0%, #06b6d4 22%, #6366f1 55%, #8b5cf6 100%);
+  z-index: 2;
+}
+
+.o_hrms_workspace_wrap .o_hrms_hero_card::after {
+  content: "";
+  position: absolute;
+  width: 240px;
+  height: 240px;
+  top: -80px;
+  right: -70px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(96, 165, 250, 0.16) 0%, rgba(139, 92, 246, 0.1) 34%, transparent 72%);
+  pointer-events: none;
+}
+
+.o_hrms_workspace_wrap .o_hrms_brand_strip {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  position: relative;
+  z-index: 1;
+  padding: 18px 28px 16px;
+  background: linear-gradient(180deg, rgba(249, 252, 255, 0.96) 0%, rgba(243, 248, 255, 0.94) 100%);
+  border-bottom: 1px solid rgba(228, 236, 247, 0.94);
+}
+
+.o_hrms_workspace_wrap .o_hrms_company_logo_box {
+  width: 50px;
+  height: 50px;
+  flex-shrink: 0;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: linear-gradient(180deg, #ffffff 0%, #edf5ff 100%);
+  border: 1px solid #dce8f5;
+  box-shadow: 0 10px 20px rgba(37, 99, 235, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+
+.o_hrms_workspace_wrap .o_hrms_company_logo {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 6px;
+}
+
+.o_hrms_workspace_wrap .o_hrms_company_logo_fallback {
+  font-size: 20px;
+  color: var(--micra-accent-blue);
+}
+
+.o_hrms_workspace_wrap .o_hrms_brand_name_col {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  flex: 1;
+}
+
+.o_hrms_workspace_wrap .o_hrms_company_name {
+  margin: 0;
+  font-size: 20px;
+  line-height: 1.2;
+  font-weight: 600;
+  color: var(--micra-text-main);
+  letter-spacing: -0.02em;
+  font-family: var(--micra-font-heading);
+}
+
+.o_hrms_workspace_wrap .o_hrms_brand_sub {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 500;
+  color: var(--micra-text-muted);
+}
+
+.o_hrms_workspace_wrap .o_hrms_brand_clock {
+  margin-left: auto;
+  flex-shrink: 0;
+  white-space: nowrap;
+  font-family: var(--micra-font-numeric);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--micra-accent-blue);
+  padding: 8px 16px;
+  border-radius: var(--micra-radius-sm);
+  border: 1px solid var(--micra-border-light);
+  background: var(--micra-card-bg-2);
+  box-shadow: var(--micra-shadow-xs);
+  font-variant-numeric: tabular-nums;
+}
+
+.o_hrms_workspace_wrap .o_hrms_hero_body {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1.5fr 0.85fr;
+  gap: 26px;
+  align-items: start;
+  padding: 28px;
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   STATUS / GREETING
+   ────────────────────────────────────────────────────────────────────────── */
+.o_hrms_workspace_wrap .o_hrms_status_pill,
+.o_hrms_workspace_wrap .o_hrms_timer_status_badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  width: fit-content;
+  padding: 6px 12px;
+  border-radius: var(--micra-radius-pill);
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  box-shadow: var(--micra-shadow-xs);
+}
+
+.o_hrms_workspace_wrap .o_hrms_status_dot,
+.o_hrms_workspace_wrap .o_hrms_timer_status_dot,
+.o_hrms_workspace_wrap .o_hrms_live_dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: currentColor;
+  flex-shrink: 0;
+}
+
+.o_hrms_workspace_wrap .o_hrms_status_pill.active,
+.o_hrms_workspace_wrap .o_hrms_timer_status_badge.running {
+  background: var(--micra-success-bg);
+  color: #0f8a4b;
+  border: 1px solid rgba(15, 138, 75, 0.14);
+}
+
+.o_hrms_workspace_wrap .o_hrms_status_pill.break,
+.o_hrms_workspace_wrap .o_hrms_timer_status_badge.paused {
+  background: var(--micra-warning-bg);
+  color: #bc7a06;
+  border: 1px solid rgba(188, 122, 6, 0.14);
+}
+
+.o_hrms_workspace_wrap .o_hrms_status_pill.inactive,
+.o_hrms_workspace_wrap .o_hrms_timer_status_badge.idle {
+  background: var(--micra-neutral-bg);
+  color: #617084;
+  border: 1px solid rgba(97, 112, 132, 0.12);
+}
+
+.o_hrms_workspace_wrap .o_hrms_status_pill.active .o_hrms_status_dot,
+.o_hrms_workspace_wrap .o_hrms_timer_status_badge.running .o_hrms_timer_status_dot,
+.o_hrms_workspace_wrap .o_hrms_live_dot {
+  animation: o_hrms_pulse_dot 1.7s infinite;
+}
+
+.o_hrms_workspace_wrap .o_hrms_status_pill.break .o_hrms_status_dot,
+.o_hrms_workspace_wrap .o_hrms_timer_status_badge.paused .o_hrms_timer_status_dot {
+  animation: o_hrms_pulse_dot_amber 1.7s infinite;
+}
+
+.o_hrms_workspace_wrap .o_hrms_greeting_title {
+  margin: 0;
+  font-size: 2.5rem;
+  line-height: 1.1;
+  font-weight: 500;
+  color: var(--micra-text-main);
+  letter-spacing: -0.03em;
+  font-family: var(--micra-font-heading);
+}
+
+.o_hrms_workspace_wrap .o_hrms_greeting_subtitle {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.85;
+  color: var(--micra-text-soft);
+  max-width: 760px;
+}
+
+.o_hrms_workspace_wrap .o_hrms_action_row,
+.o_hrms_workspace_wrap .o_hrms_timer_buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   TODAY PANEL
+   ────────────────────────────────────────────────────────────────────────── */
+.o_hrms_workspace_wrap .o_hrms_today_panel {
+  position: relative;
+  height: 100%;
+  overflow: hidden;
+  padding: 22px;
+  border-radius: 26px;
+  border: 1px solid #dce8f6;
+  background: linear-gradient(165deg, rgba(249, 252, 255, 0.98) 0%, rgba(237, 245, 255, 0.96) 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.88), 0 10px 26px rgba(15, 23, 42, 0.05);
+}
+
+.o_hrms_workspace_wrap .o_hrms_today_panel::before {
+  content: "";
+  position: absolute;
+  top: -30px;
+  left: -24px;
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(37, 99, 235, 0.12) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.o_hrms_workspace_wrap .o_hrms_today_panel::after {
+  content: "";
+  position: absolute;
+  right: -38px;
+  bottom: -38px;
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.12) 0%, transparent 72%);
+  pointer-events: none;
+}
+
+.o_hrms_workspace_wrap .o_hrms_today_panel_title {
+  position: relative;
+  z-index: 1;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 13px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #0f172a;
+}
+
+.o_hrms_workspace_wrap .o_hrms_today_grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 11px;
+}
+
+.o_hrms_workspace_wrap .o_hrms_today_item {
+  background: linear-gradient(180deg, #ffffff 0%, #fbfdff 100%);
+  border: 1px solid #e8eff8;
+  border-radius: 18px;
+  padding: 13px 14px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8), 0 6px 16px rgba(15, 23, 42, 0.03);
+  transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+}
+
+.o_hrms_workspace_wrap .o_hrms_today_item:hover {
+  transform: translateY(-2px);
+  border-color: #c8dcff;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9), 0 14px 24px rgba(59, 130, 246, 0.1);
+}
+
+.o_hrms_workspace_wrap .o_hrms_today_label {
+  margin-bottom: 5px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--micra-text-muted);
+}
+
+.o_hrms_workspace_wrap .o_hrms_today_value {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--micra-text-main);
+  word-break: break-word;
+  font-family: var(--micra-font-numeric);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   BUTTONS
+   ────────────────────────────────────────────────────────────────────────── */
+.o_hrms_workspace_wrap .o_hrms_btn_main,
+.o_hrms_workspace_wrap .o_hrms_btn_soft,
+.o_hrms_workspace_wrap .o_hrms_timer_btn,
+.o_hrms_workspace_wrap .o_hrms_row_open_btn {
+  font-family: var(--micra-font-main);
+}
+
+.o_hrms_workspace_wrap .o_hrms_btn_main {
+  min-height: 45px;
+  padding: 10px 18px;
+  border: none !important;
+  border-radius: 15px;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  white-space: nowrap;
+  cursor: pointer;
+  font-size: 13.5px;
+  font-weight: 600;
+  transition: all 0.22s ease;
+  box-shadow: 0 10px 22px rgba(15, 23, 42, 0.1);
+}
+
+.o_hrms_workspace_wrap .o_hrms_btn_main:hover:not(:disabled),
+.o_hrms_workspace_wrap .o_hrms_timer_btn:hover:not(:disabled),
+.o_hrms_workspace_wrap .o_hrms_row_open_btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  filter: saturate(1.04);
+}
+
+.o_hrms_workspace_wrap .o_hrms_btn_main:active:not(:disabled),
+.o_hrms_workspace_wrap .o_hrms_timer_btn:active:not(:disabled),
+.o_hrms_workspace_wrap .o_hrms_row_open_btn:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.o_hrms_workspace_wrap .o_hrms_btn_main:disabled,
+.o_hrms_workspace_wrap .o_hrms_btn_soft:disabled,
+.o_hrms_workspace_wrap .o_hrms_timer_btn:disabled {
+  opacity: 0.45;
+  pointer-events: none;
+}
+
+.o_hrms_workspace_wrap .o_hrms_btn_main.primary {
+  background: linear-gradient(180deg, #3b82f6 0%, #2563eb 100%);
+  color: #fff !important;
+}
+
+.o_hrms_workspace_wrap .o_hrms_btn_main.success {
+  background: linear-gradient(180deg, #22c55e 0%, #16a34a 100%);
+  color: #fff !important;
+}
+
+.o_hrms_workspace_wrap .o_hrms_btn_main.warning {
+  background: linear-gradient(180deg, #f59e0b 0%, #d97706 100%);
+  color: #fff !important;
+}
+
+.o_hrms_workspace_wrap .o_hrms_btn_main.danger {
+  background: linear-gradient(180deg, #ef4444 0%, #dc2626 100%);
+  color: #fff !important;
+}
+
+.o_hrms_workspace_wrap .o_hrms_btn_soft {
+  min-height: 42px;
+  padding: 8px 16px;
+  border-radius: 15px;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  white-space: nowrap;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--micra-text-soft) !important;
+  border: 1px solid var(--micra-border-mid) !important;
+  background: var(--micra-card-bg-2) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8), var(--micra-shadow-xs);
+  transition: all 0.22s ease;
+}
+
+.o_hrms_workspace_wrap .o_hrms_btn_soft:hover:not(:disabled) {
+  background: linear-gradient(180deg, #f4f8ff 0%, #eef5ff 100%) !important;
+  border-color: #a8c8fb !important;
+  color: #1d4ed8 !important;
+  transform: translateY(-1px);
+  box-shadow: 0 10px 22px rgba(59, 130, 246, 0.09);
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   SECTION CARDS
+   ────────────────────────────────────────────────────────────────────────── */
+.o_hrms_workspace_wrap .o_hrms_section_card {
+  position: relative;
+  overflow: hidden;
+  padding: 24px;
+  border-radius: 28px;
+  border: 1px solid rgba(228, 236, 247, 0.96);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.96) 0%, rgba(251, 253, 255, 0.94) 100%);
+  backdrop-filter: blur(15px);
+  box-shadow: 0 14px 34px rgba(15, 23, 42, 0.05), 0 4px 10px rgba(15, 23, 42, 0.03), inset 0 1px 0 rgba(255, 255, 255, 0.65);
+  transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+}
+
+.o_hrms_workspace_wrap .o_hrms_section_card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(140deg, rgba(255, 255, 255, 0.16), transparent 40%);
+  pointer-events: none;
+}
+
+.o_hrms_workspace_wrap .o_hrms_section_card:hover {
+  transform: translateY(-2px);
+  border-color: #d7e5f4;
+  box-shadow: 0 20px 42px rgba(15, 23, 42, 0.08), 0 4px 14px rgba(15, 23, 42, 0.04);
+}
+
+.o_hrms_workspace_wrap .o_hrms_section_header,
+.o_hrms_workspace_wrap .o_hrms_timer_header {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.o_hrms_workspace_wrap .o_hrms_section_title {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--micra-text-main);
+  letter-spacing: -0.01em;
+  font-family: var(--micra-font-heading);
+}
+
+.o_hrms_workspace_wrap .o_hrms_section_subtitle {
+  margin-top: 4px;
+  font-size: 12.5px;
+  line-height: 1.55;
+  color: var(--micra-text-muted);
+}
+
+.o_hrms_workspace_wrap .o_hrms_live_dot {
+  color: #22c55e;
+  box-shadow: 0 0 10px rgba(34, 197, 94, 0.65);
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   METRIC CARDS
+   ────────────────────────────────────────────────────────────────────────── */
+.o_hrms_workspace_wrap .o_hrms_metric_card {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-height: 185px;
+  height: 100%;
+  padding: 22px 20px 18px;
+  border-radius: 24px;
+  border: 1px solid #e7edf7;
+  background: linear-gradient(165deg, rgba(255, 255, 255, 0.98) 0%, rgba(250, 252, 255, 0.96) 100%);
+  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.75);
+  transition: transform 0.24s ease, box-shadow 0.24s ease, border-color 0.24s ease;
+}
+
+.o_hrms_workspace_wrap .o_hrms_metric_card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 38px rgba(15, 23, 42, 0.09);
+}
+
+.o_hrms_workspace_wrap .o_hrms_metric_card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.18), transparent 40%);
+  pointer-events: none;
+}
+
+.o_hrms_workspace_wrap .o_hrms_metric_card.color-blue {
+  border-top: 4px solid #3b82f6;
+}
+
+.o_hrms_workspace_wrap .o_hrms_metric_card.color-amber {
+  border-top: 4px solid #f59e0b;
+}
+
+.o_hrms_workspace_wrap .o_hrms_metric_card.color-purple {
+  border-top: 4px solid #8b5cf6;
+}
+
+.o_hrms_workspace_wrap .o_hrms_metric_card.color-green {
+  border-top: 4px solid #22c55e;
+}
+
+.o_hrms_workspace_wrap .o_hrms_metric_card.color-cyan {
+  border-top: 4px solid #06b6d4;
+}
+
+.o_hrms_workspace_wrap .o_hrms_metric_card.color-pink {
+  border-top: 4px solid #ec4899;
+}
+
+.o_hrms_workspace_wrap .o_hrms_metric_card.is-pulsing {
+  animation: o_hrms_card_border_pulse 2s infinite;
+}
+
+.o_hrms_workspace_wrap .o_hrms_metric_glow {
+  position: absolute;
+  top: -28px;
+  right: -26px;
+  width: 105px;
+  height: 105px;
+  border-radius: 50%;
+  opacity: 0.72;
+  pointer-events: none;
+}
+
+.o_hrms_workspace_wrap .o_hrms_metric_card.color-blue .o_hrms_metric_glow {
+  background: radial-gradient(circle, rgba(59, 130, 246, 0.18) 0%, transparent 72%);
+}
+
+.o_hrms_workspace_wrap .o_hrms_metric_card.color-amber .o_hrms_metric_glow {
+  background: radial-gradient(circle, rgba(245, 158, 11, 0.18) 0%, transparent 72%);
+}
+
+.o_hrms_workspace_wrap .o_hrms_metric_card.color-purple .o_hrms_metric_glow {
+  background: radial-gradient(circle, rgba(139, 92, 246, 0.16) 0%, transparent 72%);
+}
+
+.o_hrms_workspace_wrap .o_hrms_metric_card.color-green .o_hrms_metric_glow {
+  background: radial-gradient(circle, rgba(34, 197, 94, 0.16) 0%, transparent 72%);
+}
+
+.o_hrms_workspace_wrap .o_hrms_metric_card.color-cyan .o_hrms_metric_glow {
+  background: radial-gradient(circle, rgba(6, 182, 212, 0.16) 0%, transparent 72%);
+}
+
+.o_hrms_workspace_wrap .o_hrms_metric_card.color-pink .o_hrms_metric_glow {
+  background: radial-gradient(circle, rgba(236, 72, 153, 0.16) 0%, transparent 72%);
+}
+
+.o_hrms_workspace_wrap .o_hrms_metric_icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  box-shadow: var(--micra-shadow-glow);
+  flex-shrink: 0;
+}
+
+.o_hrms_workspace_wrap .o_hrms_metric_card.color-blue .o_hrms_metric_icon {
+  background: #eaf2ff;
+  color: #2563eb;
+}
+
+.o_hrms_workspace_wrap .o_hrms_metric_card.color-amber .o_hrms_metric_icon {
+  background: #fff4e2;
+  color: #b45309;
+}
+
+.o_hrms_workspace_wrap .o_hrms_metric_card.color-purple .o_hrms_metric_icon {
+  background: #f2eeff;
+  color: #7c3aed;
+}
+
+.o_hrms_workspace_wrap .o_hrms_metric_card.color-green .o_hrms_metric_icon {
+  background: #e9f9ef;
+  color: #15803d;
+}
+
+.o_hrms_workspace_wrap .o_hrms_metric_card.color-cyan .o_hrms_metric_icon {
+  background: #e6fbff;
+  color: #0891b2;
+}
+
+.o_hrms_workspace_wrap .o_hrms_metric_card.color-pink .o_hrms_metric_icon {
+  background: #fff0f8;
+  color: #db2777;
+}
+
+.o_hrms_workspace_wrap .o_hrms_metric_label {
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--micra-text-muted);
+}
+
+.o_hrms_workspace_wrap .o_hrms_metric_value {
+  flex: 1;
+  font-size: 2rem;
+  line-height: 1.1;
+  font-weight: 500;
+  color: var(--micra-text-main);
+  letter-spacing: -0.02em;
+  word-break: break-word;
+  font-family: var(--micra-font-numeric);
+  font-variant-numeric: tabular-nums;
+}
+
+.o_hrms_workspace_wrap .o_hrms_metric_card.color-blue .o_hrms_metric_value {
+  color: #1d4ed8;
+}
+
+.o_hrms_workspace_wrap .o_hrms_metric_card.color-amber .o_hrms_metric_value {
+  color: #92400e;
+}
+
+.o_hrms_workspace_wrap .o_hrms_metric_card.color-purple .o_hrms_metric_value {
+  color: #5b21b6;
+}
+
+.o_hrms_workspace_wrap .o_hrms_metric_card.color-green .o_hrms_metric_value {
+  color: #166534;
+}
+
+.o_hrms_workspace_wrap .o_hrms_metric_card.color-cyan .o_hrms_metric_value {
+  color: #0e7490;
+}
+
+.o_hrms_workspace_wrap .o_hrms_metric_card.color-pink .o_hrms_metric_value {
+  color: #be185d;
+}
+
+.o_hrms_workspace_wrap .o_hrms_metric_hint {
+  font-size: 11px;
+  color: #b2c0d3;
+}
+
+.o_hrms_workspace_wrap .o_hrms_metric_bar {
+  width: 100%;
+  height: 6px;
+  margin-top: auto;
+  overflow: hidden;
+  border-radius: var(--micra-radius-pill);
+  background: var(--micra-border-light);
+  display: flex;
+}
+
+.o_hrms_workspace_wrap .o_hrms_metric_bar_fill {
+  height: 100%;
+  transition: width 1s linear;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  flex-shrink: 0;
+}
+
+.o_hrms_workspace_wrap .o_hrms_metric_bar_fill:first-child {
+  border-top-left-radius: 999px;
+  border-bottom-left-radius: 999px;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.o_hrms_workspace_wrap .o_hrms_metric_bar_fill:last-child {
+  border-top-right-radius: 999px;
+  border-bottom-right-radius: 999px;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.o_hrms_workspace_wrap .o_hrms_metric_bar_fill:only-child {
+  border-radius: 999px;
+}
+
+.o_hrms_workspace_wrap .o_hrms_metric_bar_fill.blue {
+  background: linear-gradient(90deg, #60a5fa, #2563eb);
+}
+
+.o_hrms_workspace_wrap .o_hrms_metric_bar_fill.amber {
+  background: linear-gradient(90deg, #fbbf24, #d97706);
+}
+
+.o_hrms_workspace_wrap .o_hrms_metric_bar_fill.purple {
+  background: linear-gradient(90deg, #a78bfa, #6d28d9);
+}
+
+.o_hrms_workspace_wrap .o_hrms_metric_bar_fill.green {
+  background: linear-gradient(90deg, #10b981, #047857);
+}
+
+.o_hrms_workspace_wrap .o_hrms_metric_bar_fill.cyan {
+  background: linear-gradient(90deg, #67e8f9, #0891b2);
+}
+
+.o_hrms_workspace_wrap .o_hrms_metric_bar_fill.pink {
+  background: linear-gradient(90deg, #f9a8d4, #db2777);
+}
+
+.o_hrms_workspace_wrap .o_hrms_metric_bar_fill.red {
+  background: linear-gradient(90deg, #ef4444, #dc2626);
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   TIMER SECTION
+   ────────────────────────────────────────────────────────────────────────── */
+.o_hrms_workspace_wrap .o_hrms_timer_name_card {
+  position: relative;
+  overflow: hidden;
+  height: 100%;
+  padding: 18px;
+  border-radius: 22px;
+  border: 1px solid #e4ebf5;
+  box-shadow: 0 10px 20px rgba(15, 23, 42, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.75);
+  transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+}
+
+.o_hrms_workspace_wrap .o_hrms_timer_name_card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.16), transparent 42%);
+  pointer-events: none;
+}
+
+.o_hrms_workspace_wrap .o_hrms_timer_name_card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 28px rgba(15, 23, 42, 0.08);
+}
+
+.o_hrms_workspace_wrap .o_hrms_timer_project_card {
+  background: linear-gradient(160deg, #f8fbff 0%, #edf5ff 100%);
+  border-color: #dbe8ff;
+}
+
+.o_hrms_workspace_wrap .o_hrms_timer_task_card {
+  background: linear-gradient(160deg, #fbf8ff 0%, #f3edff 100%);
+  border-color: #eadfff;
+}
+
+.o_hrms_workspace_wrap .o_hrms_timer_selected_name {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 48px;
+  margin-top: 6px;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.4;
+  word-break: break-word;
+  color: var(--micra-text-main);
+  font-family: var(--micra-font-heading);
+}
+
+.o_hrms_workspace_wrap .o_hrms_timer_project_card .o_hrms_timer_selected_name {
+  color: #1d4ed8;
+}
+
+.o_hrms_workspace_wrap .o_hrms_timer_task_card .o_hrms_timer_selected_name {
+  color: #7c3aed;
+}
+
+.o_hrms_workspace_wrap .o_hrms_timer_clock_big {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+  padding: 20px;
+  border-radius: 22px;
+  border: 1px solid #dfe9f7;
+  background: linear-gradient(160deg, #f8fbff 0%, #edf5ff 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.88), 0 8px 18px rgba(15, 23, 42, 0.04);
+}
+
+.o_hrms_workspace_wrap .o_hrms_timer_big_value {
+  font-family: var(--micra-font-numeric);
+  font-size: 2.8rem;
+  line-height: 1;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  color: var(--micra-accent-blue);
+  font-variant-numeric: tabular-nums;
+}
+
+.o_hrms_workspace_wrap .o_hrms_timer_small_label,
+.o_hrms_workspace_wrap .o_hrms_form_label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--micra-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.o_hrms_workspace_wrap .o_hrms_timer_small_label {
+  margin-bottom: 6px;
+}
+
+.o_hrms_workspace_wrap .o_hrms_form_label {
+  display: block;
+  margin-bottom: 8px;
+}
+
+.o_hrms_workspace_wrap .o_hrms_select {
+  min-height: 47px !important;
+  padding-left: 14px !important;
+  border-radius: var(--micra-radius-sm) !important;
+  border: 1px solid var(--micra-border-mid) !important;
+  background: var(--micra-card-bg-2) !important;
+  color: var(--micra-text-main) !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  font-family: var(--micra-font-main) !important;
+  box-shadow: var(--micra-shadow-xs) !important;
+  transition: all 0.2s ease !important;
+}
+
+.o_hrms_workspace_wrap .o_hrms_select:focus {
+  border-color: #93c5fd !important;
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.12) !important;
+  outline: none !important;
+  transform: translateY(-1px);
+}
+
+.o_hrms_workspace_wrap .o_hrms_select:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.o_hrms_workspace_wrap .o_hrms_timer_btn {
+  min-height: 43px;
+  padding: 9px 18px;
+  border: none !important;
+  border-radius: 15px;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  white-space: nowrap;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  box-shadow: var(--micra-shadow-md);
+  transition: all 0.22s ease;
+}
+
+.o_hrms_workspace_wrap .o_hrms_timer_btn.start {
+  background: linear-gradient(160deg, #22c55e 0%, #16a34a 100%);
+  color: #fff !important;
+}
+
+.o_hrms_workspace_wrap .o_hrms_timer_btn.pause {
+  background: linear-gradient(160deg, #f59e0b 0%, #d97706 100%);
+  color: #fff !important;
+}
+
+.o_hrms_workspace_wrap .o_hrms_timer_btn.resume {
+  background: linear-gradient(160deg, #38bdf8 0%, #2563eb 100%);
+  color: #fff !important;
+}
+
+.o_hrms_workspace_wrap .o_hrms_timer_btn.stop {
+  background: linear-gradient(160deg, #818cf8 0%, #4f46e5 100%);
+  color: #fff !important;
+}
+
+.o_hrms_workspace_wrap .o_hrms_timer_btn.cancel {
+  background: linear-gradient(160deg, #f87171 0%, #dc2626 100%);
+  color: #fff !important;
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   BADGES / CHIPS
+   ────────────────────────────────────────────────────────────────────────── */
+.o_hrms_workspace_wrap .o_hrms_count_badge {
+  min-width: 40px;
+  height: 35px;
+  padding: 0 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 800;
+  color: #2563eb;
+  background: linear-gradient(180deg, #eef5ff 0%, #e3efff 100%);
+  border: 1px solid #c8dcff;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
+}
+
+.o_hrms_workspace_wrap .o_hrms_chip_table {
+  display: inline-block;
+  white-space: nowrap;
+  padding: 4px 10px;
+  border-radius: 9px;
+  font-size: 11.5px;
+  font-weight: 700;
+  color: #475569;
+  background: linear-gradient(180deg, #f8fbff 0%, #f1f6fc 100%);
+  border: 1px solid #e2e8f0;
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   TASK TABLE
+   ────────────────────────────────────────────────────────────────────────── */
+.o_hrms_workspace_wrap .o_hrms_table {
+  width: 100%;
+  margin-bottom: 0 !important;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.o_hrms_workspace_wrap .o_hrms_table thead tr {
+  background: #f8fbff;
+}
+
+.o_hrms_workspace_wrap .o_hrms_table thead th {
+  position: relative;
+  white-space: nowrap;
+  padding: 14px 16px !important;
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--micra-text-muted) !important;
+  background: var(--micra-card-bg-2) !important;
+  border-bottom: 1px solid var(--micra-border-light) !important;
+}
+
+.o_hrms_workspace_wrap .o_hrms_table tbody tr {
+  transition: background 0.18s ease, box-shadow 0.18s ease, transform 0.18s ease;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.o_hrms_workspace_wrap .o_hrms_table tbody tr:last-child {
+  border-bottom: none;
+}
+
+.o_hrms_workspace_wrap .o_hrms_table tbody td {
+  padding: 14px 16px !important;
+  vertical-align: middle;
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--micra-text-soft) !important;
+  background: transparent;
+}
+
+.o_hrms_workspace_wrap .o_hrms_task_row {
+  cursor: pointer;
+}
+
+.o_hrms_workspace_wrap .o_hrms_task_row:hover {
+  background: rgba(59, 130, 246, 0.05) !important;
+}
+
+.o_hrms_workspace_wrap .o_hrms_task_row.selected {
+  background: linear-gradient(90deg, rgba(59, 130, 246, 0.08) 0%, rgba(99, 102, 241, 0.08) 100%) !important;
+  box-shadow: inset 4px 0 0 #2563eb;
+}
+
+.o_hrms_workspace_wrap .o_hrms_task_name_cell {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.o_hrms_workspace_wrap .o_hrms_task_primary_name {
+  font-size: 14px;
+  line-height: 1.4;
+  font-weight: 600;
+  color: var(--micra-text-main);
+}
+
+.o_hrms_workspace_wrap .o_hrms_row_open_btn {
+  min-height: 36px;
+  padding: 6px 12px;
+  border-radius: 11px;
+  border: 1px solid #d8e6fb !important;
+  background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
+  color: #2563eb !important;
+  font-size: 12px;
+  font-weight: 700;
+  box-shadow: 0 4px 10px rgba(59, 130, 246, 0.05);
+  transition: all 0.22s ease;
+}
+
+.o_hrms_workspace_wrap .o_hrms_row_open_btn:hover {
+  background: #eef5ff !important;
+  border-color: #93c5fd !important;
+  color: #1d4ed8 !important;
+  box-shadow: 0 10px 20px rgba(59, 130, 246, 0.1);
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   LIST / EVENT / LEAVE CARDS
+   ────────────────────────────────────────────────────────────────────────── */
+.o_hrms_workspace_wrap .o_hrms_leave_card {
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 10px;
+  padding: 14px 16px;
+  border-radius: 18px;
+  border: 1px solid #e8eef6;
+  border-left: 4px solid #3b82f6;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.98) 0%, rgba(250, 252, 255, 0.95) 100%);
+  box-shadow: 0 8px 18px rgba(15, 23, 42, 0.04);
+  transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+}
+
+.o_hrms_workspace_wrap .o_hrms_leave_card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.14), transparent 45%);
+  pointer-events: none;
+}
+
+.o_hrms_workspace_wrap .o_hrms_leave_card:last-child {
+  margin-bottom: 0;
+}
+
+.o_hrms_workspace_wrap .o_hrms_leave_card:hover {
+  transform: translateX(4px) translateY(-1px);
+  border-color: #c9ddff;
+  border-left-color: #2563eb;
+  box-shadow: 0 14px 28px rgba(59, 130, 246, 0.11);
+}
+
+.o_hrms_workspace_wrap .o_hrms_leave_title {
+  margin-bottom: 4px;
+  font-size: 15px;
+  line-height: 1.4;
+  font-weight: 600;
+  color: var(--micra-text-main);
+  font-family: var(--micra-font-heading);
+}
+
+.o_hrms_workspace_wrap .o_hrms_leave_meta {
+  font-size: 12px;
+  line-height: 1.55;
+  color: var(--micra-text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   EMPTY STATE
+   ────────────────────────────────────────────────────────────────────────── */
+.o_hrms_workspace_wrap .o_hrms_empty_state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 34px 16px;
+  text-align: center;
+  font-size: 13.5px;
+  color: #94a3b8;
+  border-radius: 18px;
+  border: 1px dashed #d7e3ef;
+  background: linear-gradient(180deg, #f9fbfe 0%, #f4f8fc 100%);
+}
+
+.o_hrms_workspace_wrap .o_hrms_empty_icon {
+  font-size: 28px;
+  opacity: 0.42;
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   SCROLLABLE PANELS
+   ────────────────────────────────────────────────────────────────────────── */
+.o_hrms_workspace_wrap .o_hrms_fixed_list_card {
+  height: 330px !important;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.o_hrms_workspace_wrap .o_hrms_task_table_scroll {
+  flex: 1 1 auto;
+  min-height: 0;
+  max-height: 100%;
+  overflow-y: auto;
+  overflow-x: auto;
+  padding-right: 4px;
+}
+
+.o_hrms_workspace_wrap .o_hrms_task_table_scroll thead th {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: #fff;
+}
+
+.o_hrms_workspace_wrap .o_hrms_task_table_scroll::-webkit-scrollbar,
+.o_hrms_workspace_wrap .o_hrms_scroll_body::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.o_hrms_workspace_wrap .o_hrms_task_table_scroll::-webkit-scrollbar-track,
+.o_hrms_workspace_wrap .o_hrms_scroll_body::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.o_hrms_workspace_wrap .o_hrms_task_table_scroll::-webkit-scrollbar-thumb,
+.o_hrms_workspace_wrap .o_hrms_scroll_body::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background: linear-gradient(180deg, #cbd5e1 0%, #b8c5d7 100%);
+}
+
+.o_hrms_workspace_wrap .o_hrms_scroll_body {
+  flex: 1 1 auto;
+  min-height: 0;
+  max-height: 230px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-right: 6px;
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   FOCUS / ACCESSIBILITY
+   ────────────────────────────────────────────────────────────────────────── */
+.o_hrms_workspace_wrap button:focus-visible,
+.o_hrms_workspace_wrap .o_hrms_select:focus-visible,
+.o_hrms_workspace_wrap .o_hrms_row_open_btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.16) !important;
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   ANIMATIONS
+   ────────────────────────────────────────────────────────────────────────── */
+@keyframes o_hrms_pulse_dot {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.55);
+  }
+  50% {
+    box-shadow: 0 0 0 7px rgba(34, 197, 94, 0);
+  }
+}
+@keyframes o_hrms_pulse_dot_amber {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.55);
+  }
+  50% {
+    box-shadow: 0 0 0 7px rgba(245, 158, 11, 0);
+  }
+}
+@keyframes o_hrms_card_border_pulse {
+  0%, 100% {
+    box-shadow: 0 10px 24px rgba(34, 197, 94, 0.05);
+    border-color: rgba(34, 197, 94, 0.24);
+  }
+  50% {
+    box-shadow: 0 16px 34px rgba(34, 197, 94, 0.14);
+    border-color: rgba(34, 197, 94, 0.54);
+  }
+}
+/* ──────────────────────────────────────────────────────────────────────────
+   DARK THEME
+   ────────────────────────────────────────────────────────────────────────── */
+.o_hrms_workspace_wrap.o_hrms_theme_dark {
+  --micra-text-main: #f1f5f9;
+  --micra-text-soft: #bcc7d6;
+  --micra-text-muted: #94a3b8;
+  --micra-text-faint: #738295;
+  --micra-panel-bg: rgba(13, 20, 35, 0.84);
+  --micra-card-bg: rgba(17, 24, 39, 0.94);
+  --micra-card-bg-2: rgba(15, 23, 42, 0.96);
+  --micra-card-bg-3: rgba(19, 33, 54, 0.95);
+  background: radial-gradient(circle at 0% 0%, rgba(37, 99, 235, 0.16) 0%, transparent 24%), radial-gradient(circle at 100% 0%, rgba(139, 92, 246, 0.14) 0%, transparent 22%), radial-gradient(circle at 100% 100%, rgba(6, 182, 212, 0.1) 0%, transparent 20%), radial-gradient(circle at 20% 100%, rgba(236, 72, 153, 0.06) 0%, transparent 18%), linear-gradient(180deg, #08111f 0%, #0b1324 42%, #101827 100%) !important;
+  color: #e5e7eb;
+}
+
+.o_hrms_workspace_wrap.o_hrms_theme_dark::before {
+  background: linear-gradient(120deg, rgba(255, 255, 255, 0.03), transparent 25%, transparent 78%, rgba(255, 255, 255, 0.02)), linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent 30%);
+}
+
+.o_hrms_workspace_wrap.o_hrms_theme_dark::after {
+  opacity: 0.05;
+}
+
+.o_hrms_workspace_wrap.o_hrms_theme_dark .o_hrms_alert_box {
+  background: rgba(63, 18, 25, 0.92) !important;
+  color: #fecdd3 !important;
+  border: 1px solid rgba(127, 29, 29, 0.85) !important;
+}
+
+.o_hrms_workspace_wrap.o_hrms_theme_dark .o_hrms_hero_card,
+.o_hrms_workspace_wrap.o_hrms_theme_dark .o_hrms_section_card {
+  background: linear-gradient(180deg, rgba(17, 24, 39, 0.95) 0%, rgba(13, 20, 35, 0.97) 100%);
+  border: 1px solid rgba(42, 56, 78, 0.9);
+  box-shadow: 0 24px 50px rgba(0, 0, 0, 0.42), 0 4px 14px rgba(0, 0, 0, 0.26), inset 0 1px 0 rgba(255, 255, 255, 0.03);
+}
+
+.o_hrms_workspace_wrap.o_hrms_theme_dark .o_hrms_brand_strip {
+  background: linear-gradient(180deg, rgba(14, 24, 40, 0.95) 0%, rgba(12, 21, 36, 0.94) 100%);
+  border-bottom: 1px solid #223047;
+}
+
+.o_hrms_workspace_wrap.o_hrms_theme_dark .o_hrms_company_logo_box {
+  background: linear-gradient(180deg, #162133 0%, #0f172a 100%);
+  border: 1px solid #2b3b52;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.03);
+}
+
+.o_hrms_workspace_wrap.o_hrms_theme_dark .o_hrms_company_name,
+.o_hrms_workspace_wrap.o_hrms_theme_dark .o_hrms_section_title,
+.o_hrms_workspace_wrap.o_hrms_theme_dark .o_hrms_greeting_title,
+.o_hrms_workspace_wrap.o_hrms_theme_dark .o_hrms_today_panel_title,
+.o_hrms_workspace_wrap.o_hrms_theme_dark .o_hrms_today_value,
+.o_hrms_workspace_wrap.o_hrms_theme_dark .o_hrms_metric_value,
+.o_hrms_workspace_wrap.o_hrms_theme_dark .o_hrms_leave_title,
+.o_hrms_workspace_wrap.o_hrms_theme_dark .o_hrms_task_primary_name,
+.o_hrms_workspace_wrap.o_hrms_theme_dark .o_hrms_timer_selected_name {
+  color: #f8fafc;
+}
+
+.o_hrms_workspace_wrap.o_hrms_theme_dark .o_hrms_brand_sub,
+.o_hrms_workspace_wrap.o_hrms_theme_dark .o_hrms_section_subtitle,
+.o_hrms_workspace_wrap.o_hrms_theme_dark .o_hrms_greeting_subtitle,
+.o_hrms_workspace_wrap.o_hrms_theme_dark .o_hrms_today_label,
+.o_hrms_workspace_wrap.o_hrms_theme_dark .o_hrms_metric_label,
+.o_hrms_workspace_wrap.o_hrms_theme_dark .o_hrms_metric_hint,
+.o_hrms_workspace_wrap.o_hrms_theme_dark .o_hrms_leave_meta,
+.o_hrms_workspace_wrap.o_hrms_theme_dark .o_hrms_form_label,
+.o_hrms_workspace_wrap.o_hrms_theme_dark .o_hrms_timer_small_label {
+  color: #94a3b8;
+}
+
+.o_hrms_workspace_wrap.o_hrms_theme_dark .o_hrms_brand_clock {
+  background: linear-gradient(180deg, #132238 0%, #102033 100%);
+  border: 1px solid #28415f;
+  color: #93c5fd;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04), 0 8px 16px rgba(0, 0, 0, 0.18);
+}
+
+.o_hrms_workspace_wrap.o_hrms_theme_dark .o_hrms_today_panel,
+.o_hrms_workspace_wrap.o_hrms_theme_dark .o_hrms_timer_clock_big {
+  background: linear-gradient(160deg, rgba(15, 27, 45, 0.96) 0%, rgba(19, 34, 56, 0.96) 100%);
+  border: 1px solid #253652;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03), 0 10px 22px rgba(0, 0, 0, 0.2);
+}
+
+.o_hrms_workspace_wrap.o_hrms_theme_dark .o_hrms_today_item,
+.o_hrms_workspace_wrap.o_hrms_theme_dark .o_hrms_leave_card,
+.o_hrms_workspace_wrap.o_hrms_theme_dark .o_hrms_metric_card {
+  background: linear-gradient(180deg, rgba(15, 23, 42, 0.94) 0%, rgba(12, 19, 32, 0.97) 100%);
+  border: 1px solid #243041;
+  box-shadow: 0 12px 22px rgba(0, 0, 0, 0.24), inset 0 1px 0 rgba(255, 255, 255, 0.02);
+}
+
+.o_hrms_workspace_wrap.o_hrms_theme_dark .o_hrms_today_item:hover,
+.o_hrms_workspace_wrap.o_hrms_theme_dark .o_hrms_metric_card:hover,
+.o_hrms_workspace_wrap.o_hrms_theme_dark .o_hrms_leave_card:hover {
+  box-shadow: 0 18px 32px rgba(0, 0, 0, 0.34);
+}
+
+.o_hrms_workspace_wrap.o_hrms_theme_dark .o_hrms_timer_name_card.o_hrms_timer_project_card {
+  background: linear-gradient(160deg, #132238 0%, #102030 100%);
+  border-color: #28415f;
+}
+
+.o_hrms_workspace_wrap.o_hrms_theme_dark .o_hrms_timer_name_card.o_hrms_timer_task_card {
+  background: linear-gradient(160deg, #23173a 0%, #1c1331 100%);
+  border-color: #4c1d95;
+}
+
+.o_hrms_workspace_wrap.o_hrms_theme_dark .o_hrms_timer_project_card .o_hrms_timer_selected_name {
+  color: #93c5fd;
+}
+
+.o_hrms_workspace_wrap.o_hrms_theme_dark .o_hrms_timer_task_card .o_hrms_timer_selected_name {
+  color: #d8b4fe;
+}
+
+.o_hrms_workspace_wrap.o_hrms_theme_dark .o_hrms_btn_soft {
+  background: linear-gradient(180deg, #172233 0%, #132033 100%) !important;
+  color: #e2e8f0 !important;
+  border: 1px solid #2a3a52 !important;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.03);
+}
+
+.o_hrms_workspace_wrap.o_hrms_theme_dark .o_hrms_btn_soft:hover:not(:disabled) {
+  background: linear-gradient(180deg, #1d2d46 0%, #173151 100%) !important;
+  border-color: #3b82f6 !important;
+  color: #93c5fd !important;
+}
+
+.o_hrms_workspace_wrap.o_hrms_theme_dark .o_hrms_select {
+  background: linear-gradient(180deg, #0f172a 0%, #111b30 100%) !important;
+  color: #e2e8f0 !important;
+  border: 1px solid #334155 !important;
+  color-scheme: dark;
+}
+
+.o_hrms_workspace_wrap.o_hrms_theme_dark .o_hrms_select:focus {
+  border-color: #60a5fa !important;
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.18) !important;
+}
+
+.o_hrms_workspace_wrap.o_hrms_theme_dark .o_hrms_count_badge {
+  background: linear-gradient(180deg, #172554 0%, #142049 100%);
+  color: #bfdbfe;
+  border: 1px solid #1d4ed8;
+}
+
+.o_hrms_workspace_wrap.o_hrms_theme_dark .o_hrms_table thead tr,
+.o_hrms_workspace_wrap.o_hrms_theme_dark .o_hrms_table thead th,
+.o_hrms_workspace_wrap.o_hrms_theme_dark .o_hrms_task_table_scroll thead th {
+  background: linear-gradient(180deg, #0f1a2b 0%, #0d1727 100%) !important;
+  color: #94a3b8 !important;
+  border-bottom: 1px solid #243041 !important;
+}
+
+.o_hrms_workspace_wrap.o_hrms_theme_dark .o_hrms_table tbody tr {
+  border-bottom: 1px solid #1f2937;
+}
+
+.o_hrms_workspace_wrap.o_hrms_theme_dark .o_hrms_table tbody td {
+  color: #e2e8f0 !important;
+}
+
+.o_hrms_workspace_wrap.o_hrms_theme_dark .o_hrms_task_row:hover {
+  background: rgba(59, 130, 246, 0.1) !important;
+}
+
+.o_hrms_workspace_wrap.o_hrms_theme_dark .o_hrms_task_row.selected {
+  background: linear-gradient(90deg, rgba(37, 99, 235, 0.18) 0%, rgba(124, 58, 237, 0.16) 100%) !important;
+  box-shadow: inset 4px 0 0 #60a5fa;
+}
+
+.o_hrms_workspace_wrap.o_hrms_theme_dark .o_hrms_chip_table {
+  background: linear-gradient(180deg, #172233 0%, #121d2e 100%);
+  border: 1px solid #2a3a52;
+  color: #cbd5e1;
+}
+
+.o_hrms_workspace_wrap.o_hrms_theme_dark .o_hrms_row_open_btn {
+  background: linear-gradient(180deg, #172233 0%, #132033 100%) !important;
+  border: 1px solid #334155 !important;
+  color: #93c5fd !important;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.03);
+}
+
+.o_hrms_workspace_wrap.o_hrms_theme_dark .o_hrms_row_open_btn:hover {
+  background: linear-gradient(180deg, #1d2d46 0%, #173151 100%) !important;
+  border-color: #60a5fa !important;
+  color: #dbeafe !important;
+}
+
+.o_hrms_workspace_wrap.o_hrms_theme_dark .o_hrms_empty_state {
+  background: linear-gradient(180deg, #0f172a 0%, #0c1423 100%);
+  border: 1px dashed #334155;
+  color: #94a3b8;
+}
+
+.o_hrms_workspace_wrap.o_hrms_theme_dark .o_hrms_task_table_scroll::-webkit-scrollbar-thumb,
+.o_hrms_workspace_wrap.o_hrms_theme_dark .o_hrms_scroll_body::-webkit-scrollbar-thumb,
+.o_hrms_workspace_wrap.o_hrms_theme_dark .o_hrms_workspace_scrollable::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #475569 0%, #334155 100%);
+}
+
+.o_hrms_workspace_wrap.o_hrms_theme_dark .o_hrms_select option,
+.o_hrms_workspace_wrap.o_hrms_theme_dark select.form-select option,
+.o_hrms_workspace_wrap.o_hrms_theme_dark .form-select.o_hrms_select option {
+  background: #111827 !important;
+  color: #e2e8f0 !important;
+}
+
+.o_hrms_workspace_wrap.o_hrms_theme_dark .o_hrms_select option:checked,
+.o_hrms_workspace_wrap.o_hrms_theme_dark select.form-select option:checked,
+.o_hrms_workspace_wrap.o_hrms_theme_dark .form-select.o_hrms_select option:checked {
+  background: #2563eb !important;
+  color: #ffffff !important;
+}
+
+.o_hrms_workspace_wrap.o_hrms_theme_dark .o_hrms_select option:hover,
+.o_hrms_workspace_wrap.o_hrms_theme_dark select.form-select option:hover,
+.o_hrms_workspace_wrap.o_hrms_theme_dark .form-select.o_hrms_select option:hover {
+  background: #1d4ed8 !important;
+  color: #ffffff !important;
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   RESPONSIVE
+   ────────────────────────────────────────────────────────────────────────── */
+@media (max-width: 1199.98px) {
+  .o_hrms_workspace_wrap .o_hrms_hero_body {
+    grid-template-columns: 1fr;
+  }
+  .o_hrms_workspace_wrap .o_hrms_timer_clock_big {
+    align-items: flex-start;
+  }
+}
+@media (max-width: 767.98px) {
+  .o_hrms_workspace_wrap {
+    padding: 14px;
+  }
+  .o_hrms_workspace_wrap .o_hrms_brand_strip {
+    padding: 14px 16px 12px;
+  }
+  .o_hrms_workspace_wrap .o_hrms_hero_body {
+    padding: 18px 16px 20px;
+  }
+  .o_hrms_workspace_wrap .o_hrms_section_card {
+    padding: 18px;
+    border-radius: 22px;
+  }
+  .o_hrms_workspace_wrap .o_hrms_greeting_title {
+    font-size: 1.7rem;
+  }
+  .o_hrms_workspace_wrap .o_hrms_today_grid {
+    grid-template-columns: 1fr;
+  }
+  .o_hrms_workspace_wrap .o_hrms_metric_value {
+    font-size: 1.55rem;
+  }
+  .o_hrms_workspace_wrap .o_hrms_timer_big_value {
+    font-size: 2rem;
+  }
+  .o_hrms_workspace_wrap .o_hrms_section_header,
+  .o_hrms_workspace_wrap .o_hrms_timer_header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .o_hrms_workspace_wrap .o_hrms_brand_clock {
+    display: none;
+  }
+  .o_hrms_workspace_wrap .o_hrms_fixed_list_card {
+    height: 345px !important;
+  }
+  .o_hrms_workspace_wrap .o_hrms_scroll_body {
+    max-height: 245px;
+  }
+}
+@media (max-width: 479.98px) {
+  .o_hrms_workspace_wrap .o_hrms_action_row .o_hrms_btn_main,
+  .o_hrms_workspace_wrap .o_hrms_action_row .o_hrms_btn_soft,
+  .o_hrms_workspace_wrap .o_hrms_timer_buttons .o_hrms_timer_btn,
+  .o_hrms_workspace_wrap .o_hrms_row_open_btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+.o_hrms_btn_main1 {
+  display: none !important;
+}
+
+/* Late Check-in Badge Styling */
+.o_hrms_late_badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 14px;
+  margin-bottom: 12px;
+  border-radius: 12px;
+  background: rgba(254, 226, 226, 0.6);
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(220, 38, 38, 0.2);
+  color: #b91c1c;
+  font-size: 10.5px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  box-shadow: 0 4px 12px rgba(220, 38, 38, 0.08);
+}
+
+.o_hrms_late_dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #dc2626;
+  animation: o_hrms_pulse_late 2s infinite ease-in-out;
+}
+
+@keyframes o_hrms_pulse_late {
+  0% {
+    transform: scale(0.85);
+    box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.4);
+  }
+  70% {
+    transform: scale(1.1);
+    box-shadow: 0 0 0 8px rgba(220, 38, 38, 0);
+  }
+  100% {
+    transform: scale(0.85);
+    box-shadow: 0 0 0 0 rgba(220, 38, 38, 0);
+  }
+}
+
+/*# sourceMappingURL=dashboard.css.map */

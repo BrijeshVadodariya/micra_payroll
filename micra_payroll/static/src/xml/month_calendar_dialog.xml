@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="micra_payroll.WorkingDaysField">
+        <button type="button"
+                class="btn btn-link p-0 o_field_integer"
+                style="text-decoration:none; font:inherit;"
+                title="Open working days calendar"
+                t-on-click="openCalendar">
+            <t t-esc="value"/>
+        </button>
+    </t>
+
+    <t t-name="micra_payroll.WorkingDaysCalendarDialog">
+        <Dialog title="state.title + ' Calendar'" size="'lg'">
+            <t t-if="state.loading">
+                <div style="text-align:center; padding:44px 0; color:#6b7280;">
+                    <i class="fa fa-spinner fa-spin fa-2x"/>
+                    <div style="margin-top:10px;">Loading calendar...</div>
+                </div>
+            </t>
+
+            <t t-else="">
+                <div style="display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; margin-bottom:14px;">
+                    <div style="display:flex; gap:10px; flex-wrap:wrap;">
+                        <t t-foreach="state.legend" t-as="leg" t-key="leg.label">
+                            <span style="display:inline-flex; align-items:center; gap:6px; font-size:12px; color:#374151;">
+                                <span t-attf-style="display:inline-block; width:14px; height:14px; border-radius:3px; background:{{leg.bg}}; border:1px solid {{leg.border}};"/>
+                                <t t-esc="leg.label"/>
+                            </span>
+                        </t>
+                    </div>
+                    <div style="display:flex; gap:8px; font-size:13px;">
+                        <span style="color:#166534; font-weight:700;">
+                             <t t-esc="state.workingCount"/> working
+                        </span>
+                        <span style="color:#991b1b; font-weight:700;">
+                             <t t-esc="state.holidaysCount"/> holidays
+                        </span>
+                    </div>
+                </div>
+
+                <div style="overflow-x:auto;">
+                    <table style="width:100%; table-layout:fixed; border-collapse:separate; border-spacing:4px;">
+                        <thead>
+                            <tr>
+                                <t t-foreach="['Sun','Mon','Tue','Wed','Thu','Fri','Sat']" t-as="hdr" t-key="hdr">
+                                    <th t-attf-style="{{headerStyle(hdr_index)}} padding:6px 0; text-align:center; font-size:12px; text-transform:uppercase;">
+                                        <t t-esc="hdr"/>
+                                    </th>
+                                </t>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="state.weeks" t-as="week" t-key="week_index">
+                                <tr>
+                                    <t t-foreach="week" t-as="cell" t-key="cell_index">
+                                        <td t-attf-style="height:76px; vertical-align:top; border-radius:6px; padding:7px; cursor:{{cell ? 'pointer' : 'default'}}; {{dayStyle(cell)}}"
+                                            t-on-click="() => this.toggleDay(cell)"
+                                            t-att-title="cell ? 'Click to mark as ' + (cell.isWorking ? 'holiday' : 'working day') : ''">
+                                            <t t-if="cell">
+                                                <div style="display:flex; align-items:center; justify-content:space-between; gap:4px; margin-bottom:7px;">
+                                                    <span style="font-size:16px; font-weight:700; line-height:1;">
+                                                        <t t-esc="cell.day"/>
+                                                    </span>
+                                                    <t t-if="state.savingDate === cell.dateStr">
+                                                        <i class="fa fa-spinner fa-spin" style="font-size:11px;"/>
+                                                    </t>
+                                                    <t t-elif="cell.isToday">
+                                                        <span style="font-size:9px; font-weight:700; background:#4f46e5; color:#fff; border-radius:3px; padding:2px 4px;">TODAY</span>
+                                                    </t>
+                                                </div>
+                                                <div style="font-size:11px; font-weight:600; line-height:1.25; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;"
+                                                     t-att-title="cell.holidayName or cell.label">
+                                                    <t t-esc="cell.label"/>
+                                                </div>
+                                                <t t-if="cell.isManualWorking or cell.isManualHoliday">
+                                                    <div style="margin-top:4px; font-size:9px; opacity:.75;">Edited</div>
+                                                </t>
+                                            </t>
+                                        </td>
+                                    </t>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div style="margin-top:16px; padding:12px 14px; background:#f8fafc; border:1px solid #e2e8f0; border-radius:6px; color:#475569; font-size:13px;">
+                    Click any date to switch it between working and holiday. Working days are green; holidays and Sundays are red unless edited.
+                </div>
+            </t>
+
+            <t t-set-slot="footer">
+                <button class="btn btn-primary" t-on-click="props.close">Close</button>
+            </t>
+        </Dialog>
+    </t>
+
+    <t t-name="micra_payroll.LeavePeriodField">
+        <button type="button"
+                class="btn btn-link p-0 o_field_date"
+                style="text-decoration:none; font:inherit;"
+                title="Open employee leave calendar"
+                t-on-click="openCalendar">
+            <t t-esc="value"/>
+        </button>
+    </t>
+
+    <t t-name="micra_payroll.LeaveCalendarDialog">
+        <Dialog title="'Leaves - ' + state.employeeName + ' - ' + state.title" size="'lg'">
+            <t t-if="state.loading">
+                <div style="text-align:center; padding:44px 0; color:#6b7280;">
+                    <i class="fa fa-spinner fa-spin fa-2x"/>
+                    <div style="margin-top:10px;">Loading leaves...</div>
+                </div>
+            </t>
+
+            <t t-else="">
+                <div style="display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; margin-bottom:14px;">
+                    <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap; font-size:13px; color:#374151;">
+                        <span style="display:inline-flex; align-items:center; gap:6px;">
+                            <span style="display:inline-block; width:14px; height:14px; border-radius:3px; background:#fee2e2; border:1px solid #fca5a5;"/>
+                            Applied Leave
+                        </span>
+                        <span style="color:#991b1b; font-weight:700;">
+                            <t t-esc="state.leaveCount"/> leave days
+                        </span>
+                    </div>
+                    <div style="font-size:12px; color:#64748b;">
+                        <t t-if="state.canEdit">Click red leave day to edit.</t>
+                        <t t-else="">Click red leave day to view.</t>
+                    </div>
+                </div>
+
+                <div style="overflow-x:auto;">
+                    <table style="width:100%; table-layout:fixed; border-collapse:separate; border-spacing:4px;">
+                        <thead>
+                            <tr>
+                                <t t-foreach="['Sun','Mon','Tue','Wed','Thu','Fri','Sat']" t-as="hdr" t-key="hdr">
+                                    <th t-attf-style="{{headerStyle(hdr_index)}} padding:6px 0; text-align:center; font-size:12px; text-transform:uppercase;">
+                                        <t t-esc="hdr"/>
+                                    </th>
+                                </t>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="state.weeks" t-as="week" t-key="week_index">
+                                <tr>
+                                    <t t-foreach="week" t-as="cell" t-key="cell_index">
+                                        <td t-attf-style="height:84px; vertical-align:top; border-radius:6px; padding:7px; cursor:{{cell &amp;&amp; cell.hasLeave ? 'pointer' : 'default'}}; {{dayStyle(cell)}}"
+                                            t-on-click="() => this.openLeave(cell)"
+                                            t-att-title="cell &amp;&amp; cell.hasLeave ? cell.leaves[0].name : ''">
+                                            <t t-if="cell">
+                                                <div style="display:flex; align-items:center; justify-content:space-between; gap:4px; margin-bottom:7px;">
+                                                    <span style="font-size:16px; font-weight:700; line-height:1;">
+                                                        <t t-esc="cell.day"/>
+                                                    </span>
+                                                    <t t-if="cell.isToday">
+                                                        <span style="font-size:9px; font-weight:700; background:#4f46e5; color:#fff; border-radius:3px; padding:2px 4px;">TODAY</span>
+                                                    </t>
+                                                </div>
+                                                <t t-if="cell.hasLeave">
+                                                    <div style="font-size:11px; font-weight:700; line-height:1.25; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;"
+                                                         t-att-title="cell.leaves[0].type">
+                                                        <t t-esc="cell.leaves[0].type"/>
+                                                    </div>
+                                                    <t t-if="cell.leaves.length &gt; 1">
+                                                        <div style="margin-top:4px; font-size:10px; font-weight:700;">
+                                                            +<t t-esc="cell.leaves.length - 1"/> more
+                                                        </div>
+                                                    </t>
+                                                </t>
+                                            </t>
+                                        </td>
+                                    </t>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                </div>
+            </t>
+
+            <t t-set-slot="footer">
+                <button class="btn btn-primary" t-on-click="props.close">Close</button>
+            </t>
+        </Dialog>
+    </t>
+
+</templates>

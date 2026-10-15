@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_project_form_inherit_department_manager" model="ir.ui.view">
+            <field name="name">project.project.form.department.manager</field>
+            <field name="model">project.project</field>
+            <field name="inherit_id" ref="project.edit_project"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='user_id']" position="after">
+                    <field name="department_id"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_project_tree_inherit_department_manager" model="ir.ui.view">
+            <field name="name">project.project.tree.department.manager</field>
+            <field name="model">project.project</field>
+            <field name="inherit_id" ref="project.view_project"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="department_id" optional="show"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_task_form_inherit_department_manager" model="ir.ui.view">
+            <field name="name">project.task.form.department.manager</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_form2"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='project_id']" position="attributes">
+                    <attribute name="domain">[('department_id', '=', sprint_department_id)] if sprint_department_id else []</attribute>
+                </xpath>
+                <xpath expr="//field[@name='project_id']" position="after">
+                    <field name="sprint_department_id" invisible="1"/>
+                    <field name="department_id" readonly="1"/>
+                    <field name="sprint_id" options="{'no_create': True}" domain="[('department_id', '=', department_id)]"/>
+                    <field name="existing_task_id" options="{'no_create': True}" domain="[('sprint_id', '=', False), ('parent_id', '=', False), ('stage_id.fold', '=', False), ('stage_id.name', 'not ilike', 'completed'), ('project_id', '=', project_id)]" invisible="id"/>
+                    <field name="priority_level" widget="radio" options="{'horizontal': true}"/>
+                    <field name="completed_by_id" readonly="1" widget="many2one_avatar_user" invisible="not completed_by_id"/>
+                    <field name="completed_datetime_formatted" string="Completed Date/Time" readonly="1" invisible="not completed_by_id"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_task_tree_inherit_department_manager" model="ir.ui.view">
+            <field name="name">project.task.tree.department.manager</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_tree2"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="department_id" optional="show"/>
+                    <field name="sprint_id" optional="show"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- Inherit search view to map Priority group-by and filters to priority_level -->
+        <record id="view_task_search_form_inherit_priority_level" model="ir.ui.view">
+            <field name="name">project.task.search.inherit.priority.level</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_search_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//filter[@name='groupby_priority']" position="attributes">
+                    <attribute name="context">{'group_by': 'priority_level'}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='partner_id']" position="after">
+                    <filter string="High Priority" name="high_priority" domain="[('priority_level', '=', '1_high')]"/>
+                    <filter string="Medium Priority" name="medium_priority" domain="[('priority_level', '=', '2_medium')]"/>
+                    <filter string="Low Priority" name="low_priority" domain="[('priority_level', '=', '3_low')]"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

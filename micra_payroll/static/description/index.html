@@ -1,0 +1,1284 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Micra HR Payroll - Odoo 19 Attendance, Face Recognition &amp; Leave-Based Payroll</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&display=swap" rel="stylesheet">
+</head>
+
+<body style="margin:0; padding:0; background-color:#ffffff; font-family:'Segoe UI', Arial, sans-serif; color:#1f1f1f;">
+    <div class="container py-4 py-lg-5" style="max-width:1320px;">
+        <!-- MAIN HEADER -->
+        <section class="mb-4 mb-lg-5"
+            style="border:1px solid #f3dbe0; border-radius:28px; padding:36px 24px; background:linear-gradient(180deg,#ffffff 0%,#fff9fb 100%); box-shadow:0 14px 35px rgba(232,83,101,0.06);">
+            <div class="row align-items-center g-4">
+                <div class="col-lg-8">
+                    <div
+                        style="display:inline-block; background-color:#fff4f6; color:#e85365; border:1px solid #f2d6dc; border-radius:50px; padding:8px 14px; font-size:13px; font-weight:700; letter-spacing:0.4px; margin-bottom:18px;">
+                        MICRA DIGITAL
+                    </div>
+                    <h1
+                        style="margin:0 0 16px 0; font-size:35px; line-height:1; font-weight:550; color:#111111; font-family:'Kalam', cursive;">
+                        <span
+                            style="display:inline-block; padding:0 5px 3px 5px; margin-right:4px; border-bottom:5px solid #E01E5A;">
+                            Micra HR
+                        </span>
+                        <span
+                            style="display:inline-block; padding:0 5px 3px 5px; margin-right:4px; border-bottom:5px solid #36C5F0;">
+                            Payroll &amp; Face
+                        </span>
+                        <span style="display:inline-block; padding:0 5px 3px 5px; border-bottom:5px solid #2EB67D;">
+                            Attendance
+                        </span>
+                    </h1>
+                    <p style="margin:0; font-size:17px; line-height:1.9; color:#666666;">
+                        Easily calculate, manage, and disburse employee salaries in Odoo 19 with integrated attendance and leave automation.
+                        Features touchless
+                        <span style="color:#e85365; font-weight:700;">
+                            Face Recognition Kiosk check-in &amp; check-out, approved leaves &amp; visual holiday calendars,
+                        </span>
+                        bulk salary computation wizards by month or date period, and
+                        <span style="color:#e85365; font-weight:700;">
+                            integrated PDF payslip reports &amp; contribution registers
+                        </span>
+                        to generate with one click — true administrative control with
+                        <span style="color:#e85365; font-weight:700;">
+                            biometric precision, dynamic Python salary rules, and zero calculation headaches.
+                        </span>
+                    </p>
+                </div>
+                <div class="col-lg-4">
+                    <div style="padding:22px; text-align:center;">
+                        <div
+                            style="width:78px; height:78px; line-height:78px; margin:0 auto 14px auto; color:#e85365; font-size:56px; font-weight:700;">
+                            <i class="fa fa-user-circle-o"></i>
+                        </div>
+                        <h3 style="margin:0 0 8px 0; font-size:22px; font-weight:700; color:#1f1f1f;">
+                            Payroll &amp; Face Hub
+                        </h3>
+                        <p style="margin:0 0 16px 0; font-size:15px; line-height:1.8; color:#666666;">
+                            Face recognition kiosk attendance and leave-based payroll engine with pro-rated wage calculations.
+                        </p>
+                        <div style="display:flex; justify-content:center; flex-wrap:wrap; gap:8px;">
+                            <span
+                                style="margin: 4px; background:#fff4f6; border:1px solid #f2d6dc; color:#e85365; border-radius:20px; padding:5px 12px; font-size:12px; font-weight:700;">
+                                <i class="fa fa-camera" style="margin-right:5px;"></i>Face Check-in/Out
+                            </span>
+                            <span
+                                style="margin: 4px; background:#fff4f6; border:1px solid #f2d6dc; color:#e85365; border-radius:20px; padding:5px 12px; font-size:12px; font-weight:700;">
+                                <i class="fa fa-cogs" style="margin-right:5px;"></i>Auto-Compute
+                            </span>
+                            <span
+                                style="margin: 4px; background:#fff4f6; border:1px solid #f2d6dc; color:#e85365; border-radius:20px; padding:5px 12px; font-size:12px; font-weight:700;">
+                                <i class="fa fa-print" style="margin-right:5px;"></i>Print Payslips
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TOP CENTER TABS -->
+        <section class="mb-5" style="margin-bottom:3.5rem !important;">
+            <ul class="nav nav-tabs justify-content-center align-items-end border-0" role="tablist"
+                style="text-align:center; gap:0; border-bottom:1px solid #dfe7eb; --bs-nav-tabs-border-width:1px; --bs-nav-tabs-border-color:#dfe7eb; --bs-nav-tabs-border-radius:18px; --bs-nav-tabs-link-hover-border-color:#dfe7eb #dfe7eb #dfe7eb; --bs-nav-tabs-link-active-color:#e85365; --bs-nav-tabs-link-active-bg:#ffffff; --bs-nav-tabs-link-active-border-color:#dfe7eb #dfe7eb #ffffff; --bs-nav-link-color:#5b9ab0; --bs-nav-link-hover-color:#e85365;">
+                <li class="nav-item" role="presentation" style="margin:0 0 -1px 0;">
+                    <a class="nav-link active" id="overview-tab" data-bs-toggle="tab" href="#overview-pane" role="tab"
+                        aria-controls="overview-pane" aria-selected="true"
+                        style="min-width:190px; font-size:17px; font-weight:700; padding:16px 34px; border-radius:18px 18px 0 0; margin:0;">
+                        Description
+                    </a>
+                </li>
+                <li class="nav-item" role="presentation" style="margin:0 0 -1px 8px;">
+                    <a class="nav-link" id="screenshot-tab" data-bs-toggle="tab" href="#screenshot-pane" role="tab"
+                        aria-controls="screenshot-pane" aria-selected="false"
+                        style="min-width:190px; font-size:17px; font-weight:700; padding:16px 34px; border-radius:18px 18px 0 0; margin:0;">
+                        Screenshot
+                    </a>
+                </li>
+            </ul>
+        </section>
+
+        <div class="tab-content">
+            <!-- OVERVIEW TAB -->
+            <div aria-labelledby="overview-tab" class="tab-pane fade show active" id="overview-pane" role="tabpanel">
+                <!-- CONTACT US -->
+                <section class="mb-5">
+                    <div class="text-center mb-4">
+                        <h2
+                            style="margin:0 0 12px 0; font-size:36px; line-height:1; font-weight:700; color:#111111; font-family:'Kalam', cursive;">
+                            <span
+                                style="display:inline-block; padding:0 8px 7px 8px; margin-right:4px; border-bottom:2.5px solid #43d5cf;">
+                                Contact
+                            </span>
+                            <span
+                                style="display:inline-block; padding:0 8px 7px 8px; margin-right:4px; border-bottom:2.5px solid #ffba2f;">
+                                Our
+                            </span>
+                            <span
+                                style="display:inline-block; padding:0 8px 7px 8px; border-bottom:2.5px solid #f79ac0;">
+                                Team
+                            </span>
+                        </h2>
+                        <p style="margin:0 auto; max-width:760px; font-size:16px; line-height:1.9; color:#666666;">
+                            Contact Micra Digital instantly through WhatsApp, Email, or Phone.
+                        </p>
+                    </div>
+                    <div class="row g-4 justify-content-center">
+                        <!-- WHATSAPP CARD -->
+                        <div class="col-lg-4">
+                            <div
+                                style="height:100%; border:1px solid #f3e5f5; border-radius:22px; padding:32px 28px; background:#ffffff; box-shadow:0 8px 22px rgba(0,0,0,0.04); text-align:center;">
+                                <div style="font-size:54px; color:#25D366; margin-bottom:18px;">
+                                    <i class="fa fa-whatsapp"></i>
+                                </div>
+                                <div style="max-width:260px; margin:0 auto 22px auto;">
+                                    <img alt="WhatsApp QR" src="wha.png"
+                                        style="width:100%; height:auto; border-radius:16px;">
+                                </div>
+                                <a href="#"
+                                    style="display:inline-block; text-decoration:none; color:#ffffff; background:#25D366; padding:12px 26px; border-radius:30px; font-size:15px; font-weight:700;">
+                                    <i class="fa fa-whatsapp" style="margin-right:6px;"></i>
+                                    Open WhatsApp
+                                </a>
+                            </div>
+                        </div>
+                        <!-- EMAIL CARD -->
+                        <div class="col-lg-4">
+                            <div
+                                style="height:100%; border:1px solid #ffe6e6; border-radius:22px; padding:32px 28px; background:#ffffff; box-shadow:0 8px 22px rgba(0,0,0,0.04); text-align:center;">
+                                <div style="font-size:50px; color:#EA4335; margin-bottom:18px;">
+                                    <i class="fa fa-envelope"></i>
+                                </div>
+                                <div style="max-width:260px; margin:0 auto 22px auto;">
+                                    <img alt="Email QR" src="Email.png"
+                                        style="width:100%; height:auto; border-radius:16px;">
+                                </div>
+                                <a href="mailto:hello@micra.digital"
+                                    style="display:inline-block; text-decoration:none; color:#ffffff; background:#EA4335; padding:12px 26px; border-radius:30px; font-size:15px; font-weight:700;">
+                                    <i class="fa fa-envelope" style="margin-right:6px;"></i>
+                                    Send Mail
+                                </a>
+                            </div>
+                        </div>
+                        <!-- PHONE CARD -->
+                        <div class="col-lg-4">
+                            <div
+                                style="height:100%; border:1px solid #e3ecff; border-radius:22px; padding:32px 28px; background:#ffffff; box-shadow:0 8px 22px rgba(0,0,0,0.04); text-align:center;">
+                                <div style="font-size:52px; color:#0d6efd; margin-bottom:18px;">
+                                    <i class="fa fa-phone"></i>
+                                </div>
+                                <div style="max-width:260px; margin:0 auto 22px auto;">
+                                    <img alt="Phone QR" src="call.png"
+                                        style="width:100%; height:auto; border-radius:16px;">
+                                </div>
+                                <a href="tel:+911234567890"
+                                    style="display:inline-block; text-decoration:none; color:#ffffff; background:#0d6efd; padding:12px 26px; border-radius:30px; font-size:15px; font-weight:700;">
+                                    <i class="fa fa-phone" style="margin-right:6px;"></i>
+                                    Call Now
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- INTRO SECTION -->
+                <section class="mb-5">
+                    <div class="row align-items-center g-4">
+                        <div class="col-lg-7">
+                            <h2
+                                style="margin:0 0 12px 0; font-size:36px; line-height:1.1; font-weight:700; color:#111111; font-family:'Kalam', cursive;">
+                                <span
+                                    style="display:inline-block; padding:0 10px 7px 10px; margin-right:4px; border-bottom:2.5px solid #E01E5A;">
+                                    Automated
+                                </span>
+                                <span
+                                    style="display:inline-block; padding:0 10px 7px 10px; margin-right:4px; border-bottom:2.5px solid #36C5F0;">
+                                    Face Attendance &amp; Leave
+                                </span>
+                                <span
+                                    style="display:inline-block; padding:0 10px 7px 10px; border-bottom:2.5px solid #2EB67D;">
+                                    Salary Engine
+                                </span>
+                            </h2>
+                            <p style="margin:0 0 14px 0; font-size:16px; line-height:1.9; color:#666666;">
+                                Calculating monthly salaries manually with spreadsheets is tedious and prone to costly mistakes.
+                                Micra HR Payroll unifies touchless <b>Face Recognition Kiosk check-in / check-out</b>, monthly working day calendars,
+                                attendance break tracking, approved paid leaves, contract wage histories, and dynamic salary rules into an automated workflow.
+                            </p>
+                            <p style="margin:0; font-size:16px; line-height:1.9; color:#666666;">
+                                Employees check in and check out seamlessly using AI face recognition on tablets, phones, or webcams with IP restriction and password security.
+                                Automatically compute pro-rated pay based on actual attended days versus period baselines, batch-generate payslips for all employees using a smart wizard,
+                                and print official PDF payslips and statutory contribution register sheets instantly.
+                            </p>
+                        </div>
+                        <div class="col-lg-5">
+                            <div
+                                style="border:1px solid #f2d6dc; border-radius:22px; padding:26px; text-align:center; background-color:#fffafb; box-shadow:0 10px 28px rgba(232,83,101,0.05);">
+                                <div style="margin:0 auto 16px auto; font-size:46px; color:#e85365;">
+                                    <i class="fa fa-camera"></i>
+                                </div>
+                                <h4 style="margin:0 0 8px 0; font-size:22px; font-weight:700; color:#1f1f1f;">
+                                    Face Kiosk &amp; Payroll Setup
+                                </h4>
+                                <p style="margin:0 0 16px 0; font-size:15px; line-height:1.8; color:#666666;">
+                                    Contactless face recognition check-in/out kiosk combined with automated pro-rated payroll calculation and PDF reports.
+                                </p>
+                                <div style="display:flex; justify-content:center; flex-wrap:wrap; gap:8px;">
+                                    <span
+                                        style="margin: 4px; background:#fff4f6; border:1px solid #f2d6dc; color:#e85365; border-radius:20px; padding:5px 14px; font-size:12px; font-weight:700;">
+                                        <i class="fa fa-user-circle" style="margin-right:5px;"></i>Face Recognition Kiosk
+                                    </span>
+                                    <span
+                                        style="margin: 4px; background:#fff4f6; border:1px solid #f2d6dc; color:#e85365; border-radius:20px; padding:5px 14px; font-size:12px; font-weight:700;">
+                                        <i class="fa fa-calendar-check-o" style="margin-right:5px;"></i>Working Days Config
+                                    </span>
+                                    <span
+                                        style="margin: 4px; background:#fff4f6; border:1px solid #f2d6dc; color:#e85365; border-radius:20px; padding:5px 14px; font-size:12px; font-weight:700;">
+                                        <i class="fa fa-magic" style="margin-right:5px;"></i>Batch Compute Wizard
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- HIGHLIGHT SECTION -->
+                <section class="mb-5">
+                    <div class="row g-4">
+                        <!-- CARD 1 -->
+                        <div class="col-md-6">
+                            <div
+                                style="height:100%; border:1px solid #f2d6dc; border-radius:24px; padding:32px 24px; background:linear-gradient(180deg,#fffafb 0%,#ffffff 100%); box-shadow:0 10px 24px rgba(232,83,101,0.05); text-align:center;">
+                                <div style="margin:0 auto 14px auto; font-size:40px; color:#e85365;">
+                                    <i class="fa fa-user-circle-o"></i>
+                                </div>
+                                <h2
+                                    style="margin:0 0 12px 0; font-size:26px; line-height:1.25; font-weight:700; color:#111111; font-family:'Kalam', cursive;">
+                                    <span
+                                        style="display:inline-block; padding:0 8px 6px 8px; margin-right:4px; border-bottom:2.5px solid #E01E5A;">
+                                        Face Recognition
+                                    </span>
+                                    <span
+                                        style="display:inline-block; padding:0 8px 6px 8px; margin-right:4px; border-bottom:2.5px solid #2EB67D;">
+                                        Check-In / Out
+                                    </span>
+                                    <span
+                                        style="display:inline-block; padding:0 8px 6px 8px; border-bottom:2.5px solid #36C5F0;">
+                                        Kiosk Mode
+                                    </span>
+                                </h2>
+                                <p style="margin:0 auto 20px auto; font-size:15px; line-height:1.9; color:#666666;">
+                                    Enables contactless AI facial verification kiosk mode for swift employee check-in and check-out. Eliminates buddy punching,
+                                    logs live timestamps and break durations, and directly syncs attendance hours into monthly payroll calculations.
+                                </p>
+                                <div
+                                    style="display:inline-block; background:#fff4f6; color:#e85365; border:1px solid #f2d6dc; border-radius:50px; padding:10px 18px; font-size:13px; font-weight:700;">
+                                    <i class="fa fa-check-circle" style="margin-right:8px;"></i>
+                                    Touchless Face Check-In &amp; Check-Out
+                                </div>
+                            </div>
+                        </div>
+                        <!-- CARD 2 -->
+                        <div class="col-md-6">
+                            <div
+                                style="height:100%; border:1px solid #f2d6dc; border-radius:24px; padding:32px 24px; background:linear-gradient(180deg,#fffafb 0%,#ffffff 100%); box-shadow:0 10px 24px rgba(232,83,101,0.05); text-align:center;">
+                                <div style="margin:0 auto 14px auto; font-size:40px; color:#e85365;">
+                                    <i class="fa fa-cogs"></i>
+                                </div>
+                                <h2
+                                    style="margin:0 0 12px 0; font-size:26px; line-height:1.25; font-weight:700; color:#111111; font-family:'Kalam', cursive;">
+                                    <span
+                                        style="display:inline-block; padding:0 8px 6px 8px; margin-right:4px; border-bottom:2.5px solid #E01E5A;">
+                                        Dynamic Salary
+                                    </span>
+                                    <span
+                                        style="display:inline-block; padding:0 8px 6px 8px; margin-right:4px; border-bottom:2.5px solid #2EB67D;">
+                                        Rules &amp;
+                                    </span>
+                                    <span
+                                        style="display:inline-block; padding:0 8px 6px 8px; border-bottom:2.5px solid #36C5F0;">
+                                        Structures
+                                    </span>
+                                </h2>
+                                <p style="margin:0 auto 20px auto; font-size:15px; line-height:1.9; color:#666666;">
+                                    Empower salary computations with flexible salary rules supporting Python formulas, percentages,
+                                    or fixed values. Organize earnings, allowances, deductions, and contribution registers with
+                                    complete transparency and official audit readiness.
+                                </p>
+                                <div
+                                    style="display:inline-block; background:#fff4f6; color:#e85365; border:1px solid #f2d6dc; border-radius:50px; padding:10px 18px; font-size:13px; font-weight:700;">
+                                    <i class="fa fa-star" style="margin-right:8px;"></i>
+                                    Python-Powered Rules Engine
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- HOW IT WORKS -->
+                <section class="mb-5">
+                    <div class="text-center mb-4">
+                        <h2
+                            style="margin:0 0 10px 0; font-size:36px; line-height:1.2; font-weight:700; color:#111111; font-family:'Kalam', cursive;">
+                            <span
+                                style="display:inline-block; padding:0 10px 7px 10px; margin-right:4px; border-bottom:2.5px solid #43d5cf;">
+                                How
+                            </span>
+                            <span
+                                style="display:inline-block; padding:0 10px 7px 10px; margin-right:4px; border-bottom:2.5px solid #ffb733;">
+                                It
+                            </span>
+                            <span
+                                style="display:inline-block; padding:0 10px 7px 10px; border-bottom:2.5px solid #f79ac0;">
+                                Works
+                            </span>
+                        </h2>
+                    </div>
+                    <div class="row g-4">
+                        <div class="col-md-6 col-lg-4">
+                            <div
+                                style="height:100%; border:1px solid #f2d6dc; border-radius:22px; padding:28px 24px; background-color:#fffafb; box-shadow:0 10px 25px rgba(232,83,101,0.05); text-align:center;">
+                                <div style="font-size:34px; color:#e85365; margin-bottom:14px;">
+                                    <i class="fa fa-camera"></i>
+                                </div>
+                                <h4 style="margin:0 0 10px 0; font-size:21px; font-weight:700; color:#1f1f1f;">1. Face Check-In &amp; Calendar</h4>
+                                <p style="margin:0; font-size:15px; line-height:1.9; color:#666666;">
+                                    Employees check in and check out seamlessly via Face Recognition Kiosk. Working days and public holidays are configured in the visual calendar.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-4">
+                            <div
+                                style="height:100%; border:1px solid #f2d6dc; border-radius:22px; padding:28px 24px; background-color:#fffafb; box-shadow:0 10px 25px rgba(232,83,101,0.05); text-align:center;">
+                                <div style="font-size:34px; color:#e85365; margin-bottom:14px;">
+                                    <i class="fa fa-magic"></i>
+                                </div>
+                                <h4 style="margin:0 0 10px 0; font-size:21px; font-weight:700; color:#1f1f1f;">2. Batch Compute Salaries</h4>
+                                <p style="margin:0; font-size:15px; line-height:1.9; color:#666666;">
+                                    Launch the batch computation wizard to aggregate verified face attendance logs, calculate worked days, and generate draft payslips.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-4">
+                            <div
+                                style="height:100%; border:1px solid #f2d6dc; border-radius:22px; padding:28px 24px; background-color:#fffafb; box-shadow:0 10px 25px rgba(232,83,101,0.05); text-align:center;">
+                                <div style="font-size:34px; color:#e85365; margin-bottom:14px;">
+                                    <i class="fa fa-print"></i>
+                                </div>
+                                <h4 style="margin:0 0 10px 0; font-size:21px; font-weight:700; color:#1f1f1f;">3. Verify &amp; Print Payslips</h4>
+                                <p style="margin:0; font-size:15px; line-height:1.9; color:#666666;">
+                                    Review computed salary sheets, make optional manual adjustments or bonus additions, confirm payslip batches, and export official PDF reports.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- FEATURES -->
+                <section class="mb-5">
+                    <div class="text-center mb-4">
+                        <h2
+                            style="margin:0 0 10px 0; font-size:36px; line-height:1.42; font-weight:700; color:#111111; font-family:'Kalam', cursive;">
+                            <span
+                                style="display:inline-block; padding:0 10px 7px 10px; margin-right:4px; border-bottom:2.5px solid #E01E5A;">
+                                App
+                            </span>
+                            <span
+                                style="display:inline-block; padding:0 10px 7px 10px; margin-right:4px; border-bottom:2.5px solid #2EB67D;">
+                                Key
+                            </span>
+                            <span
+                                style="display:inline-block; padding:0 10px 7px 10px; border-bottom:3px solid #36C5F0;">
+                                Features
+                            </span>
+                        </h2>
+                        <p style="margin:0; font-size:16px; line-height:1.8; color:#666666;">
+                            Everything you need to automate payroll processing, touchless face check-in/out, and employee compensation rules.
+                        </p>
+                    </div>
+                    <div class="row g-4">
+                        <div class="col-md-6 col-lg-3">
+                            <div
+                                style="height:100%; border:2px solid #e85365; border-radius:22px; padding:24px; background-color:#fffafb; box-shadow:0 10px 25px rgba(232,83,101,0.1);">
+                                <div style="font-size:28px; color:#e85365; margin-bottom:14px;">
+                                    <i class="fa fa-user-circle-o"></i>
+                                </div>
+                                <h4 style="margin:0 0 10px 0; font-size:21px; font-weight:700; color:#1f1f1f;">
+                                    Face Recognition Kiosk
+                                </h4>
+                                <p style="margin:0 0 14px 0; font-size:15px; line-height:1.9; color:#666666;">
+                                    <strong>Unique Highlight:</strong> Touchless AI face recognition check-in &amp; check-out kiosk mode with Wi-Fi IP restrictions and device password authorization.
+                                </p>
+                                <span
+                                    style="display:inline-block; background:#fff4f6; border:1px solid #f2d6dc; color:#e85365; border-radius:20px; padding:6px 12px; font-size:12px; font-weight:700;">
+                                    <i class="fa fa-bolt" style="margin-right:5px;"></i>Face Check-In/Out
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3">
+                            <div
+                                style="height:100%; border:2px solid #36C5F0; border-radius:22px; padding:24px; background-color:#fffafb; box-shadow:0 10px 25px rgba(54,197,240,0.1);">
+                                <div style="font-size:28px; color:#36C5F0; margin-bottom:14px;">
+                                    <i class="fa fa-calendar-check-o"></i>
+                                </div>
+                                <h4 style="margin:0 0 10px 0; font-size:21px; font-weight:700; color:#1f1f1f;">
+                                    Working Days &amp; Calendar
+                                </h4>
+                                <p style="margin:0 0 14px 0; font-size:15px; line-height:1.9; color:#666666;">
+                                    <strong>Unique Highlight:</strong> Interactive monthly calendar to configure working days, weekend policies, and national/gazetted public holidays.
+                                </p>
+                                <span
+                                    style="display:inline-block; background:#f0faff; border:1px solid #cceeff; color:#36C5F0; border-radius:20px; padding:6px 12px; font-size:12px; font-weight:700;">
+                                    Visual Calendar
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3">
+                            <div
+                                style="height:100%; border:1px solid #f2d6dc; border-radius:22px; padding:24px; background-color:#fffafb; box-shadow:0 10px 25px rgba(232,83,101,0.05);">
+                                <div style="font-size:28px; color:#2EB67D; margin-bottom:14px;">
+                                    <i class="fa fa-magic"></i>
+                                </div>
+                                <h4 style="margin:0 0 10px 0; font-size:21px; font-weight:700; color:#1f1f1f;">
+                                    Batch Computation Wizard
+                                </h4>
+                                <p style="margin:0 0 14px 0; font-size:15px; line-height:1.9; color:#666666;">
+                                    Calculate pro-rated salaries for all or selected employees in bulk for any month or custom date period with automated payslip generation.
+                                </p>
+                                <span
+                                    style="display:inline-block; background:#e8f5e9; border:1px solid #c8e6c9; color:#2EB67D; border-radius:30px; padding:6px 12px; font-size:12px; font-weight:700;">
+                                    Batch Compute
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3">
+                            <div
+                                style="height:100%; border:1px solid #f2d6dc; border-radius:22px; padding:24px; background-color:#fffafb; box-shadow:0 10px 25px rgba(232,83,101,0.05);">
+                                <div style="font-size:28px; color:#e85365; margin-bottom:14px;">
+                                    <i class="fa fa-file-pdf-o"></i>
+                                </div>
+                                <h4 style="margin:0 0 10px 0; font-size:21px; font-weight:700; color:#1f1f1f;">
+                                    Printable PDF Reports
+                                </h4>
+                                <p style="margin:0 0 14px 0; font-size:15px; line-height:1.9; color:#666666;">
+                                    Generate official employee payslips, comprehensive salary rule breakdown sheets, and statutory contribution register reports with one click.
+                                </p>
+                                <span
+                                    style="display:inline-block; background:#fff4f6; border:1px solid #f2d6dc; color:#e85365; border-radius:30px; padding:6px 12px; font-size:12px; font-weight:700;">
+                                    Standard PDF Payslips
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- TECH DETAILS -->
+                <section class="mb-5">
+                    <div class="row g-4">
+                        <div class="col-lg-6">
+                            <div
+                                style="height:100%; border:1px solid #f2d6dc; border-radius:22px; padding:28px 24px; background:#fffafb; box-shadow:0 10px 25px rgba(232,83,101,0.05);">
+                                <h3
+                                    style="margin:0 0 18px 0; font-size:28px; font-weight:700; color:#111111; font-family:'Kalam', cursive;">
+                                    Administrative Highlights
+                                </h3>
+                                <div style="display:flex; align-items:flex-start; gap:12px; margin-bottom:14px;">
+                                    <i class="fa fa-camera"
+                                        style="font-size:18px; color:#e85365; margin-top:4px; margin-right:12px;"></i>
+                                    <p style="margin:0; font-size:15px; line-height:1.8; color:#666666;">
+                                        <b>Face Capture &amp; Security Controls</b>: Register employee facial profiles on HR forms. Control kiosk access with device passwords and allowed Wi-Fi IP subnets.
+                                    </p>
+                                </div>
+                                <div style="display:flex; align-items:flex-start; gap:12px; margin-bottom:14px;">
+                                    <i class="fa fa-id-card-o"
+                                        style="font-size:18px; color:#e85365; margin-top:4px; margin-right:12px;"></i>
+                                    <p style="margin:0; font-size:15px; line-height:1.8; color:#666666;">
+                                        <b>Contract &amp; Wage Sync</b>: Integrates with employee contracts (hr.version) and wage records to ensure accurate compensation calculations.
+                                    </p>
+                                </div>
+                                <div style="display:flex; align-items:flex-start; gap:12px; margin-bottom:14px;">
+                                    <i class="fa fa-lock"
+                                        style="font-size:18px; color:#e85365; margin-top:4px; margin-right:12px;"></i>
+                                    <p style="margin:0; font-size:15px; line-height:1.8; color:#666666;">
+                                        <b>Access Control &amp; Security</b>: Dedicated Payroll User and Payroll Manager security groups protect sensitive compensation information.
+                                    </p>
+                                </div>
+                                <div style="display:flex; align-items:flex-start; gap:12px;">
+                                    <i class="fa fa-building"
+                                        style="font-size:18px; color:#e85365; margin-top:4px; margin-right:12px;"></i>
+                                    <p style="margin:0; font-size:15px; line-height:1.8; color:#666666;">
+                                        <b>Multi-Company Architecture</b>: Fully supports multi-company environments with company-specific working day configurations and salary registers.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div
+                                style="height:100%; border:1px solid #f2d6dc; border-radius:22px; padding:28px 24px; background:#fffafb; box-shadow:0 10px 25px rgba(232,83,101,0.05);">
+                                <h3
+                                    style="margin:0 0 18px 0; font-size:28px; font-weight:700; color:#111111; font-family:'Kalam', cursive;">
+                                    Use Cases
+                                </h3>
+                                <div style="display:flex; align-items:flex-start; gap:12px; margin-bottom:14px;">
+                                    <i class="fa fa-user-circle"
+                                        style="font-size:18px; color:#e85365; margin-top:4px; margin-right:12px;"></i>
+                                    <p style="margin:0; font-size:15px; line-height:1.8; color:#666666;">
+                                        Front desks, manufacturing plants, and offices seeking touchless face recognition check-in/out kiosk terminals without hardware biometrics.
+                                    </p>
+                                </div>
+                                <div style="display:flex; align-items:flex-start; gap:12px; margin-bottom:14px;">
+                                    <i class="fa fa-users"
+                                        style="font-size:18px; color:#e85365; margin-top:4px; margin-right:12px;"></i>
+                                    <p style="margin:0; font-size:15px; line-height:1.8; color:#666666;">
+                                        Corporate enterprises looking to automate monthly salary disbursements based on real-time attendance without spreadsheets.
+                                    </p>
+                                </div>
+                                <div style="display:flex; align-items:flex-start; gap:12px; margin-bottom:14px;">
+                                    <i class="fa fa-clock-o"
+                                        style="font-size:18px; color:#e85365; margin-top:4px; margin-right:12px;"></i>
+                                    <p style="margin:0; font-size:15px; line-height:1.8; color:#666666;">
+                                        Shift and hourly workforces requiring accurate pro-rated compensation derived from check-in logs, break times, and late arrivals.
+                                    </p>
+                                </div>
+                                <div style="display:flex; align-items:flex-start; gap:12px;">
+                                    <i class="fa fa-file-text"
+                                        style="font-size:18px; color:#e85365; margin-top:4px; margin-right:12px;"></i>
+                                    <p style="margin:0; font-size:15px; line-height:1.8; color:#666666;">
+                                        HR and finance departments demanding clear statutory contribution register reports for PF, tax deductions, and compliance audits.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- EXPLORE OTHER APPS -->
+                <section class="mb-5">
+                    <div class="text-center mb-4">
+                        <h2
+                            style="margin:0 0 10px 0; font-size:36px; line-height:1; font-weight:700; color:#111111; font-family:'Kalam', cursive;">
+                            <span
+                                style="display:inline-block; padding:0 10px 7px 10px; margin-right:2px; border-bottom:2.5px solid #43d5cf;">
+                                Explore
+                            </span>
+                            <span
+                                style="display:inline-block; padding:0 10px 7px 10px; margin-right:2px; border-bottom:2.5px solid #ffb733;">
+                                More
+                            </span>
+                            <span
+                                style="display:inline-block; padding:0 10px 7px 10px; border-bottom:2.5px solid #f79ac0;">
+                                Odoo Apps
+                            </span>
+                        </h2>
+                        <p style="margin:0; font-size:16px; line-height:1.8; color:#666666;">
+                            Explore more powerful modules developed by Micra Digital to enhance your Odoo experience.
+                        </p>
+                    </div>
+                    <div class="row g-4">
+                        <!-- APP -->
+                        <div class="col-md-6 col-lg-4">
+                            <a href="https://apps.odoo.com/apps/modules/18.0/odoo_ai"
+                                style="display:block; text-decoration:none;">
+                                <div
+                                    style="height:100%; border:1px solid #f2d6dc; border-radius:22px; overflow:hidden; background-color:#fffafb;">
+                                    <img alt="Odoo AI Bot" class="img-fluid w-100" src="odooai.png"
+                                        style="border-bottom:1px solid #f2d6dc;">
+                                    <div style="padding:20px;">
+                                        <h4 style="margin:0; font-size:20px; font-weight:600; color:#1f1f1f;">
+                                            Odoo AI Bot
+                                        </h4>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <!-- APP -->
+                        <div class="col-md-6 col-lg-4">
+                            <a href="https://apps.odoo.com/apps/modules/19.0/pos_stripe_refund"
+                                style="display:block; text-decoration:none;">
+                                <div
+                                    style="height:100%; border:1px solid #f2d6dc; border-radius:22px; overflow:hidden; background-color:#fffafb;">
+                                    <img alt="POS Stripe Refund" class="img-fluid w-100" src="striperefund.png"
+                                        style="border-bottom:1px solid #f2d6dc;">
+                                    <div style="padding:20px;">
+                                        <h4 style="margin:0; font-size:20px; font-weight:600; color:#1f1f1f;">
+                                            POS Stripe Refund
+                                        </h4>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <!-- APP -->
+                        <div class="col-md-6 col-lg-4">
+                            <a href="https://apps.odoo.com/apps/modules/19.0/pos_stocks_live"
+                                style="display:block; text-decoration:none;">
+                                <div
+                                    style="height:100%; border:1px solid #f2d6dc; border-radius:22px; overflow:hidden; background-color:#fffafb;">
+                                    <img alt="POS Stocks Management" class="img-fluid w-100" src="stocklive.png"
+                                        style="border-bottom:1px solid #f2d6dc;">
+                                    <div style="padding:20px;">
+                                        <h4 style="margin:0; font-size:20px; font-weight:600; color:#1f1f1f;">
+                                            POS Stocks Management
+                                        </h4>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <!-- APP -->
+                        <div class="col-md-6 col-lg-4">
+                            <a href="https://apps.odoo.com/apps/modules/17.0/pos_stocks_expiry"
+                                style="display:block; text-decoration:none;">
+                                <div
+                                    style="height:100%; border:1px solid #f2d6dc; border-radius:22px; overflow:hidden; background-color:#fffafb;">
+                                    <img alt="POS Stocks Expiry" class="img-fluid w-100" src="stockexpiry.png"
+                                        style="border-bottom:1px solid #f2d6dc;">
+                                    <div style="padding:20px;">
+                                        <h4 style="margin:0; font-size:20px; font-weight:600; color:#1f1f1f;">
+                                            POS Stocks Expiry
+                                        </h4>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <!-- APP -->
+                        <div class="col-md-6 col-lg-4">
+                            <a href="https://apps.odoo.com/apps/modules/19.0/machine_scheduling_advanced"
+                                style="display:block; text-decoration:none;">
+                                <div
+                                    style="height:100%; border:1px solid #f2d6dc; border-radius:22px; overflow:hidden; background-color:#fffafb;">
+                                    <img alt="Advanced Manufacturing Scheduling" class="img-fluid w-100"
+                                        src="machines.png" style="border-bottom:1px solid #f2d6dc;">
+                                    <div style="padding:20px;">
+                                        <h4 style="margin:0; font-size:20px; font-weight:600; color:#1f1f1f;">
+                                            Advanced Manufacturing Scheduling
+                                        </h4>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <!-- APP -->
+                        <div class="col-md-6 col-lg-4">
+                            <a href="https://apps.odoo.com/apps/modules/18.0/Odoo_rest_api"
+                                style="display:block; text-decoration:none;">
+                                <div
+                                    style="height:100%; border:1px solid #f2d6dc; border-radius:22px; overflow:hidden; background-color:#fffafb;">
+                                    <img alt="Odoo Dynamic REST API" class="img-fluid w-100" src="odooapi.png"
+                                        style="border-bottom:1px solid #f2d6dc;">
+                                    <div style="padding:20px;">
+                                        <h4 style="margin:0; font-size:20px; font-weight:600; color:#1f1f1f;">
+                                            Odoo Dynamic REST API
+                                        </h4>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- FAQ -->
+                <section class="mb-5">
+                    <div class="text-center mb-4">
+                        <h2
+                            style="margin:0 0 10px 0; font-size:36px; line-height:1; font-weight:700; color:#111111; font-family:'Kalam', cursive;">
+                            <span
+                                style="display:inline-block; padding:0 10px 7px 10px; margin-right:2px; border-bottom:2.5px solid #f79ac0;">
+                                Frequently
+                            </span>
+                            <span
+                                style="display:inline-block; padding:0 10px 7px 10px; margin-right:2px; border-bottom:2.5px solid #ffb733;">
+                                Asked
+                            </span>
+                            <span
+                                style="display:inline-block; padding:0 10px 7px 10px; border-bottom:2.5px solid #43d5cf;">
+                                Questions
+                            </span>
+                        </h2>
+                        <p style="margin:0; font-size:16px; line-height:1.8; color:#666666;">
+                            Common questions buyers usually ask before installation.
+                        </p>
+                    </div>
+                    <div class="row g-3">
+                        <div class="col-12">
+                            <div
+                                style="border:1px solid #f2d6dc; border-radius:18px; padding:20px; background-color:#fffafb; box-shadow:0 8px 22px rgba(232,83,101,0.04);">
+                                <h5 style="margin:0 0 8px 0; font-size:18px; font-weight:700; color:#1f1f1f;">How does Face Recognition Check-In and Check-Out work in kiosk mode?</h5>
+                                <p style="margin:0; font-size:15px; line-height:1.9; color:#666666;">
+                                    Employees simply look at the kiosk camera (on any tablet, laptop, or phone). The AI face recognition engine verifies their facial profile in real-time, logs the timestamped check-in or check-out, and automatically syncs the worked hours and breaks into the payroll calculation.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div
+                                style="border:1px solid #f2d6dc; border-radius:18px; padding:20px; background-color:#fffafb; box-shadow:0 8px 22px rgba(232,83,101,0.04);">
+                                <h5 style="margin:0 0 8px 0; font-size:18px; font-weight:700; color:#1f1f1f;">How does the module calculate monthly salaries based on attendance?</h5>
+                                <p style="margin:0; font-size:15px; line-height:1.9; color:#666666;">
+                                    The module retrieves the configured working days for the given period, fetches the employee's actual attendance check-ins and approved paid leaves, and calculates pro-rated payable days according to the salary rule formula.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div
+                                style="border:1px solid #f2d6dc; border-radius:18px; padding:20px; background-color:#fffafb; box-shadow:0 8px 22px rgba(232,83,101,0.04);">
+                                <h5 style="margin:0 0 8px 0; font-size:18px; font-weight:700; color:#1f1f1f;">Can I manually adjust worked days, leaves, or add bonuses?</h5>
+                                <p style="margin:0; font-size:15px; line-height:1.9; color:#666666;">
+                                    Yes! Each payslip includes a "Manual Work Days Override" toggle, manual paid leaves adjustment, and an "Extra Bonus" field that Payroll Managers can edit directly without losing automated computations.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div
+                                style="border:1px solid #f2d6dc; border-radius:18px; padding:20px; background-color:#fffafb; box-shadow:0 8px 22px rgba(232,83,101,0.04);">
+                                <h5 style="margin:0 0 8px 0; font-size:18px; font-weight:700; color:#1f1f1f;">Can I generate payslips in bulk for all employees at once?</h5>
+                                <p style="margin:0; font-size:15px; line-height:1.9; color:#666666;">
+                                    Yes! Use the Batch Salary Computation Wizard to compute salaries for all employees for any calendar month or custom date range, or use Payslip Batches (Payslip Runs) to process and confirm them together.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- FINAL CTA -->
+                <section class="mt-5 mb-4"
+                    style="background:#ffffff; border:1px solid #e9e9e9; border-radius:24px; padding:40px 28px; box-shadow:0 10px 25px rgba(0,0,0,0.04);">
+                    <div class="container-fluid">
+                        <div class="row align-items-center g-4">
+                            <div class="col-lg-7">
+                                <div class="d-flex align-items-center flex-wrap mb-3" style="gap:14px;">
+                                    <img alt="Micra Digital Logo" src="logoo.png"
+                                        style="height:60px; width:60px; object-fit:contain; border-radius:14px;">
+                                    <span
+                                        style="font-size:13px; font-weight:600; color:#e85365; border:1px solid #f2d6dc; padding:6px 14px; border-radius:30px; background:#fff4f6;">
+                                        MICRA DIGITAL
+                                    </span>
+                                </div>
+                                <h2
+                                    style="margin:0 0 14px 0; font-size:36px; font-weight:700; color:#111111; font-family:'Kalam', cursive; line-height:1;">
+                                    <span
+                                        style="display:inline-block; padding:0 10px 7px 10px; margin-right:4px; border-bottom:3px solid #f79ac0;">
+                                        Ready
+                                    </span>
+                                    <span
+                                        style="display:inline-block; padding:0 10px 7px 10px; margin-right:4px; border-bottom:3px solid #43d5cf;">
+                                        to Use
+                                    </span>
+                                    <span
+                                        style="display:inline-block; padding:0 10px 7px 10px; border-bottom:3px solid #ffb733;">
+                                        This App?
+                                    </span>
+                                </h2>
+                                <p style="font-size:16px; line-height:1.9; color:#666666; margin:0 0 22px 0;">
+                                    Our team at <b>Micra Digital</b> builds practical Odoo solutions that improve
+                                    everyday business workflows. Contact us for installation support, customization, or
+                                    product guidance.
+                                </p>
+                                <div class="d-flex flex-wrap" style="gap:14px;">
+                                    <a href="mailto:hello@micra.digital"
+                                        style="background:#ffffff; color:#333333; padding:13px 24px; border-radius:30px; border:1px solid #e6e6e6; text-decoration:none; font-weight:600; display:inline-block;">
+                                        <i class="fa fa-envelope" style="margin-right:6px;"></i>
+                                        Contact Us
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-lg-5">
+                                <div class="row g-3">
+                                    <div class="col-12">
+                                        <div
+                                            style="background:#fafafa; border:1px solid #eeeeee; border-radius:16px; padding:20px; text-align:center;">
+                                            <h5 style="font-size:18px; font-weight:700; margin:0 0 6px 0; color:#222222;">
+                                                Company
+                                            </h5>
+                                            <p style="margin:0; color:#666666; font-size:15px;">Micra Digital
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div
+                                            style="background:#fafafa; border:1px solid #eeeeee; border-radius:16px; padding:20px; text-align:center; height:100%;">
+                                            <h5 style="font-size:18px; font-weight:700; margin:0 0 6px 0; color:#222222;">
+                                                Website
+                                            </h5>
+                                            <p style="margin:0; color:#666666; font-size:15px; word-break:break-word;">
+                                                www.micra.digital
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div
+                                            style="background:#fafafa; border:1px solid #eeeeee; border-radius:16px; padding:20px; text-align:center; height:100%;">
+                                            <h5 style="font-size:18px; font-weight:700; margin:0 0 6px 0; color:#222222;">
+                                                Email
+                                            </h5>
+                                            <p style="margin:0; color:#666666; font-size:13px; word-break:break-word;">
+                                                hello@micra.digital
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="margin-top:18px; text-align:center; font-size:15px; color:#666666;">
+                                    Need help?
+                                    <a href="mailto:hello@micra.digital"
+                                        style="color:#e85365; text-decoration:none; font-weight:600;">
+                                        Contact our team
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+
+            <!-- SCREENSHOT TAB -->
+            <div aria-labelledby="screenshot-tab" class="tab-pane fade" id="screenshot-pane" role="tabpanel">
+                <!-- TITLE -->
+                <section class="mb-4">
+                    <div class="text-center">
+                        <h2
+                            style="margin:0 0 10px 0; font-size:36px; line-height:1; font-weight:700; color:#111111; font-family:'Kalam', cursive;">
+                            <span
+                                style="display:inline-block; padding:0 10px 7px 10px; margin-right:3px; border-bottom:4px solid #ffba2f;">
+                                App
+                            </span>
+                            <span
+                                style="display:inline-block; padding:0 10px 7px 10px; margin-right:3px; border-bottom:4px solid #43d5cf;">
+                                Screenshots
+                            </span>
+                            <span style="display:inline-block; padding:0 10px 7px 10px; border-bottom:3px solid #f79ac0;">
+                                Preview
+                            </span>
+                        </h2>
+                    </div>
+                </section>
+                <!-- SCREENSHOTS -->
+                <div class="mb-5">
+                    <div class="row g-4">
+                        <!-- 1 -->
+                        <div class="col-lg-6 col-md-6 col-12">
+                            <div
+                                style="height:100%; border:1px solid #f2d6dc; border-radius:22px; overflow:hidden; background-color:#fffafb; box-shadow:0 10px 30px rgba(232,83,101,0.05); display:block;">
+                                <img class="img-fluid w-100" src="files/1.png"
+                                    style="display:block; background:#fff; padding:18px; border-bottom:1px solid #f2d6dc; height:auto;">
+                                <div style="padding:18px;">
+                                    <div>
+                                        <h4 style="margin:0 0 8px 0; font-size:18px; font-weight:700; color:#1f1f1f;">
+                                            Face Recognition Kiosk Configuration &amp; Security
+                                        </h4>
+                                        <p style="margin:0; font-size:14px; line-height:1.7; color:#666666;">
+                                            Configure kiosk options including AI face recognition activation, direct kiosk URL, Wi-Fi IP subnet restrictions, and administrative password authorization.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 2 -->
+                        <div class="col-lg-6 col-md-6 col-12">
+                            <div
+                                style="height:100%; border:1px solid #f2d6dc; border-radius:22px; overflow:hidden; background-color:#fffafb; box-shadow:0 10px 30px rgba(232,83,101,0.05); display:block;">
+                                <img class="img-fluid w-100" src="files/2.png"
+                                    style="display:block; background:#fff; padding:18px; border-bottom:1px solid #f2d6dc; height:auto;">
+                                <div style="padding:18px;">
+                                    <div>
+                                        <h4 style="margin:0 0 8px 0; font-size:18px; font-weight:700; color:#1f1f1f;">
+                                            Employee Face Registration &amp; Action Buttons
+                                        </h4>
+                                        <p style="margin:0; font-size:14px; line-height:1.7; color:#666666;">
+                                            Easily register employee face profiles directly from the HR employee view with a quick top action button and dedicated Face Recognition tab.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 3 -->
+                        <div class="col-lg-6 col-md-6 col-12">
+                            <div
+                                style="height:100%; border:1px solid #f2d6dc; border-radius:22px; overflow:hidden; background-color:#fffafb; box-shadow:0 10px 30px rgba(232,83,101,0.05); display:block;">
+                                <img class="img-fluid w-100" src="files/3.png"
+                                    style="display:block; background:#fff; padding:18px; border-bottom:1px solid #f2d6dc; height:auto;">
+                                <div style="padding:18px;">
+                                    <div>
+                                        <h4 style="margin:0 0 8px 0; font-size:18px; font-weight:700; color:#1f1f1f;">
+                                            Enrolled Face Profile &amp; Management
+                                        </h4>
+                                        <p style="margin:0; font-size:14px; line-height:1.7; color:#666666;">
+                                            View enrolled employee face photo and biometric descriptors with dedicated controls to update or delete face data securely.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 4 -->
+                        <div class="col-lg-6 col-md-6 col-12">
+                            <div
+                                style="height:100%; border:1px solid #f2d6dc; border-radius:22px; overflow:hidden; background-color:#fffafb; box-shadow:0 10px 30px rgba(232,83,101,0.05); display:block;">
+                                <img class="img-fluid w-100" src="files/4.png"
+                                    style="display:block; background:#fff; padding:18px; border-bottom:1px solid #f2d6dc; height:auto;">
+                                <div style="padding:18px;">
+                                    <div>
+                                        <h4 style="margin:0 0 8px 0; font-size:18px; font-weight:700; color:#1f1f1f;">
+                                            Dedicated Face Attendance Kiosk Menu
+                                        </h4>
+                                        <p style="margin:0; font-size:14px; line-height:1.7; color:#666666;">
+                                            Launch the touchless Face Attendance Kiosk terminal with a single click directly from the Attendances top navigation menu.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 5 -->
+                        <div class="col-lg-6 col-md-6 col-12">
+                            <div
+                                style="height:100%; border:1px solid #f2d6dc; border-radius:22px; overflow:hidden; background-color:#fffafb; box-shadow:0 10px 30px rgba(232,83,101,0.05); display:block;">
+                                <img class="img-fluid w-100" src="files/5.png"
+                                    style="display:block; background:#fff; padding:18px; border-bottom:1px solid #f2d6dc; height:auto;">
+                                <div style="padding:18px;">
+                                    <div>
+                                        <h4 style="margin:0 0 8px 0; font-size:18px; font-weight:700; color:#1f1f1f;">
+                                            Mobile &amp; Tablet Face Recognition Kiosk
+                                        </h4>
+                                        <p style="margin:0; font-size:14px; line-height:1.7; color:#666666;">
+                                            Optimized touchless kiosk layout tailored for tablets and mobile phones with live camera facial tracking and instantaneous check-in / check-out.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 6 -->
+                        <div class="col-lg-6 col-md-6 col-12">
+                            <div
+                                style="height:100%; border:1px solid #f2d6dc; border-radius:22px; overflow:hidden; background-color:#fffafb; box-shadow:0 10px 30px rgba(232,83,101,0.05); display:block;">
+                                <img class="img-fluid w-100" src="files/6.png"
+                                    style="display:block; background:#fff; padding:18px; border-bottom:1px solid #f2d6dc; height:auto;">
+                                <div style="padding:18px;">
+                                    <div>
+                                        <h4 style="margin:0 0 8px 0; font-size:18px; font-weight:700; color:#1f1f1f;">
+                                            Desktop &amp; Terminal Kiosk Interface
+                                        </h4>
+                                        <p style="margin:0; font-size:14px; line-height:1.7; color:#666666;">
+                                            Full-screen contactless kiosk terminal designed for entrance screens and computers, streaming real-time camera recognition and verification.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 7 -->
+                        <div class="col-lg-6 col-md-6 col-12">
+                            <div
+                                style="height:100%; border:1px solid #f2d6dc; border-radius:22px; overflow:hidden; background-color:#fffafb; box-shadow:0 10px 30px rgba(232,83,101,0.05); display:block;">
+                                <img class="img-fluid w-100" src="files/7.png"
+                                    style="display:block; background:#fff; padding:18px; border-bottom:1px solid #f2d6dc; height:auto;">
+                                <div style="padding:18px;">
+                                    <div>
+                                        <h4 style="margin:0 0 8px 0; font-size:18px; font-weight:700; color:#1f1f1f;">
+                                            Real-Time Verification &amp; Check-In Confirmation
+                                        </h4>
+                                        <p style="margin:0; font-size:14px; line-height:1.7; color:#666666;">
+                                            Instant facial recognition verifies employee identity in milliseconds, displays check-in timestamp confirmation, and updates attendance status.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 8 -->
+                        <div class="col-lg-6 col-md-6 col-12">
+                            <div
+                                style="height:100%; border:1px solid #f2d6dc; border-radius:22px; overflow:hidden; background-color:#fffafb; box-shadow:0 10px 30px rgba(232,83,101,0.05); display:block;">
+                                <img class="img-fluid w-100" src="files/8.png"
+                                    style="display:block; background:#fff; padding:18px; border-bottom:1px solid #f2d6dc; height:auto;">
+                                <div style="padding:18px;">
+                                    <div>
+                                        <h4 style="margin:0 0 8px 0; font-size:18px; font-weight:700; color:#1f1f1f;">
+                                            Attendance Audit Trail with Photo Capture Log
+                                        </h4>
+                                        <p style="margin:0; font-size:14px; line-height:1.7; color:#666666;">
+                                            Attendance records log exact check-in timestamps, kiosk location, and automatically store the captured face photo in the chatter for security audits.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 9 -->
+                        <div class="col-lg-6 col-md-6 col-12">
+                            <div
+                                style="height:100%; border:1px solid #f2d6dc; border-radius:22px; overflow:hidden; background-color:#fffafb; box-shadow:0 10px 30px rgba(232,83,101,0.05); display:block;">
+                                <img class="img-fluid w-100" src="files/9.png"
+                                    style="display:block; background:#fff; padding:18px; border-bottom:1px solid #f2d6dc; height:auto;">
+                                <div style="padding:18px;">
+                                    <div>
+                                        <h4 style="margin:0 0 8px 0; font-size:18px; font-weight:700; color:#1f1f1f;">
+                                            Employee Profile: Breaks, Late Attendance &amp; Payroll
+                                        </h4>
+                                        <p style="margin:0; font-size:14px; line-height:1.7; color:#666666;">
+                                            Unified employee profile featuring break management buttons, smart links to payslips and monthly hours, and tabs for late attendance tracking.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 10 -->
+                        <div class="col-lg-6 col-md-6 col-12">
+                            <div
+                                style="height:100%; border:1px solid #f2d6dc; border-radius:22px; overflow:hidden; background-color:#fffafb; box-shadow:0 10px 30px rgba(232,83,101,0.05); display:block;">
+                                <img class="img-fluid w-100" src="files/10.png"
+                                    style="display:block; background:#fff; padding:18px; border-bottom:1px solid #f2d6dc; height:auto;">
+                                <div style="padding:18px;">
+                                    <div>
+                                        <h4 style="margin:0 0 8px 0; font-size:18px; font-weight:700; color:#1f1f1f;">
+                                            Working Schedules &amp; Late Arrival Grace Time
+                                        </h4>
+                                        <p style="margin:0; font-size:14px; line-height:1.7; color:#666666;">
+                                            Configure company working schedules, daily shift hours, and set late threshold times (Late Time) to track employee tardiness automatically.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 11 -->
+                        <div class="col-lg-6 col-md-6 col-12">
+                            <div
+                                style="height:100%; border:1px solid #f2d6dc; border-radius:22px; overflow:hidden; background-color:#fffafb; box-shadow:0 10px 30px rgba(232,83,101,0.05); display:block;">
+                                <img class="img-fluid w-100" src="files/11.png"
+                                    style="display:block; background:#fff; padding:18px; border-bottom:1px solid #f2d6dc; height:auto;">
+                                <div style="padding:18px;">
+                                    <div>
+                                        <h4 style="margin:0 0 8px 0; font-size:18px; font-weight:700; color:#1f1f1f;">
+                                            Payroll Configuration: Structures &amp; Salary Rules
+                                        </h4>
+                                        <p style="margin:0; font-size:14px; line-height:1.7; color:#666666;">
+                                            Access salary structure configurations, customizable salary rules, contribution registers, and employee contract advantage templates.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 12 -->
+                        <div class="col-lg-6 col-md-6 col-12">
+                            <div
+                                style="height:100%; border:1px solid #f2d6dc; border-radius:22px; overflow:hidden; background-color:#fffafb; box-shadow:0 10px 30px rgba(232,83,101,0.05); display:block;">
+                                <img class="img-fluid w-100" src="files/12.png"
+                                    style="display:block; background:#fff; padding:18px; border-bottom:1px solid #f2d6dc; height:auto;">
+                                <div style="padding:18px;">
+                                    <div>
+                                        <h4 style="margin:0 0 8px 0; font-size:18px; font-weight:700; color:#1f1f1f;">
+                                            Python-Powered Salary Rule Computation
+                                        </h4>
+                                        <p style="margin:0; font-size:14px; line-height:1.7; color:#666666;">
+                                            Flexible salary rules supporting Python formulas, percentages, or fixed values to compute allowances, wage baselines, and deductions accurately.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 13 -->
+                        <div class="col-lg-6 col-md-6 col-12">
+                            <div
+                                style="height:100%; border:1px solid #f2d6dc; border-radius:22px; overflow:hidden; background-color:#fffafb; box-shadow:0 10px 30px rgba(232,83,101,0.05); display:block;">
+                                <img class="img-fluid w-100" src="files/13.png"
+                                    style="display:block; background:#fff; padding:18px; border-bottom:1px solid #f2d6dc; height:auto;">
+                                <div style="padding:18px;">
+                                    <div>
+                                        <h4 style="margin:0 0 8px 0; font-size:18px; font-weight:700; color:#1f1f1f;">
+                                            Attendance-Driven Payslip &amp; Worked Days Breakdown
+                                        </h4>
+                                        <p style="margin:0; font-size:14px; line-height:1.7; color:#666666;">
+                                            Automatically tallies monthly working days, actual face-verified attendance, paid leaves, and payable days with manager override controls.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 14 -->
+                        <div class="col-lg-6 col-md-6 col-12">
+                            <div
+                                style="height:100%; border:1px solid #f2d6dc; border-radius:22px; overflow:hidden; background-color:#fffafb; box-shadow:0 10px 30px rgba(232,83,101,0.05); display:block;">
+                                <img class="img-fluid w-100" src="files/14.png"
+                                    style="display:block; background:#fff; padding:18px; border-bottom:1px solid #f2d6dc; height:auto;">
+                                <div style="padding:18px;">
+                                    <div>
+                                        <h4 style="margin:0 0 8px 0; font-size:18px; font-weight:700; color:#1f1f1f;">
+                                            Line-by-Line Salary Computation &amp; Deductions
+                                        </h4>
+                                        <p style="margin:0; font-size:14px; line-height:1.7; color:#666666;">
+                                            Compute Sheet calculates earnings, custom deductions, retention deposits, and net payable amounts with complete line-by-line transparency.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 15 -->
+                        <div class="col-lg-6 col-md-6 col-12">
+                            <div
+                                style="height:100%; border:1px solid #f2d6dc; border-radius:22px; overflow:hidden; background-color:#fffafb; box-shadow:0 10px 30px rgba(232,83,101,0.05); display:block;">
+                                <img class="img-fluid w-100" src="files/15.png"
+                                    style="display:block; background:#fff; padding:18px; border-bottom:1px solid #f2d6dc; height:auto;">
+                                <div style="padding:18px;">
+                                    <div>
+                                        <h4 style="margin:0 0 8px 0; font-size:18px; font-weight:700; color:#1f1f1f;">
+                                            Interactive Employee Dashboard &amp; Live Timers
+                                        </h4>
+                                        <p style="margin:0; font-size:14px; line-height:1.7; color:#666666;">
+                                            Self-service employee dashboard with today's attendance snapshot, live running working and break timers, and dark mode toggles.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 16 -->
+                        <div class="col-lg-6 col-md-6 col-12">
+                            <div
+                                style="height:100%; border:1px solid #f2d6dc; border-radius:22px; overflow:hidden; background-color:#fffafb; box-shadow:0 10px 30px rgba(232,83,101,0.05); display:block;">
+                                <img class="img-fluid w-100" src="files/16.png"
+                                    style="display:block; background:#fff; padding:18px; border-bottom:1px solid #f2d6dc; height:auto;">
+                                <div style="padding:18px;">
+                                    <div>
+                                        <h4 style="margin:0 0 8px 0; font-size:18px; font-weight:700; color:#1f1f1f;">
+                                            Monthly Attendance Summary &amp; Task Timer
+                                        </h4>
+                                        <p style="margin:0; font-size:14px; line-height:1.7; color:#666666;">
+                                            Real-time visual cards displaying monthly planned vs actual worked hours and late days, alongside a project task live timer stopwatch.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 17 -->
+                        <div class="col-lg-6 col-md-6 col-12">
+                            <div
+                                style="height:100%; border:1px solid #f2d6dc; border-radius:22px; overflow:hidden; background-color:#fffafb; box-shadow:0 10px 30px rgba(232,83,101,0.05); display:block;">
+                                <img class="img-fluid w-100" src="files/17.png"
+                                    style="display:block; background:#fff; padding:18px; border-bottom:1px solid #f2d6dc; height:auto;">
+                                <div style="padding:18px;">
+                                    <div>
+                                        <h4 style="margin:0 0 8px 0; font-size:18px; font-weight:700; color:#1f1f1f;">
+                                            Project Tasks, Leave Management &amp; Team Birthdays
+                                        </h4>
+                                        <p style="margin:0; font-size:14px; line-height:1.7; color:#666666;">
+                                            Direct access to assigned project tasks, quick leave applications with status tracking, and upcoming colleague birthday celebrations.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 18 -->
+                        <div class="col-lg-6 col-md-6 col-12">
+                            <div
+                                style="height:100%; border:1px solid #f2d6dc; border-radius:22px; overflow:hidden; background-color:#fffafb; box-shadow:0 10px 30px rgba(232,83,101,0.05); display:block;">
+                                <img class="img-fluid w-100" src="files/18.png"
+                                    style="display:block; background:#fff; padding:18px; border-bottom:1px solid #f2d6dc; height:auto;">
+                                <div style="padding:18px;">
+                                    <div>
+                                        <h4 style="margin:0 0 8px 0; font-size:18px; font-weight:700; color:#1f1f1f;">
+                                            Public Holidays Calendar &amp; Leave Balances
+                                        </h4>
+                                        <p style="margin:0; font-size:14px; line-height:1.7; color:#666666;">
+                                            Keep employees informed with visual holiday calendar highlights, upcoming company events, and leave balance summaries.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FINAL CTA -->
+                <section class="mt-5 mb-4"
+                    style="background:#ffffff; border:1px solid #e9e9e9; border-radius:24px; padding:40px 28px; box-shadow:0 10px 25px rgba(0,0,0,0.04);">
+                    <div class="container-fluid">
+                        <div class="row align-items-center g-4">
+                            <div class="col-lg-7">
+                                <div class="d-flex align-items-center flex-wrap mb-3" style="gap:14px;">
+                                    <img alt="Micra Digital Logo" src="logoo.png"
+                                        style="height:60px; width:60px; object-fit:contain; border-radius:14px;">
+                                    <span
+                                        style="font-size:13px; font-weight:600; color:#e85365; border:1px solid #f2d6dc; padding:6px 14px; border-radius:30px; background:#fff4f6;">
+                                        MICRA DIGITAL
+                                    </span>
+                                </div>
+                                <h2
+                                    style="margin:0 0 14px 0; font-size:36px; font-weight:700; color:#111111; font-family:'Kalam', cursive; line-height:1;">
+                                    <span
+                                        style="display:inline-block; padding:0 10px 7px 10px; margin-right:4px; border-bottom:3px solid #f79ac0;">
+                                        Ready
+                                    </span>
+                                    <span
+                                        style="display:inline-block; padding:0 10px 7px 10px; margin-right:4px; border-bottom:3px solid #43d5cf;">
+                                        to Use
+                                    </span>
+                                    <span
+                                        style="display:inline-block; padding:0 10px 7px 10px; border-bottom:3px solid #ffb733;">
+                                        This App?
+                                    </span>
+                                </h2>
+                                <p style="font-size:16px; line-height:1.9; color:#666666; margin:0 0 22px 0;">
+                                    Our team at <b>Micra Digital</b> builds practical Odoo solutions that improve
+                                    everyday business workflows. Contact us for installation support, customization, or
+                                    product guidance.
+                                </p>
+                                <div class="d-flex flex-wrap" style="gap:14px;">
+                                    <a href="mailto:hello@micra.digital"
+                                        style="background:#ffffff; color:#333333; padding:13px 24px; border-radius:30px; border:1px solid #e6e6e6; text-decoration:none; font-weight:600; display:inline-block;">
+                                        <i class="fa fa-envelope" style="margin-right:6px;"></i>
+                                        Contact Us
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-lg-5">
+                                <div class="row g-3">
+                                    <div class="col-12">
+                                        <div
+                                            style="background:#fafafa; border:1px solid #eeeeee; border-radius:16px; padding:20px; text-align:center;">
+                                            <h5 style="font-size:18px; font-weight:700; margin:0 0 6px 0; color:#222222;">
+                                                Company
+                                            </h5>
+                                            <p style="margin:0; color:#666666; font-size:15px;">Micra Digital
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div
+                                            style="background:#fafafa; border:1px solid #eeeeee; border-radius:16px; padding:20px; text-align:center; height:100%;">
+                                            <h5 style="font-size:18px; font-weight:700; margin:0 0 6px 0; color:#222222;">
+                                                Website
+                                            </h5>
+                                            <p style="margin:0; color:#666666; font-size:15px; word-break:break-word;">
+                                                www.micra.digital
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div
+                                            style="background:#fafafa; border:1px solid #eeeeee; border-radius:16px; padding:20px; text-align:center; height:100%;">
+                                            <h5 style="font-size:18px; font-weight:700; margin:0 0 6px 0; color:#222222;">
+                                                Email
+                                            </h5>
+                                            <p style="margin:0; color:#666666; font-size:13px; word-break:break-word;">
+                                                hello@micra.digital
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="margin-top:18px; text-align:center; font-size:15px; color:#666666;">
+                                    Need help?
+                                    <a href="mailto:hello@micra.digital"
+                                        style="color:#e85365; text-decoration:none; font-weight:600;">
+                                        Contact our team
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="micra_payroll.FaceCaptureAction" owl="1">
+        <div class="o_action o_view_controller">
+            <div class="o_content d-flex flex-column align-items-center justify-content-center bg-dark text-white h-100" style="padding: 2rem;">
+                <h2>Register Face for <t t-esc="props.action.params.employee_name"/></h2>
+
+                <div class="video-container position-relative mt-3 mb-4" style="width: 400px; height: 300px; overflow: hidden; border-radius: 10px; border: 2px solid #fff;">
+                    <video t-ref="video" autoplay="1" muted="1" playsinline="1" style="width: 100%; height: 100%; object-fit: cover; transform: scaleX(-1);"></video>
+                </div>
+                
+                <div class="d-flex gap-2">
+                    <button class="btn btn-primary btn-lg" t-on-click="captureFace" t-att-disabled="state.processing">
+                        <t t-if="state.processing">
+                            <i class="fa fa-spinner fa-spin me-2"/> Processing...
+                        </t>
+                        <t t-else="">
+                            <i class="fa fa-camera me-2"/> Capture and Save
+                        </t>
+                    </button>
+                    <button class="btn btn-secondary btn-lg" t-on-click="close">
+                        Cancel
+                    </button>
+                </div>
+            </div>
+        </div>
+    </t>
+</templates>

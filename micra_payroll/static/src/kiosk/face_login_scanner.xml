@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="micra_payroll.FaceLoginScanner" owl="1">
+        <div class="d-flex flex-column align-items-center w-100">
+            <!-- Loading State -->
+            <div t-if="state.facesLoaded === 0" class="text-center my-5">
+                <i class="fa fa-spinner fa-spin fa-3x mb-3 text-primary"></i>
+                <h3 class="text-muted">Loading Facial Recognition AI...</h3>
+            </div>
+            
+            <!-- Access Denied State -->
+            <div t-if="state.facesLoaded === -1 and !state.showPasswordPrompt" class="text-center my-5 p-5 rounded-4 border border-danger" style="background: linear-gradient(145deg, rgba(220, 53, 69, 0.15) 0%, rgba(20, 20, 20, 0.6) 100%); backdrop-filter: blur(10px); box-shadow: 0 8px 32px rgba(220, 53, 69, 0.2);">
+                <i class="fa fa-shield fa-5x mb-4 text-danger" style="filter: drop-shadow(0 0 12px rgba(220,53,69,0.6));"></i>
+                <h2 class="fw-bold mb-3 text-white" style="letter-spacing: 1px;"><t t-esc="state.status"/></h2>
+            </div>
+
+            <!-- Password Prompt State -->
+            <div t-if="state.showPasswordPrompt" class="text-center my-5 p-5 rounded-4 border border-warning" style="background: linear-gradient(145deg, rgba(255, 193, 7, 0.15) 0%, rgba(20, 20, 20, 0.6) 100%); backdrop-filter: blur(10px); box-shadow: 0 8px 32px rgba(255, 193, 7, 0.2); max-width: 500px;">
+                <i class="fa fa-lock fa-4x mb-4 text-warning" style="filter: drop-shadow(0 0 12px rgba(255,193,7,0.6));"></i>
+                <h2 class="fw-bold mb-3 text-white" style="letter-spacing: 1px;"><t t-esc="state.status"/></h2>
+                <p class="text-light opacity-75 mb-4">Please enter the Kiosk Device Password to authorize this device.</p>
+                <div class="input-group mb-3">
+                    <input type="password" class="form-control form-control-lg bg-dark text-white border-secondary" placeholder="Password" t-model="state.passwordInput" t-on-keyup="onPasswordKeyup"/>
+                    <button class="btn btn-warning px-4" type="button" t-on-click="submitPassword">
+                        <i class="fa fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Scanner State -->
+            <t t-if="state.facesLoaded > 0">
+                <!-- On-Screen Error Alert -->
+                <div t-if="state.errorMsg" class="custom-error-banner d-flex align-items-center justify-content-between mb-3 w-100 px-3 py-2 rounded-3 text-start">
+                    <div class="d-flex align-items-center gap-2">
+                        <i class="fa fa-exclamation-triangle"></i>
+                        <span t-esc="state.errorMsg" class="fw-semibold"></span>
+                    </div>
+                    <span class="btn-close-error fw-bold px-1" t-on-click="() => this.state.errorMsg = null" style="cursor: pointer; line-height: 1;">&#215;</span>
+                </div>
+
+                <div class="premium-video-container mb-4" style="position: relative;" t-att-class="{
+                    'scanner-scanning': state.status === 'Scanning for faces...',
+                    'scanner-success': state.showActionButtons,
+                    'scanner-processing': state.processing
+                }">
+                    <video t-ref="video" autoplay="true" muted="true" playsinline="true" style="transform: scaleX(-1);"></video>
+                    <canvas t-ref="overlayCanvas" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none;"></canvas>
+                    <!-- Animated Scanning line -->
+                    <div class="scan-line" t-if="state.status == 'Scanning for faces...'"></div>
+                    <!-- Scanner Corner Brackets -->
+                    <div class="scanner-corner corner-tl"></div>
+                    <div class="scanner-corner corner-tr"></div>
+                    <div class="scanner-corner corner-bl"></div>
+                    <div class="scanner-corner corner-br"></div>
+                </div>
+
+                <div t-if="state.showActionButtons" class="d-flex flex-column align-items-center justify-content-center mt-2 w-100">
+                    <h4 class="mb-1 fw-bold text-dark fs-3">Welcome, <t t-esc="state.matchedEmployee.name"/>!</h4>
+                    <span t-if="state.matchedEmployee.company_name" class="badge mb-2 px-3 py-1" style="background: rgba(99,102,241,0.15); color: #818cf8; border: 1px solid rgba(99,102,241,0.3); font-size: 0.8rem; letter-spacing: 0.5px;"><i class="fa fa-building me-1"/><t t-esc="state.matchedEmployee.company_name"/></span>
+                    <div class="kiosk-actions-container d-flex gap-3 mb-3 w-100 justify-content-center">
+                        <button type="button" class="premium-btn btn-checkin" t-att-disabled="state.matchedEmployee.attendance_state === 'checked_in' or state.processing" t-on-click="onCheckInClick">
+                            <i class="fa fa-sign-in me-2"></i><span>Check In</span>
+                        </button>
+                        <button type="button" class="premium-btn btn-checkout" t-att-disabled="state.matchedEmployee.attendance_state !== 'checked_in' or state.processing" t-on-click="onCheckOutClick">
+                            <i class="fa fa-sign-out me-2"></i><span>Check Out</span>
+                        </button>
+                    </div>
+                </div>
+
+                <h4 t-else="" class="status-text text-center"><t t-esc="state.status"/></h4>
+                <!-- Success Popup (Sleek Floating Pill at the top) -->
+                <div t-if="state.successPopup" class="position-absolute w-100 d-flex justify-content-center" style="top: 40px; z-index: 1050; pointer-events: none;">
+                    <div class="d-flex align-items-center rounded-pill shadow-lg" style="animation: slideDownFade 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); pointer-events: auto; background: rgba(20, 20, 25, 0.7); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.15); padding: 12px 28px 12px 16px;">
+                        
+                        <div class="rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 50px; height: 50px; background: linear-gradient(135deg, #10b981 0%, #047857 100%); box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);">
+                            <i class="fa fa-check text-white" style="font-size: 1.6rem;"></i>
+                        </div>
+                        
+                        <div class="d-flex flex-column text-start">
+                            <span class="text-white fw-bold mb-0" style="font-size: 1.25rem; font-family: 'Outfit', sans-serif; letter-spacing: 0.5px; line-height: 1.2;"><t t-esc="state.successPopup.name"/></span>
+                            <span style="color: #cbd5e1; font-size: 0.85rem; font-family: 'Outfit', sans-serif;">
+                                <t t-if="state.successPopup.company_name"><t t-esc="state.successPopup.company_name"/> · </t><t t-esc="state.successPopup.action"/> at <strong class="text-white"><t t-esc="state.successPopup.time"/></strong>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Holiday / Restriction Popup -->
+                <div t-if="state.holidayPopup" class="position-absolute w-100 d-flex justify-content-center" style="top: 40px; z-index: 1050; pointer-events: none;">
+                    <div class="d-flex align-items-center rounded-4 shadow-lg" style="animation: slideDownFade 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); pointer-events: auto; background: rgba(30, 15, 10, 0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(251, 146, 60, 0.3); padding: 16px 28px 16px 18px; max-width: 90%;">
+                        
+                        <div class="rounded-circle d-flex align-items-center justify-content-center me-3 flex-shrink-0" style="width: 50px; height: 50px; background: linear-gradient(135deg, #f59e0b 0%, #dc2626 100%); box-shadow: 0 4px 15px rgba(245, 158, 11, 0.4);">
+                            <i class="fa fa-calendar-times-o text-white" style="font-size: 1.4rem;"></i>
+                        </div>
+                        
+                        <div class="d-flex flex-column text-start">
+                            <span class="fw-bold mb-1" style="font-size: 1.1rem; font-family: 'Outfit', sans-serif; color: #fbbf24; letter-spacing: 0.5px; line-height: 1.2;">Not Allowed</span>
+                            <span style="color: #e2e8f0; font-size: 0.85rem; font-family: 'Outfit', sans-serif; line-height: 1.4;">
+                                <t t-esc="state.holidayPopup.message"/>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </div>
+    </t>
+</templates>

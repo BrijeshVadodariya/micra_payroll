@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="rule_project_user_assigned_projects_micra" model="ir.rule">
+        <field name="name">Project User - Allowed Users Only</field>
+        <field name="model_id" ref="project.model_project_project"/>
+        <field name="domain_force">[('allowed_user_ids', 'in', [user.id])]</field>
+        <field name="groups" eval="[(4, ref('project.group_project_user'))]"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="False"/>
+        <field name="perm_create" eval="False"/>
+        <field name="perm_unlink" eval="False"/>
+    </record>
+
+    <record id="rule_project_task_user_assigned_only_micra" model="ir.rule">
+        <field name="name">Project User - Tasks Of Allowed Projects Only</field>
+        <field name="model_id" ref="project.model_project_task"/>
+        <field name="domain_force">[('project_id.allowed_user_ids', 'in', [user.id])]</field>
+        <field name="groups" eval="[(4, ref('project.group_project_user'))]"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="False"/>
+        <field name="perm_create" eval="False"/>
+        <field name="perm_unlink" eval="False"/>
+    </record>
+
+    <record id="rule_project_manager_all_projects_micra" model="ir.rule">
+        <field name="name">Project Administrator - All Projects</field>
+        <field name="model_id" ref="project.model_project_project"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+        <field name="groups" eval="[(4, ref('project.group_project_manager'))]"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_unlink" eval="True"/>
+    </record>
+
+    <record id="rule_project_task_manager_all_micra" model="ir.rule">
+        <field name="name">Project Administrator - All Tasks</field>
+        <field name="model_id" ref="project.model_project_task"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+        <field name="groups" eval="[(4, ref('project.group_project_manager'))]"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_unlink" eval="True"/>
+    </record>
+
+    <record id="timesheet_readonly_rule" model="ir.rule">
+    <field name="name">Timesheet Readonly Access</field>
+    <field name="model_id" ref="hr_timesheet.model_account_analytic_line"/>
+    <field name="domain_force">[(1, '=', 1)]</field>
+    <field name="perm_read" eval="1"/>
+    <field name="perm_write" eval="0"/>
+    <field name="perm_create" eval="0"/>
+    <field name="perm_unlink" eval="0"/>
+    </record>
+</odoo>

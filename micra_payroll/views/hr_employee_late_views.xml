@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_employee_form_inherit_late_attendance" model="ir.ui.view">
+        <field name="name">hr.employee.form.inherit.late.attendance</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='hr_birth_group']" position="inside">
+                <field name="joining_date"/>
+            </xpath>
+            <xpath expr="//notebook" position="inside">
+                <page string="Late Attendance" groups="hr_attendance.group_hr_attendance_user,hr_attendance.group_hr_attendance_manager">
+                    <field name="late_attendance_ids" mode="list">
+                        <list string="Late Attendances" create="0" delete="0" edit="0">
+                            <field name="check_in"/>
+                            <field name="check_out"/>
+                             <field name="late_duration_display" string="Late By"/>
+                            <field name="total_break_time" widget="float_time" string="Break Time"/>
+                            <field name="worked_hours" widget="float_time"/>
+                        </list>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_employee_public_form_inherit_late_attendance" model="ir.ui.view">
+        <field name="name">hr.employee.public.form.inherit.late.attendance</field>
+        <field name="model">hr.employee.public</field>
+        <field name="inherit_id" ref="hr.hr_employee_public_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page string="Late Attendance" groups="hr_attendance.group_hr_attendance_user,hr_attendance.group_hr_attendance_manager">
+                    <field name="late_attendance_ids" mode="list">
+                        <list string="Late Attendances" create="0" delete="0" edit="0">
+                            <field name="check_in"/>
+                            <field name="check_out"/>
+                             <field name="late_duration_display" string="Late By"/>
+                            <field name="total_break_time" widget="float_time" string="Break Time"/>
+                            <field name="worked_hours" widget="float_time"/>
+                        </list>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

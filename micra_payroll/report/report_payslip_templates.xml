@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Template for Standard Payslip Report (B/W Corporate Format) -->
+    <template id="report_payslip">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page" style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; font-size: 10px; color: #000000; line-height: 1.35; padding-top: 5px;">
+                        
+                        <!-- Top Document Title & Reference Box -->
+                        <table style="width: 100%; border-collapse: collapse; margin-bottom: 12px; border: 1px solid #000000;">
+                            <tr style="background-color: #f2f2f2;">
+                                <td style="width: 60%; padding: 7px 10px; border: 1px solid #000000; vertical-align: middle;">
+                                    <div style="font-size: 14px; font-weight: bold; text-transform: uppercase; letter-spacing: 0.5px;">
+                                        Salary Pay Slip
+                                    </div>
+                                    <div style="font-size: 10px; color: #333333; margin-top: 2px;">
+                                        Pay Period: 
+                                        <strong>
+                                            <span t-field="o.date_from" t-options='{"widget": "date"}'/> to <span t-field="o.date_to" t-options='{"widget": "date"}'/>
+                                        </strong>
+                                    </div>
+                                </td>
+                                <td style="width: 40%; padding: 7px 10px; border: 1px solid #000000; text-align: right; vertical-align: middle;">
+                                    <div style="font-size: 11px; font-weight: bold;">
+                                        Slip No: <span t-out="o.number or o.name or '-'"/>
+                                    </div>
+                                    <div style="font-size: 9.5px; text-transform: uppercase; font-weight: bold; margin-top: 3px;">
+                                        Status: <span t-field="o.state"/>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <!-- Employee & Employment Details (4-Column Box) -->
+                        <table style="width: 100%; border-collapse: collapse; margin-bottom: 12px; border: 1px solid #000000; font-size: 10px;">
+                            <tr style="background-color: #f2f2f2;">
+                                <th colspan="4" style="padding: 5px 8px; border: 1px solid #000000; text-align: left; text-transform: uppercase; font-size: 9.5px; font-weight: bold;">
+                                    Employee &amp; Employment Details
+                                </th>
+                            </tr>
+                            <tr>
+                                <td style="width: 18%; padding: 5px 8px; font-weight: bold; border: 1px solid #000000; background-color: #fafafa;">Employee Name:</td>
+                                <td style="width: 32%; padding: 5px 8px; border: 1px solid #000000;"><span t-field="o.employee_id.name"/></td>
+                                <td style="width: 18%; padding: 5px 8px; font-weight: bold; border: 1px solid #000000; background-color: #fafafa;">Employee ID:</td>
+                                <td style="width: 32%; padding: 5px 8px; border: 1px solid #000000;"><span t-out="o.employee_id.identification_id or ('EMP%04d' % o.employee_id.id)"/></td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 5px 8px; font-weight: bold; border: 1px solid #000000; background-color: #fafafa;">Designation:</td>
+                                <td style="padding: 5px 8px; border: 1px solid #000000;"><span t-out="o.employee_id.job_id.name or '-'"/></td>
+                                <td style="padding: 5px 8px; font-weight: bold; border: 1px solid #000000; background-color: #fafafa;">Department:</td>
+                                <td style="padding: 5px 8px; border: 1px solid #000000;"><span t-out="o.employee_id.department_id.name or '-'"/></td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 5px 8px; font-weight: bold; border: 1px solid #000000; background-color: #fafafa;">Date of Joining:</td>
+                                <td style="padding: 5px 8px; border: 1px solid #000000;">
+                                    <span t-if="o.contract_id and o.contract_id.date_start" t-field="o.contract_id.date_start"/>
+                                    <span t-else="">-</span>
+                                </td>
+                                <td style="padding: 5px 8px; font-weight: bold; border: 1px solid #000000; background-color: #fafafa;">Monthly Wage:</td>
+                                <td style="padding: 5px 8px; border: 1px solid #000000; font-weight: bold;">
+                                    <span t-esc="o.employee_wage" t-options='{"widget": "monetary", "display_currency": o.company_id.currency_id}'/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 5px 8px; font-weight: bold; border: 1px solid #000000; background-color: #fafafa;">Bank Name:</td>
+                                <td style="padding: 5px 8px; border: 1px solid #000000;">
+                                    <span t-out="o.employee_id.primary_bank_account_id.bank_id.name if o.employee_id.primary_bank_account_id and o.employee_id.primary_bank_account_id.bank_id else (o.employee_id.bank_account_ids and o.employee_id.bank_account_ids[0].bank_id and o.employee_id.bank_account_ids[0].bank_id.name or '-')"/>
+                                </td>
+                                <td style="padding: 5px 8px; font-weight: bold; border: 1px solid #000000; background-color: #fafafa;">Bank Account No:</td>
+                                <td style="padding: 5px 8px; border: 1px solid #000000;">
+                                    <span t-out="o.employee_id.primary_bank_account_id.acc_number if o.employee_id.primary_bank_account_id else (o.employee_id.bank_account_ids and o.employee_id.bank_account_ids[0].acc_number or '-')"/>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <!-- Attendance & Leave Summary (5-Column Box) -->
+                        <table style="width: 100%; border-collapse: collapse; margin-bottom: 12px; border: 1px solid #000000; font-size: 10px; text-align: center;">
+                            <tr style="background-color: #f2f2f2;">
+                                <th colspan="5" style="padding: 5px 8px; border: 1px solid #000000; text-align: left; text-transform: uppercase; font-size: 9.5px; font-weight: bold;">
+                                    Attendance &amp; Leave Summary
+                                </th>
+                            </tr>
+                            <tr style="background-color: #fafafa;">
+                                <td style="width: 20%; padding: 5px 4px; border: 1px solid #000000; font-weight: bold; font-size: 9.5px;">Month Days</td>
+                                <td style="width: 20%; padding: 5px 4px; border: 1px solid #000000; font-weight: bold; font-size: 9.5px;">Worked Days</td>
+                                <td style="width: 20%; padding: 5px 4px; border: 1px solid #000000; font-weight: bold; font-size: 9.5px;">Paid Leaves</td>
+                                <td style="width: 20%; padding: 5px 4px; border: 1px solid #000000; font-weight: bold; font-size: 9.5px;">Unpaid (LWP)</td>
+                                <td style="width: 20%; padding: 5px 4px; border: 1px solid #000000; font-weight: bold; font-size: 9.5px; background-color: #f2f2f2;">Payable Days</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 6px 4px; border: 1px solid #000000; font-size: 11px;"><span t-esc="'%.1f' % o.micra_month_working_days"/></td>
+                                <td style="padding: 6px 4px; border: 1px solid #000000; font-size: 11px;"><span t-esc="'%.1f' % o.micra_employee_worked_days"/></td>
+                                <td style="padding: 6px 4px; border: 1px solid #000000; font-size: 11px;"><span t-esc="'%.1f' % o.paid_leave_days"/></td>
+                                <td style="padding: 6px 4px; border: 1px solid #000000; font-size: 11px;"><span t-esc="'%.1f' % o.unpaid_leave_days"/></td>
+                                <td style="padding: 6px 4px; border: 1px solid #000000; font-weight: bold; font-size: 11.5px; background-color: #f2f2f2;"><span t-esc="'%.1f' % o.micra_salary_payable_days"/></td>
+                            </tr>
+                        </table>
+
+                        <!-- Side-by-Side Earnings and Deductions Table (Unified 4-Column Grid) -->
+                        <table style="width: 100%; border-collapse: collapse; margin-bottom: 12px; border: 1px solid #000000; font-size: 10px;">
+                            <thead>
+                                <tr style="background-color: #f2f2f2;">
+                                    <th style="width: 35%; padding: 5px 8px; border: 1px solid #000000; text-align: left; text-transform: uppercase; font-size: 9.5px; font-weight: bold;">Earnings</th>
+                                    <th style="width: 15%; padding: 5px 8px; border: 1px solid #000000; text-align: right; text-transform: uppercase; font-size: 9.5px; font-weight: bold;">Amount</th>
+                                    <th style="width: 35%; padding: 5px 8px; border: 1px solid #000000; text-align: left; text-transform: uppercase; font-size: 9.5px; font-weight: bold;">Deductions</th>
+                                    <th style="width: 15%; padding: 5px 8px; border: 1px solid #000000; text-align: right; text-transform: uppercase; font-size: 9.5px; font-weight: bold;">Amount</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr t-foreach="o.get_payslip_paired_rows()" t-as="row">
+                                    <td style="width: 35%; padding: 5px 8px; border: 1px solid #000000;">
+                                        <span t-esc="row['earning_name']"/>
+                                    </td>
+                                    <td style="width: 15%; padding: 5px 8px; border: 1px solid #000000; text-align: right;">
+                                        <span t-if="row['earning_amount'] is not None" t-esc="row['earning_amount']" t-options='{"widget": "monetary", "display_currency": o.company_id.currency_id}'/>
+                                    </td>
+                                    <td style="width: 35%; padding: 5px 8px; border: 1px solid #000000;">
+                                        <span t-esc="row['deduction_name']"/>
+                                    </td>
+                                    <td style="width: 15%; padding: 5px 8px; border: 1px solid #000000; text-align: right;">
+                                        <span t-if="row['deduction_amount'] is not None" t-esc="row['deduction_amount']" t-options='{"widget": "monetary", "display_currency": o.company_id.currency_id}'/>
+                                    </td>
+                                </tr>
+
+                                <!-- Subtotals Row -->
+                                <tr style="background-color: #f2f2f2; font-weight: bold;">
+                                    <td style="width: 35%; padding: 6px 8px; border: 1px solid #000000; text-transform: uppercase;">
+                                        Gross Earnings
+                                    </td>
+                                    <td style="width: 15%; padding: 6px 8px; border: 1px solid #000000; text-align: right;">
+                                        <span t-esc="o.get_total_earnings()" t-options='{"widget": "monetary", "display_currency": o.company_id.currency_id}'/>
+                                    </td>
+                                    <td style="width: 35%; padding: 6px 8px; border: 1px solid #000000; text-transform: uppercase;">
+                                        Total Deductions
+                                    </td>
+                                    <td style="width: 15%; padding: 6px 8px; border: 1px solid #000000; text-align: right;">
+                                        <span t-esc="abs(o.get_total_deductions())" t-options='{"widget": "monetary", "display_currency": o.company_id.currency_id}'/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <!-- Net Take Home Salary Summary Box -->
+                        <table style="width: 100%; border-collapse: collapse; margin-bottom: 30px; border: 1.5px solid #000000; font-size: 10px;">
+                            <tr style="background-color: #f2f2f2;">
+                                <td style="width: 65%; padding: 9px 12px; border: 1px solid #000000; vertical-align: middle;">
+                                    <div style="font-size: 11px; font-weight: bold; text-transform: uppercase; margin-bottom: 3px;">
+                                        Net Salary Payable (Take Home)
+                                    </div>
+                                    <div style="font-size: 10px;">
+                                        In Words: <strong><span t-out="o.get_net_payable_words()"/></strong>
+                                    </div>
+                                </td>
+                                <td style="width: 35%; padding: 9px 12px; border: 1px solid #000000; text-align: right; vertical-align: middle;">
+                                    <span style="font-size: 16px; font-weight: bold;" t-esc="o.get_net_payable()" t-options='{"widget": "monetary", "display_currency": o.company_id.currency_id}'/>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <!-- Clean Dual Signatures Block (Completely borderless container) -->
+                        <div style="margin-top: 30px; page-break-inside: avoid;">
+                            <table style="width: 100%; border-collapse: collapse; border: none !important;">
+                                <tr style="border: none !important;">
+                                    <td style="width: 45%; border: none !important; vertical-align: bottom; padding: 0;">
+                                        <div style="border-top: 1px solid #000000; width: 75%; padding-top: 6px;">
+                                            <div style="font-weight: bold; font-size: 10px;">Employee Signature</div>
+                                            <div style="font-size: 9px; color: #333333; margin-top: 3px;">Date: ________________________</div>
+                                        </div>
+                                    </td>
+                                    <td style="width: 10%; border: none !important; padding: 0;"></td>
+                                    <td style="width: 45%; border: none !important; vertical-align: bottom; padding: 0; text-align: right;">
+                                        <div style="border-top: 1px solid #000000; width: 75%; margin-left: auto; padding-top: 6px;">
+                                            <div style="font-weight: bold; font-size: 10px;">Authorized Signatory</div>
+                                            <div style="font-size: 9px; color: #333333; margin-top: 3px;">For <span t-esc="o.company_id.name"/></div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                            <div style="margin-top: 25px; text-align: center; font-size: 8.5px; color: #666666;">
+                                This is a computer-generated payslip generated by Micra HR Payroll and does not require a physical signature if digitally approved.
+                            </div>
+                        </div>
+
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

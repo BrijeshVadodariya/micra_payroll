@@ -1,0 +1,408 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Sprint List View -->
+        <record id="view_project_sprint_list" model="ir.ui.view">
+            <field name="name">project.sprint.list</field>
+            <field name="model">project.sprint</field>
+            <field name="arch" type="xml">
+                <list string="Sprints" decoration-info="state == 'draft'" decoration-success="state == 'active'" decoration-muted="state == 'done'">
+                    <field name="name"/>
+                    <field name="department_id"/>
+                    <field name="start_date"/>
+                    <field name="end_date"/>
+                    <field name="state" widget="badge" decoration-info="state == 'draft'" decoration-success="state == 'active'" decoration-muted="state == 'done'"/>
+                </list>
+            </field>
+        </record>
+
+        <!-- Sprint Kanban View -->
+        <record id="view_project_sprint_kanban" model="ir.ui.view">
+            <field name="name">project.sprint.kanban</field>
+            <field name="model">project.sprint</field>
+            <field name="arch" type="xml">
+                <kanban default_group_by="start_date" default_order="start_date asc" class="o_kanban_mobile" highlight_color="color" records_draggable="false" on_create="micra_payroll.open_create_sprint" action="action_view_tasks" type="object">
+                    <field name="name"/>
+                    <field name="department_id"/>
+                    <field name="start_date"/>
+                    <field name="end_date"/>
+                    <field name="state"/>
+                    <field name="color"/>
+                    <field name="is_expired"/>
+                    <field name="start_day_name"/>
+                    <templates>
+                        <t t-name="menu">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <h5 role="menuitem" class="o_kanban_card_manage_title">
+                                            <span>View</span>
+                                        </h5>
+                                        <div role="menuitem">
+                                            <a role="menuitem" name="action_open_sprint_board" type="object">Sprint Board</a>
+                                        </div>
+                                        <div role="menuitem">
+                                            <a role="menuitem" name="action_view_tasks" type="object">Tasks</a>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <h5 role="menuitem" class="o_kanban_card_manage_title">
+                                            <span>Manage</span>
+                                        </h5>
+                                        <div role="menuitem">
+                                            <a role="menuitem" type="open">Settings</a>
+                                        </div>
+                                        <div role="menuitem">
+                                            <a role="menuitem" type="delete">Delete</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="o_kanban_card_manage_settings row mt-2">
+                                    <div role="menuitem" aria-haspopup="true" class="col-12">
+                                        <field name="color" widget="kanban_color_picker"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                        <t t-name="card">
+                            <div class="oe_kanban_global_click oe_kanban_card d-flex flex-column justify-content-between p-3 border rounded shadow-sm"
+                                 t-attf-style="border-left: 4px solid #{
+                                     record.state.raw_value == 'draft' ? '#0d6efd' :
+                                     record.state.raw_value == 'active' ? '#198754' :
+                                     record.state.raw_value == 'done' ? '#6c757d' : '#6c757d'
+                                 }; border-top: 1px solid #dee2e6; border-right: 1px solid #dee2e6; border-bottom: 1px solid #dee2e6;">
+                                <div class="o_kanban_record_top d-flex justify-content-between align-items-start">
+                                    <div class="o_kanban_record_headings">
+                                        <strong class="o_kanban_record_title fs-6 text-dark fw-bold">
+                                            <field name="name"/>
+                                        </strong>
+                                    </div>
+                                    <span t-if="record.start_day_name.raw_value" class="badge bg-primary-subtle text-primary border border-primary fw-bold px-2 py-1 rounded" style="font-size: 0.7rem;">
+                                        <field name="start_day_name"/>
+                                    </span>
+                                </div>
+                                <div class="o_kanban_record_body small mt-2 mb-1">
+                                    <div class="d-flex align-items-center mb-1">
+                                        <span class="badge bg-light text-dark border px-2 py-1 rounded fw-semibold">
+                                            <i class="fa fa-building me-1 text-primary"/>
+                                            <field name="department_id"/>
+                                        </span>
+                                    </div>
+                                    <div class="d-flex align-items-center gap-1 text-dark mt-2">
+                                        <i class="fa fa-calendar me-1 text-primary"/>
+                                        <span class="fw-semibold">
+                                            <field name="start_date"/> to <field name="end_date"/>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="o_kanban_record_bottom d-flex align-items-center justify-content-between border-top pt-2 mt-2">
+                                    <div class="oe_kanban_bottom_left">
+                                        <span t-attf-class="badge rounded-pill px-2 py-1 fw-bold #{
+                                            record.state.raw_value == 'draft' ? 'bg-primary-subtle text-primary border border-primary' :
+                                            record.state.raw_value == 'active' ? 'bg-success-subtle text-success border border-success' :
+                                            record.state.raw_value == 'done' ? 'bg-secondary-subtle text-secondary border border-secondary' : 'bg-light text-dark'
+                                        }" style="font-size: 0.75rem;"><field name="state"/></span>
+                                    </div>
+                                    <div class="oe_kanban_bottom_right oe_kanban_no_action_click d-flex gap-1">
+                                        <button name="action_start" type="object" class="btn btn-outline-primary btn-sm py-0 px-2 fw-semibold" style="font-size: 0.75rem;" invisible="state != 'draft'">
+                                            Start Sprint
+                                        </button>
+                                        <button name="action_complete" type="object" class="btn btn-outline-success btn-sm py-0 px-2 fw-semibold" style="font-size: 0.75rem;" invisible="state != 'active'">
+                                            Complete
+                                        </button>
+                                        <button name="action_reset_draft" type="object" class="btn btn-outline-secondary btn-sm py-0 px-2 fw-semibold" style="font-size: 0.75rem;" invisible="state == 'draft' or is_expired">
+                                            Reset to Draft
+                                        </button>
+                                        <button name="action_reset_active" type="object" class="btn btn-outline-primary btn-sm py-0 px-2 fw-semibold" style="font-size: 0.75rem;" invisible="state != 'done' or is_expired">
+                                            Set Active
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <!-- Sprint Form View -->
+        <record id="view_project_sprint_form" model="ir.ui.view">
+            <field name="name">project.sprint.form</field>
+            <field name="model">project.sprint</field>
+            <field name="arch" type="xml">
+                <form string="Sprint">
+                    <header>
+                        <button name="action_start" string="Start Sprint" type="object" class="oe_highlight" invisible="state != 'draft'"/>
+                        <button name="action_complete" string="Complete Sprint" type="object" class="oe_highlight" invisible="state != 'active'"/>
+                        <button name="action_reset_draft" string="Reset to Draft" type="object" invisible="state == 'draft' or is_expired"/>
+                        <button name="action_reset_active" string="Set Active" type="object" class="oe_highlight" invisible="state != 'done' or is_expired"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,active,done"/>
+                    </header>
+                    <sheet>
+                        <field name="is_expired" invisible="1"/>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="action_view_tasks"
+                                    type="object"
+                                    class="oe_stat_button"
+                                    icon="fa-tasks"
+                                    invisible="not department_id">
+                                <div class="o_stat_info">
+                                    <span class="o_stat_text">Sprint Board</span>
+                                </div>
+                            </button>
+                        </div>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" placeholder="Sprint Name" required="1" readonly="state == 'done'"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="department_id" readonly="state == 'done'"/>
+                            </group>
+                            <group>
+                                <field name="start_date" readonly="state == 'done'"/>
+                                <field name="end_date"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Tasks" name="tasks" invisible="not department_id">
+                                <field name="task_ids" 
+                                       readonly="state == 'done'">
+                                    <list editable="bottom">
+                                        <field name="project_id" domain="[('department_id', '=', parent.department_id)]" required="1"/>
+                                        <field name="existing_task_id" options="{'no_create': True}" domain="[('sprint_id', '=', False), ('parent_id', '=', False), ('stage_id.fold', '=', False), ('stage_id.name', 'not ilike', 'completed'), ('project_id', '=', project_id)]"/>
+                                        <field name="name"/>
+                                        <field name="project_allowed_user_ids" invisible="1"/>
+                                        <field name="user_ids" widget="many2many_avatar_user" domain="[('id', 'in', project_allowed_user_ids)]"/>
+                                        <field name="stage_id" domain="[('project_ids', '=', project_id)]"/>
+                                        <field name="completed_by_id" readonly="1" widget="many2one_avatar_user" string="Completed By"/>
+                                        <field name="completed_datetime_formatted" readonly="1" string="Completed Date/Time"/>
+                                        <field name="date_deadline_formatted" readonly="1" string="Deadline"/>
+                                    </list>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Custom Task Kanban View for Sprint Board -->
+        <record id="view_task_kanban_sprint" model="ir.ui.view">
+            <field name="name">project.task.kanban.sprint</field>
+            <field name="model">project.task</field>
+            <field name="arch" type="xml">
+                <kanban default_group_by="project_id" class="o_kanban_small_column" highlight_color="color" create="true" edit="true" records_draggable="false" quick_create_view="micra_payroll.view_task_quick_create_sprint" default_order="priority_level asc, sequence, id desc">
+                    <field name="name"/>
+                    <field name="project_id"/>
+                    <field name="user_ids"/>
+                    <field name="stage_id"/>
+                    <field name="date_deadline_formatted"/>
+                    <field name="color"/>
+                    <field name="task_start_date_formatted"/>
+                    <field name="priority_level"/>
+                    <field name="is_carried_forward"/>
+                    <templates>
+                        <t t-name="menu">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <h5 role="menuitem" class="o_kanban_card_manage_title">
+                                            <span>Manage</span>
+                                        </h5>
+                                        <div role="menuitem">
+                                            <a role="menuitem" type="open">Settings</a>
+                                        </div>
+                                        <div role="menuitem">
+                                            <a role="menuitem" type="delete">Delete</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="o_kanban_card_manage_settings row mt-2">
+                                    <div role="menuitem" aria-haspopup="true" class="col-12">
+                                        <field name="color" widget="kanban_color_picker"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                        <t t-name="card">
+                            <div class="oe_kanban_global_click oe_kanban_card d-flex flex-column justify-content-between p-3 border rounded shadow-sm"
+                                 t-attf-style="border-left: 4px solid #{
+                                     record.stage_id.value == 'Unassigned' ? '#6c757d' :
+                                     record.stage_id.value == 'Open' ? '#0d6efd' :
+                                     record.stage_id.value == 'In Progress' ? '#ffc107' :
+                                     record.stage_id.value == 'On Hold' ? '#dc3545' :
+                                     record.stage_id.value == 'QA' ? '#0dcaf0' :
+                                     record.stage_id.value == 'Completed' ? '#198754' : '#6c757d'
+                                 }; border-top: 1px solid #dee2e6; border-right: 1px solid #dee2e6; border-bottom: 1px solid #dee2e6;">
+                                <div class="o_kanban_record_top d-flex justify-content-between align-items-start">
+                                    <div class="o_kanban_record_headings">
+                                        <strong class="o_kanban_record_title fs-6 text-dark fw-bold">
+                                            <field name="name"/>
+                                        </strong>
+                                    </div>
+                                    <span t-if="record.is_carried_forward.raw_value" class="badge bg-danger text-white fw-bold px-2 py-1 rounded" style="font-size: 0.7rem;">Incomplete</span>
+                                </div>
+                                <div class="o_kanban_record_body small mt-2 mb-1">
+                                    <div class="d-flex align-items-center mb-1">
+                                        <span class="badge bg-light text-dark border px-2 py-1 rounded fw-semibold">
+                                            <i class="fa fa-folder-open me-1 text-primary"/>
+                                            <field name="project_id"/>
+                                        </span>
+                                    </div>
+                                    <div class="d-flex align-items-center gap-1 text-dark mt-2">
+                                        <i class="fa fa-calendar me-1 text-primary"/>
+                                        <span t-if="record.task_start_date_formatted.raw_value" class="fw-semibold">
+                                            <field name="task_start_date_formatted"/> to <field name="date_deadline_formatted"/>
+                                        </span>
+                                        <span t-else="" class="fw-semibold">
+                                            Deadline: <field name="date_deadline_formatted"/>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="o_kanban_record_bottom d-flex align-items-center justify-content-between border-top pt-2 mt-2">
+                                    <div class="oe_kanban_bottom_left d-flex align-items-center gap-2">
+                                        <button name="action_toggle_priority_level" type="object" class="btn p-0 border-0 align-baseline oe_kanban_no_action_click"
+                                                t-attf-title="Priority: #{
+                                                    record.priority_level.raw_value == '1_high' ? 'High' :
+                                                    record.priority_level.raw_value == '2_medium' ? 'Medium' : 'Low'
+                                                } (Click to toggle)">
+                                            <i t-attf-class="fa fa-circle fs-6 #{
+                                                record.priority_level.raw_value == '3_low' ? 'text-success' :
+                                                record.priority_level.raw_value == '2_medium' ? 'text-warning' :
+                                                record.priority_level.raw_value == '1_high' ? 'text-danger' : 'text-success'
+                                            }"/>
+                                        </button>
+                                         <span t-attf-class="badge rounded-pill px-2 py-1 fw-bold #{
+                                            (record.stage_id.value == 'Open' or record.stage_id.value == 'Active' or record.stage_id.value == 'To Do') ? 'bg-primary-subtle text-primary border border-primary' :
+                                            (record.stage_id.value == 'In Progress') ? 'bg-warning-subtle text-warning border border-warning' :
+                                            (record.stage_id.value == 'On Hold' or record.stage_id.value == 'Blocked') ? 'bg-danger-subtle text-danger border border-danger' :
+                                            (record.stage_id.value == 'QA' or record.stage_id.value == 'Testing') ? 'bg-info-subtle text-info border border-info' :
+                                            (record.stage_id.value == 'Completed' or record.stage_id.value == 'Done') ? 'bg-success-subtle text-success border border-success' : 'bg-light text-dark border border-secondary-subtle'
+                                        }" style="font-size: 0.75rem;"><field name="stage_id"/></span>
+                                    </div>
+                                    <div class="oe_kanban_bottom_right">
+                                        <field name="user_ids" widget="many2many_avatar_user"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <!-- Simplified Task Quick Create Form View for Sprint Kanban -->
+        <record id="view_task_quick_create_sprint" model="ir.ui.view">
+            <field name="name">project.task.form.quick_create.sprint</field>
+            <field name="model">project.task</field>
+            <field name="arch" type="xml">
+                <form string="Quick Create Task">
+                    <group>
+                        <field name="sprint_department_id" invisible="1"/>
+                        <field name="project_id" domain="[('department_id', '=', sprint_department_id)]" required="1"/>
+                        <field name="existing_task_id" options="{'no_create': True}" domain="[('sprint_id', '=', False), ('parent_id', '=', False), ('stage_id.fold', '=', False), ('stage_id.name', 'not ilike', 'completed'), ('project_id', '=', project_id)]" invisible="not project_id"/>
+                        <field name="name" placeholder="Task Title..." required="1"/>
+                        <field name="sprint_id" required="1" readonly="1"/>
+                        <field name="project_allowed_user_ids" invisible="1"/>
+                        <field name="user_ids" widget="many2many_avatar_user" domain="[('id', 'in', project_allowed_user_ids)]"/>
+                        <field name="date_deadline"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <!-- Simplified Sprint Form View for Popup -->
+        <record id="view_project_sprint_form_simplified" model="ir.ui.view">
+            <field name="name">project.sprint.form.simplified</field>
+            <field name="model">project.sprint</field>
+            <field name="arch" type="xml">
+                <form string="Create Sprint">
+                    <group>
+                        <field name="name" placeholder="e.g. Sprint - Marketing Week 1" required="1"/>
+                        <group>
+                            <field name="department_id" required="1"/>
+                        </group>
+                        <group>
+                            <field name="start_date" required="1"/>
+                            <field name="end_date" required="1"/>
+                        </group>
+                    </group>
+                    <footer>
+                        <button string="Create Sprint" name="action_open_sprint_board" type="object" class="btn-primary"/>
+                        <button string="Discard" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <!-- Sprint Search View -->
+        <record id="view_project_sprint_search" model="ir.ui.view">
+            <field name="name">project.sprint.search</field>
+            <field name="model">project.sprint</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                    <field name="department_id"/>
+                    <filter string="My Department Sprints" name="my_department" domain="[('department_id.member_ids.user_id', '=', uid)]"/>
+                    <filter string="Draft" name="draft" domain="[('state', '=', 'draft')]"/>
+                    <filter string="Active" name="active" domain="[('state', '=', 'active')]"/>
+                    <filter string="Completed" name="completed" domain="[('state', '=', 'done')]"/>
+                    <group>
+                        <filter string="Department" name="group_by_department" context="{'group_by': 'department_id'}"/>
+                        <filter string="Status" name="group_by_state" context="{'group_by': 'state'}"/>
+                        <filter string="Start Week" name="group_by_start_date" context="{'group_by': 'start_date:week'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!-- Action to open Create Sprint Wizard -->
+        <record id="open_create_sprint" model="ir.actions.act_window">
+            <field name="name">Create a Sprint</field>
+            <field name="res_model">project.sprint</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_project_sprint_form_simplified"/>
+            <field name="target">new</field>
+        </record>
+
+        <!-- Sprint Action -->
+        <record id="action_project_sprint" model="ir.actions.act_window">
+            <field name="name">Sprints</field>
+            <field name="res_model">project.sprint</field>
+            <field name="view_mode">kanban,list,form</field>
+            <field name="search_view_id" ref="view_project_sprint_search"/>
+            <field name="context">{'search_default_my_department': 1, 'search_default_active': 1, 'group_by': 'start_date:month'}</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create your first weekly sprint!
+                </p>
+                <p>
+                    Manage tasks across your department's projects, track weekly goals, and automatically carry forward uncompleted tasks.
+                </p>
+            </field>
+        </record>
+
+        <!-- Scheduled Action (Cron) to auto-complete expired sprints -->
+        <record id="ir_cron_auto_complete_sprints" model="ir.cron">
+            <field name="name">Sprint: Auto-Complete Expired Sprints</field>
+            <field name="model_id" ref="model_project_sprint"/>
+            <field name="state">code</field>
+            <field name="code">model._cron_auto_complete_sprints()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="active" eval="True"/>
+        </record>
+
+
+        <!-- Sprint Menu Item -->
+        <menuitem id="menu_project_sprint"
+                  name="Sprints"
+                  parent="project.menu_main_pm"
+                  action="action_project_sprint"
+                  sequence="2"/>
+
+    </data>
+</odoo>

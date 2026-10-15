@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_employee_form_inherit_break_buttons" model="ir.ui.view">
+        <field name="name">hr.employee.form.inherit.break.buttons</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+
+            <!-- Header buttons -->
+            <xpath expr="//header" position="inside">
+                <button name="action_employee_break_in"
+                        type="object"
+                        string="Break In"
+                        class="btn btn-primary"
+                        invisible="current_attendance_break_state != 'available'"/>
+
+                <button name="action_employee_break_out"
+                        type="object"
+                        string="Break Out"
+                        class="btn btn-secondary"
+                        invisible="current_attendance_break_state != 'on_break'"/>
+            </xpath>
+
+            <!-- Add a separate group safely -->
+            <xpath expr="//sheet/notebook" position="inside">
+                <page string="Break Status">
+                    <group>
+                        <group string="Attendance Break Status">
+                            <field name="current_attendance_break_state" readonly="1"/>
+                            <field name="current_break_attendance_id" readonly="1"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+
+        </field>
+    </record>
+
+</odoo>
