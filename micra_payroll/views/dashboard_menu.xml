@@ -8,7 +8,8 @@
     <menuitem id="menu_hrms_root"
               name="Employee DashBoard"
               sequence="5"
-              groups="base.group_user"/>
+              groups="base.group_user"
+              web_icon="micra_payroll,static/description/employee_dashboard.png"/>
 
     <menuitem id="menu_hrms_workspace"
               name="Dashboard"
