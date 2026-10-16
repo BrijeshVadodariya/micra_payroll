@@ -35,26 +35,32 @@
         <record id="HRA" model="hr.salary.rule.category">
             <field name="name">House Rent Allowance</field>
             <field name="code">HRA</field>
+            <field name="parent_id" ref="ALW"/>
         </record>
         <record id="DA" model="hr.salary.rule.category">
             <field name="name">Dearness Allowance</field>
             <field name="code">DA</field>
+            <field name="parent_id" ref="ALW"/>
         </record>
         <record id="Travel" model="hr.salary.rule.category">
             <field name="name">Travel Allowance</field>
             <field name="code">Travel</field>
+            <field name="parent_id" ref="ALW"/>
         </record>
         <record id="Meal" model="hr.salary.rule.category">
             <field name="name">Meal Allowance</field>
             <field name="code">Meal</field>
+            <field name="parent_id" ref="ALW"/>
         </record>
         <record id="Medical" model="hr.salary.rule.category">
             <field name="name">Medical Allowance</field>
             <field name="code">Medical</field>
+            <field name="parent_id" ref="ALW"/>
         </record>
         <record id="Other" model="hr.salary.rule.category">
             <field name="name">Other Allowance</field>
             <field name="code">Other</field>
+            <field name="parent_id" ref="ALW"/>
         </record>
 
         <!-- Basic Salary Rule (with wage fallback) -->
@@ -66,8 +72,7 @@
             <field name="condition_select">none</field>
             <field name="amount_select">code</field>
             <field name="amount_python_compute">
-tmpl = contract.contract_template_id if (contract and contract.contract_template_id) else False
-result = (contract.wage if contract and contract.wage else 0.0) or (tmpl.wage if tmpl and tmpl.wage else 0.0) or (employee.wage if employee and employee.wage else 0.0) or 0.0
+result = (contract.wage if contract and contract.wage else 0.0) or (employee.wage if employee and employee.wage else 0.0) or 0.0
             </field>
         </record>
 
@@ -82,7 +87,7 @@ result = (contract.wage if contract and contract.wage else 0.0) or (tmpl.wage if
             <field name="amount_python_compute">result = categories.BASIC + categories.ALW</field>
         </record>
 
-        <!-- Net Salary Rule (Attendance Pro-Rated Calculation + Bonus) -->
+        <!-- Net Salary Rule (Attendance Pro-Rated Calculation + Bonus + Allowances - Deductions) -->
         <record id="hr_rule_net" model="hr.salary.rule">
             <field name="name">Net Salary</field>
             <field name="sequence" eval="200"/>
@@ -92,9 +97,18 @@ result = (contract.wage if contract and contract.wage else 0.0) or (tmpl.wage if
             <field name="amount_select">code</field>
             <field name="amount_python_compute">
 basic_val = categories.BASIC
-working_days = worked_days.WORK_DAYS_MONTH.number_of_days if worked_days.WORK_DAYS_MONTH else 0.0
-payable_days = worked_days.GLOBAL.number_of_days if worked_days.GLOBAL else 0.0
-result = (basic_val / working_days) * payable_days + (payslip.extra_bonus or 0.0) if working_days > 0 else (payslip.extra_bonus or 0.0)
+working_days = worked_days.WORK_DAYS_MONTH.number_of_days if (worked_days and worked_days.WORK_DAYS_MONTH) else 0.0
+payable_days = worked_days.GLOBAL.number_of_days if (worked_days and worked_days.GLOBAL) else 0.0
+bonus = (payslip.extra_bonus or 0.0) if payslip and hasattr(payslip, 'extra_bonus') else 0.0
+alw = categories.ALW if categories and hasattr(categories, 'ALW') else 0.0
+
+# Deductions other than UNPAID (since payable_days already only pays for worked days and paid leaves)
+unpaid_ded = (basic_val / working_days) * payslip.unpaid_leave_days
+total_ded = abs(categories.DED) if categories and hasattr(categories, 'DED') else 0.0
+other_ded = max(0.0, total_ded - unpaid_ded)
+
+prorated_basic = (basic_val / working_days) * payable_days if working_days > 0 else (basic_val if payable_days > 0 else 0.0)
+result = prorated_basic + alw - other_ded + bonus
             </field>
             <field name="register_id" ref="contribution_register_employees"/>
         </record>
@@ -107,7 +121,7 @@ result = (basic_val / working_days) * payable_days + (payslip.extra_bonus or 0.0
             <field name="category_id" ref="HRA"/>
             <field name="condition_select">none</field>
             <field name="amount_select">code</field>
-            <field name="amount_python_compute">result = contract.hra</field>
+            <field name="amount_python_compute">result = (contract.hra or 0.0) if contract else 0.0</field>
         </record>
         <record id="hr_rule_da" model="hr.salary.rule">
             <field name="name">Dearness Allowance</field>
@@ -116,7 +130,7 @@ result = (basic_val / working_days) * payable_days + (payslip.extra_bonus or 0.0
             <field name="category_id" ref="DA"/>
             <field name="condition_select">none</field>
             <field name="amount_select">code</field>
-            <field name="amount_python_compute">result = contract.da</field>
+            <field name="amount_python_compute">result = (contract.da or 0.0) if contract else 0.0</field>
         </record>
         <record id="hr_rule_travel" model="hr.salary.rule">
             <field name="name">Travel Allowance</field>
@@ -125,7 +139,7 @@ result = (basic_val / working_days) * payable_days + (payslip.extra_bonus or 0.0
             <field name="category_id" ref="Travel"/>
             <field name="condition_select">none</field>
             <field name="amount_select">code</field>
-            <field name="amount_python_compute">result = contract.travel_allowance</field>
+            <field name="amount_python_compute">result = (contract.travel_allowance or 0.0) if contract else 0.0</field>
         </record>
         <record id="hr_rule_meal" model="hr.salary.rule">
             <field name="name">Meal Allowance</field>
@@ -134,7 +148,7 @@ result = (basic_val / working_days) * payable_days + (payslip.extra_bonus or 0.0
             <field name="category_id" ref="Meal"/>
             <field name="condition_select">none</field>
             <field name="amount_select">code</field>
-            <field name="amount_python_compute">result = contract.meal_allowance</field>
+            <field name="amount_python_compute">result = (contract.meal_allowance or 0.0) if contract else 0.0</field>
         </record>
         <record id="hr_rule_medical" model="hr.salary.rule">
             <field name="name">Medical Allowance</field>
@@ -143,7 +157,7 @@ result = (basic_val / working_days) * payable_days + (payslip.extra_bonus or 0.0
             <field name="category_id" ref="Medical"/>
             <field name="condition_select">none</field>
             <field name="amount_select">code</field>
-            <field name="amount_python_compute">result = contract.medical_allowance</field>
+            <field name="amount_python_compute">result = (contract.medical_allowance or 0.0) if contract else 0.0</field>
         </record>
         <record id="hr_rule_other" model="hr.salary.rule">
             <field name="name">Other Allowance</field>
@@ -152,7 +166,7 @@ result = (basic_val / working_days) * payable_days + (payslip.extra_bonus or 0.0
             <field name="category_id" ref="Other"/>
             <field name="condition_select">none</field>
             <field name="amount_select">code</field>
-            <field name="amount_python_compute">result = contract.other_allowance</field>
+            <field name="amount_python_compute">result = (contract.other_allowance or 0.0) if contract else 0.0</field>
         </record>
         <record id="hr_rule_unpaid" model="hr.salary.rule">
             <field name="name">Unpaid</field>
@@ -161,14 +175,24 @@ result = (basic_val / working_days) * payable_days + (payslip.extra_bonus or 0.0
             <field name="category_id" ref="DED"/>
             <field name="condition_select">none</field>
             <field name="amount_select">code</field>
-            <field name="amount_python_compute">result = -(GLOBAL * (contract.wage / 30.0))</field>
+            <field name="amount_python_compute">
+working_days = worked_days.WORK_DAYS_MONTH.number_of_days if (worked_days and worked_days.WORK_DAYS_MONTH) else (payslip.micra_month_working_days or 30.0)
+unpaid_days = 0.0
+if worked_days and hasattr(worked_days, 'UNPAID') and worked_days.UNPAID:
+    unpaid_days = worked_days.UNPAID.number_of_days or 0.0
+elif payslip and hasattr(payslip, 'unpaid_leave_days'):
+    unpaid_days = payslip.unpaid_leave_days or 0.0
+wage = (contract.wage if contract and contract.wage else 0.0) or (employee.wage if employee and employee.wage else 0.0)
+daily_rate = (wage / working_days) if working_days > 0 else (wage / 30.0)
+result = -(unpaid_days * daily_rate)
+            </field>
         </record>
 
         <!-- Base Salary Structure configured with Attendance-based rules -->
         <record id="structure_base" model="hr.payroll.structure">
             <field name="code">BASE</field>
             <field name="name">Base for new structures</field>
-            <field eval="[(6, 0, [ref('hr_rule_basic'), ref('hr_rule_net')])]" name="rule_ids"/>
+            <field eval="[(6, 0, [ref('hr_rule_basic'), ref('hr_rule_taxable'), ref('hr_rule_net')])]" name="rule_ids"/>
         </record>
 
         <!-- Decimal Precision -->

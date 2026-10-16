@@ -10,6 +10,7 @@
             <field name="arch" type="xml">
                 <field name="request_unit" position="before">
                     <field name="code" string="Payroll Code"/>
+                    <field name="unpaid" string="Unpaid (Deduct from Salary)"/>
                 </field>
             </field>
         </record>
